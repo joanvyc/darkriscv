@@ -53,7 +53,7 @@ module darkocrom
 
   integer eff_addr;
 
-  always @(BUS.ADDR)
+  always_comb
   begin
     eff_addr = BUS.ADDR[31:2];
   end
