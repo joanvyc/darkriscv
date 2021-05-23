@@ -37,7 +37,7 @@ module darkflash
   
   input  [3:0]    BE
 `ifdef _EXTERNAL_RAM_
-  ,darkaxi.Master  ram
+  ,darkaxi.Master  flash
 `endif
 
 );

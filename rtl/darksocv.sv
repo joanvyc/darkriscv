@@ -83,6 +83,12 @@ module darksocv
       .OCROM(OCROM),
       .FLASH(FLASH),
       .EDRAM(EDRAM)
+	`ifdef _EXTERNAL_RAM_
+		,.ram(axi2edram)
+    `endif
+	`ifdef _EXTERNAL_FLASH_
+		,.flash(axi2flash)
+    `endif  
     );
 
     darkocrom rom
