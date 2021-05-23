@@ -377,7 +377,7 @@ module darksocv
 
     assign LED   = LEDFF[3:0];
     
-    assign DEBUG[0] = {phase, IRES, 17'b0,
+    assign DEBUG[0] = {phase, IRES, XRES, 16'b0,
          OCROM.EN, OCROM.RE, OCROM.RACK, OCROM.WE, OCROM.WACK,
          FLASH.EN, FLASH.RE, FLASH.RACK, FLASH.WE, FLASH.WACK,
          EDRAM.EN, EDRAM.RE, EDRAM.RACK, EDRAM.WE, EDRAM.WACK,

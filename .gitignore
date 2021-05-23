@@ -9,3 +9,4 @@ boards/*/darksocv.cache
 boards/*/darksocv.hw
 boards/*/darksocv.ip_user_files
 boards/*/darksocv.sim
+xilinx/vivado/darkriscv
