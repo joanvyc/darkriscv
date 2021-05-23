@@ -33,62 +33,51 @@ module darkmm
   input         XCLK,
   input         XRES,
 
-  input         enable,
-  input         RD,
-  input         WR,
+  device_bus.cons CORE,
 
-  input  [31:0] addr,
-  input  [31:0] data_i_main,
-  output [31:0] data_o_main,
-
-
-  output        enable_ocrom,
-  output        RD_ocrom,
-  // output        WR_ocrom,     (readonly device)
-  output [31:0] addr_ocrom,
-  input  [31:0] data_i_ocrom,
-  // output [31:0] data_o_ocrom, (readonly device)
-
-  output        enable_flash,
-  output        RD_flash,
-  // output        WR_flash,     (readonly device, for now)
-  output [31:0] addr_flash,
-  input  [31:0] data_i_flash,
-  // output [31:0] data_o_flash, (readonly device, for now)
-
-  output        enable_ram,
-  output        RD_edram,
-  output        WR_edram,
-  output [31:0] addr_edram,
-  input  [31:0] data_i_edram,
-  output [31:0] data_o_edram
+  device_bus.prov OCROM,
+  device_bus.prov FLASH,
+  device_bus.prov EDRAM
 );
 
-  assign RD_ocrom <= RD;
-  assign RD_flash <= RD;
-  assign RD_edram <= RD;
+  assign OCROM.RE = CORE.RE;
+  assign FLASH.RE = CORE.RE;
+  assign EDRAM.RE = CORE.RE;
+                
+  assign OCROM.WE = CORE.WE;
+  assign FLASH.WE = CORE.WE;
+  assign EDRAM.WE = CORE.WE;
+  
+  assign  OCROM.EN = CORE.EN && CORE.ADDR >= 32'h0000_0000 && 32'h2000_0000 > CORE.ADDR;
+  assign  FLASH.EN = CORE.EN && CORE.ADDR >= 32'h2000_0000 && 32'h4000_0000 > CORE.ADDR;
+  assign  EDRAM.EN = CORE.EN && CORE.ADDR >= 32'h4000_0000 && 32'hFFFF_FFFF >= CORE.ADDR;
+   
+  assign  OCROM.ADDR = CORE.ADDR;
+  assign  FLASH.ADDR = CORE.ADDR - 32'h2000_0000;
+  assign  EDRAM.ADDR = CORE.ADDR - 32'h4000_0000;
 
-  assign WR_ocrom <= WR;
-  assign WR_flash <= WR;
-  assign WR_edram <= WR;
+  logic [31:0] CORE_DATA;
+  
+  assign CORE.DATA = CORE.RE ? CORE_DATA : 32'bZ;
+                                
+  assign CORE_DATA = OCROM.EN ? OCROM.DATA :
+                     FLASH.EN ? FLASH.DATA :
+                     EDRAM.EN ? EDRAM.DATA :
+                                32'b0;
+                                  
+  assign CORE.RACK = OCROM.EN ? OCROM.RACK :
+                     FLASH.EN ? FLASH.RACK :
+                     EDRAM.EN ? EDRAM.RACK :
+                                0;
+                                
+  assign CORE.WACK = OCROM.EN ? OCROM.WACK :
+                     FLASH.EN ? FLASH.WACK :
+                     EDRAM.EN ? EDRAM.WACK :
+                                0;
 
-  assign data_o_edram <= data_i_main;
-  always @(addr, enable)
-  begin
-    enable_ocrom = enable && addr > 32'h0000_0000 && addr <= 32'h2000_0000;
-    enable_flash = enable && addr > 32'h2000_0000 && addr <= 32'h4000_0000;
-    enable_edram = enable && addr > 32'h4000_0000 && addr <= 32'hFFFF_FFFF;
-
-    addr_ocrom = addr;
-    addr_flash = addr - 32'h2000_0000;
-    addr_edram = addr - 32'h4000_0000;
-
-    case ({enable_ocrom, enable_flash, enable_edram})
-      3'b100: data_o_main = data_i_ocrom;
-      3'b010: data_o_main = data_i_flash;
-      3'b001: data_o_main = data_i_edram;
-    endcase
-
-  end
+  
+  assign OCROM.DATA = OCROM.RE ? 32'bZ : CORE.DATA;
+  assign FLASH.DATA = FLASH.RE ? 32'bZ : CORE.DATA;
+  assign EDRAM.DATA = EDRAM.RE ? 32'bZ : CORE.DATA;
 
 endmodule
