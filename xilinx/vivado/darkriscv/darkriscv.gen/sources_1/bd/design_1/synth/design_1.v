@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-//Date        : Sun May 23 21:04:47 2021
+//Date        : Sun May 23 21:43:52 2021
 //Host        : DESKTOP-6SV72UJ running 64-bit major release  (build 9200)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -30,7 +30,7 @@ module design_1
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 sys_diff_clock CLK_N" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME sys_diff_clock, CAN_DEBUG false, FREQ_HZ 200000000" *) input sys_diff_clock_clk_n;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 sys_diff_clock CLK_P" *) input sys_diff_clock_clk_p;
 
-  wire XRES_0_1;
+  wire XRES_1;
   wire clk_wiz_0_clk_out1;
   wire clk_wiz_0_locked;
   wire reset_1;
@@ -51,7 +51,7 @@ module design_1
   assign LED1_0[0] = xlslice_5_Dout;
   assign LED2_0[0] = xlslice_6_Dout;
   assign LED3_0[0] = xlslice_7_Dout;
-  assign XRES_0_1 = XRES;
+  assign XRES_1 = XRES;
   assign locked_0 = clk_wiz_0_locked;
   assign reset_1 = reset;
   assign sys_diff_clock_1_CLK_N = sys_diff_clock_clk_n;
@@ -112,7 +112,7 @@ module design_1
        (.DEBUG(soc_0_DEBUG),
         .LED(soc_0_LED),
         .XCLK(clk_wiz_0_clk_out1),
-        .XRES(XRES_0_1));
+        .XRES(XRES_1));
   design_1_xlslice_0_0 xlslice_0
        (.Din(soc_0_DEBUG),
         .Dout(xlslice_0_Dout));

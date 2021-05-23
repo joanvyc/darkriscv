@@ -7,7 +7,8 @@
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2020.2"
+      "tool_version": "2020.2",
+      "validated": "true"
     },
     "design_tree": {
       "clk_wiz_0": "",
@@ -27,6 +28,10 @@
         "mode": "Slave",
         "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0",
         "parameters": {
+          "CAN_DEBUG": {
+            "value": "false",
+            "value_src": "default"
+          },
           "FREQ_HZ": {
             "value": "200000000"
           }
@@ -58,6 +63,10 @@
         "type": "rst",
         "direction": "I",
         "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
           "POLARITY": {
             "value": "ACTIVE_HIGH"
           }
@@ -67,7 +76,13 @@
         "direction": "O"
       },
       "XRES": {
-        "direction": "I"
+        "direction": "I",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_HIGH",
+            "value_src": "user_prop"
+          }
+        }
       }
     },
     "components": {
@@ -395,11 +410,10 @@
           "clk_wiz_0/reset"
         ]
       },
-      "XRES_0_1": {
+      "XRES_1": {
         "ports": [
           "XRES",
-          "soc_0/XRES",
-          "ila_0/probe7"
+          "soc_0/XRES"
         ]
       }
     }

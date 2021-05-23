@@ -278,7 +278,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net sys_diff_clock_1 [get_bd_intf_ports sys_diff_clock] [get_bd_intf_pins clk_wiz_0/CLK_IN1_D]
 
   # Create port connections
-  connect_bd_net -net XRES_0_1 [get_bd_ports XRES] [get_bd_pins soc_0/XRES]
+  connect_bd_net -net XRES_1 [get_bd_ports XRES] [get_bd_pins soc_0/XRES]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ila_0/clk] [get_bd_pins soc_0/XCLK]
   connect_bd_net -net clk_wiz_0_locked [get_bd_ports locked_0] [get_bd_pins clk_wiz_0/locked]
   connect_bd_net -net reset_1 [get_bd_ports reset] [get_bd_pins clk_wiz_0/reset]

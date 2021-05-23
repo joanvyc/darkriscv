@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 23 21:04:48 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 23 21:43:52 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="spartan7" BOARD="xilinx.com:sp701:part0:1.0" DEVICE="7s100" NAME="design_1" PACKAGE="fgga676" SPEEDGRADE="-2"/>
 
@@ -3840,7 +3840,7 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="0" NAME="probe6" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="0" NAME="probe7" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="0" NAME="probe7" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="probe8" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="probe9" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="31" NAME="probe10" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_2_Dout">
