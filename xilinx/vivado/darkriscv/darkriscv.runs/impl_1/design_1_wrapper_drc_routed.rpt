@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date         : Sun May 23 20:25:47 2021
+| Date         : Sun May 23 21:09:38 2021
 | Host         : DESKTOP-6SV72UJ running 64-bit major release  (build 9200)
 | Command      : report_drc -file design_1_wrapper_drc_routed.rpt -pb design_1_wrapper_drc_routed.pb -rpx design_1_wrapper_drc_routed.rpx
 | Design       : design_1_wrapper
@@ -50,7 +50,7 @@ Related violations: <none>
 
 PDRC-153#1 Warning
 Gated clock check  
-Net design_1_i/soc_0/inst/internal_soc/HLT__0 is a gated clock net sourced by a combinational pin design_1_i/soc_0/inst/internal_soc/RE_reg_i_1/O, cell design_1_i/soc_0/inst/internal_soc/RE_reg_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net design_1_i/soc_0/inst/internal_soc/DEBUG[1] is a gated clock net sourced by a combinational pin design_1_i/soc_0/inst/internal_soc/DEBUG[4]_INST_0/O, cell design_1_i/soc_0/inst/internal_soc/DEBUG[4]_INST_0. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 RTSTAT-10#1 Warning

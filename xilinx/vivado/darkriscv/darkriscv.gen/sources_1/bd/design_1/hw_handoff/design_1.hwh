@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 23 20:22:55 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 23 21:04:48 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="spartan7" BOARD="xilinx.com:sp701:part0:1.0" DEVICE="7s100" NAME="design_1" PACKAGE="fgga676" SPEEDGRADE="-2"/>
 

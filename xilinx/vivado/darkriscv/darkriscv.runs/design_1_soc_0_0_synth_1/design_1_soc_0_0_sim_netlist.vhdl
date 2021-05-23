@@ -1,7 +1,7 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sun May 23 11:44:57 2021
+-- Date        : Sun May 23 21:06:03 2021
 -- Host        : DESKTOP-6SV72UJ running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
 --               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ design_1_soc_0_0_sim_netlist.vhdl
@@ -16,15 +16,18 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
   port (
-    DEBUG : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    \BUS\\.RACK_reg_0\ : out STD_LOGIC;
+    RE_reg : out STD_LOGIC;
     data_reg_reg_0 : out STD_LOGIC_VECTOR ( 30 downto 0 );
-    D : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    \FSM_onehot_phase_reg[1]\ : out STD_LOGIC;
+    \FSM_onehot_phase_reg[1]_0\ : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \FSM_sequential_phase_reg[1]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \FSM_sequential_phase_reg[0]\ : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    \FSM_onehot_phase_reg[0]\ : out STD_LOGIC;
+    \FSM_onehot_phase_reg[0]_0\ : out STD_LOGIC;
+    DEBUG : out STD_LOGIC_VECTOR ( 0 to 0 );
     XCLK : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 29 downto 0 );
-    \IR_reg[0]\ : in STD_LOGIC;
+    \BUS\\.RACK_reg_1\ : in STD_LOGIC;
     \DEBUG[64]_INST_0_i_1\ : in STD_LOGIC;
     \DEBUG[79]_INST_0_i_1_0\ : in STD_LOGIC;
     \DEBUG[65]_INST_0_i_1\ : in STD_LOGIC;
@@ -57,22 +60,30 @@ entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
     \DEBUG[93]_INST_0_i_1\ : in STD_LOGIC;
     \DEBUG[94]_INST_0_i_1\ : in STD_LOGIC;
     \DEBUG[95]_INST_0_i_1\ : in STD_LOGIC;
-    \phase_reg[0]\ : in STD_LOGIC;
-    \phase_reg[0]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \phase_reg[0]_1\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \phase_reg[0]_2\ : in STD_LOGIC;
-    \phase_reg[0]_3\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \IR_reg[0]_0\ : in STD_LOGIC;
-    \IR_reg[0]_1\ : in STD_LOGIC_VECTOR ( 0 to 0 )
+    phase_reg : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \phase__0\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \FSM_onehot_phase_reg[2]\ : in STD_LOGIC;
+    \IR_reg[15]\ : in STD_LOGIC;
+    \IR_reg[15]_0\ : in STD_LOGIC;
+    \IR_reg[15]_1\ : in STD_LOGIC;
+    \FSM_onehot_phase_reg[0]_1\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \FSM_onehot_phase_reg[0]_2\ : in STD_LOGIC;
+    \DEBUG[2]\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \FSM_onehot_phase_reg[0]_3\ : in STD_LOGIC
   );
 end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom;
 
 architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
   signal \BUS\\.RACK_reg0\ : STD_LOGIC;
-  signal \^debug\ : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \^bus\\.rack_reg_0\ : STD_LOGIC;
+  signal \^e\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \EDRAM\\.DATA\ : STD_LOGIC_VECTOR ( 15 to 15 );
   signal \FLASH\\.DATA\ : STD_LOGIC_VECTOR ( 15 to 15 );
+  signal \FSM_onehot_phase[2]_i_2_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_phase[2]_i_4_n_0\ : STD_LOGIC;
+  signal \^fsm_onehot_phase_reg[0]_0\ : STD_LOGIC;
   signal \OCROM\\.DATA\ : STD_LOGIC_VECTOR ( 15 to 15 );
+  signal \^re_reg\ : STD_LOGIC;
   signal \data_reg1_carry__0_i_1_n_0\ : STD_LOGIC;
   signal \data_reg1_carry__0_i_2_n_0\ : STD_LOGIC;
   signal \data_reg1_carry__0_i_3_n_0\ : STD_LOGIC;
@@ -108,6 +119,7 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
   signal \data_reg_reg__0\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal data_reg_reg_i_1_n_0 : STD_LOGIC;
   signal \memory_map/CORE_DATA\ : STD_LOGIC_VECTOR ( 15 to 15 );
+  signal \phase__1\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_data_reg1_carry_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_data_reg1_carry__0_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_data_reg1_carry__1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
@@ -115,12 +127,12 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
   signal NLW_data_reg_reg_DOBDO_UNCONNECTED : STD_LOGIC_VECTOR ( 15 downto 14 );
   signal NLW_data_reg_reg_DOPBDOP_UNCONNECTED : STD_LOGIC_VECTOR ( 1 downto 0 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_4\ : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_4\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \DEBUG[79]_INST_0_i_2\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \ADDR_reg[31]_i_2\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_2\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_2\ : label is "soft_lutpair27";
   attribute SOFT_HLUTNM of \DEBUG[79]_INST_0_i_3\ : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of \FSM_sequential_phase[0]_i_1\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \FSM_sequential_phase[1]_i_2\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \DEBUG[79]_INST_0_i_4\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \FSM_onehot_phase[1]_i_1\ : label is "soft_lutpair28";
   attribute COMPARATOR_THRESHOLD : integer;
   attribute COMPARATOR_THRESHOLD of data_reg1_carry : label is 11;
   attribute COMPARATOR_THRESHOLD of \data_reg1_carry__0\ : label is 11;
@@ -151,19 +163,31 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom is
   attribute ram_slice_begin of data_reg_reg : label is 0;
   attribute ram_slice_end : integer;
   attribute ram_slice_end of data_reg_reg : label is 17;
-  attribute SOFT_HLUTNM of \phase[0]_i_1\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \phase[1]_i_1\ : label is "soft_lutpair28";
 begin
-  DEBUG(2 downto 0) <= \^debug\(2 downto 0);
-\BUS\\.RACK_i_1\: unisim.vcomponents.LUT4
+  \BUS\\.RACK_reg_0\ <= \^bus\\.rack_reg_0\;
+  E(0) <= \^e\(0);
+  \FSM_onehot_phase_reg[0]_0\ <= \^fsm_onehot_phase_reg[0]_0\;
+  RE_reg <= \^re_reg\;
+\ADDR_reg[31]_i_2\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"0100"
+      INIT => X"E"
     )
         port map (
-      I0 => Q(27),
-      I1 => Q(29),
-      I2 => Q(28),
-      I3 => \IR_reg[0]\,
+      I0 => \phase__0\(0),
+      I1 => phase_reg(0),
+      O => \^fsm_onehot_phase_reg[0]_0\
+    );
+\BUS\\.RACK_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"00000000000000A8"
+    )
+        port map (
+      I0 => \BUS\\.RACK_reg_1\,
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      I2 => phase_reg(1),
+      I3 => Q(27),
+      I4 => Q(28),
+      I5 => Q(29),
       O => \BUS\\.RACK_reg0\
     );
 \BUS\\.RACK_reg\: unisim.vcomponents.FDRE
@@ -171,22 +195,23 @@ begin
       C => XCLK,
       CE => '1',
       D => \BUS\\.RACK_reg0\,
-      Q => \^debug\(1),
+      Q => \^bus\\.rack_reg_0\,
       R => '0'
     );
-\DEBUG[2]_INST_0\: unisim.vcomponents.LUT5
+\DEBUG[2]_INST_0\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"CCCCCC0A"
+      INIT => X"E0F1E0E000000000"
     )
         port map (
-      I0 => \^debug\(1),
-      I1 => \IR_reg[0]\,
-      I2 => Q(27),
-      I3 => Q(28),
-      I4 => Q(29),
-      O => \^debug\(0)
+      I0 => Q(29),
+      I1 => Q(28),
+      I2 => \BUS\\.RACK_reg_1\,
+      I3 => Q(27),
+      I4 => \^bus\\.rack_reg_0\,
+      I5 => \DEBUG[2]\(0),
+      O => DEBUG(0)
     );
-\DEBUG[64]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[64]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -197,7 +222,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(0)
     );
-\DEBUG[65]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[65]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -208,7 +233,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(1)
     );
-\DEBUG[66]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[66]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -219,7 +244,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(2)
     );
-\DEBUG[67]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[67]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -230,7 +255,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(3)
     );
-\DEBUG[68]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[68]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -241,7 +266,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(4)
     );
-\DEBUG[69]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[69]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -252,7 +277,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(5)
     );
-\DEBUG[70]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[70]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -263,7 +288,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(6)
     );
-\DEBUG[71]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[71]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -274,7 +299,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(7)
     );
-\DEBUG[72]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[72]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -285,7 +310,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(8)
     );
-\DEBUG[73]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[73]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -296,7 +321,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(9)
     );
-\DEBUG[74]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[74]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -307,7 +332,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(10)
     );
-\DEBUG[75]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[75]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -318,7 +343,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(11)
     );
-\DEBUG[76]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[76]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -329,7 +354,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(12)
     );
-\DEBUG[77]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[77]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -340,7 +365,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(13)
     );
-\DEBUG[78]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[78]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -357,52 +382,52 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(15),
-      I1 => \IR_reg[0]\,
-      O => \^debug\(2)
+      I1 => \BUS\\.RACK_reg_1\,
+      O => \^re_reg\
     );
 \DEBUG[79]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(15),
-      I1 => \FLASH\\.DATA\(15),
-      I2 => Q(28),
-      I3 => Q(29),
-      I4 => Q(27),
-      I5 => \OCROM\\.DATA\(15),
+      I0 => \IR_reg[15]\,
+      I1 => \OCROM\\.DATA\(15),
+      I2 => \IR_reg[15]_0\,
+      I3 => \FLASH\\.DATA\(15),
+      I4 => \EDRAM\\.DATA\(15),
+      I5 => \IR_reg[15]_1\,
       O => \memory_map/CORE_DATA\(15)
     );
-\DEBUG[79]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(2),
-      I1 => \DEBUG[79]_INST_0_i_1_0\,
-      O => \EDRAM\\.DATA\(15)
-    );
-\DEBUG[79]_INST_0_i_3\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(2),
-      I1 => \DEBUG[79]_INST_0_i_1_0\,
-      O => \FLASH\\.DATA\(15)
-    );
-\DEBUG[79]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[79]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
         port map (
       I0 => \data_reg_reg__0\(15),
       I1 => \BUS\\.RACK_reg0\,
-      I2 => \^debug\(2),
+      I2 => \^re_reg\,
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => \OCROM\\.DATA\(15)
     );
-\DEBUG[80]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[79]_INST_0_i_3\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^re_reg\,
+      I1 => \DEBUG[79]_INST_0_i_1_0\,
+      O => \FLASH\\.DATA\(15)
+    );
+\DEBUG[79]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^re_reg\,
+      I1 => \DEBUG[79]_INST_0_i_1_0\,
+      O => \EDRAM\\.DATA\(15)
+    );
+\DEBUG[80]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -413,7 +438,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(15)
     );
-\DEBUG[81]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[81]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -424,7 +449,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(16)
     );
-\DEBUG[82]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[82]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -435,7 +460,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(17)
     );
-\DEBUG[83]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[83]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -446,7 +471,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(18)
     );
-\DEBUG[84]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[84]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -457,7 +482,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(19)
     );
-\DEBUG[85]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[85]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -468,7 +493,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(20)
     );
-\DEBUG[86]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[86]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -479,7 +504,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(21)
     );
-\DEBUG[87]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[87]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -490,7 +515,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(22)
     );
-\DEBUG[88]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[88]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -501,7 +526,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(23)
     );
-\DEBUG[89]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[89]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -512,7 +537,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(24)
     );
-\DEBUG[90]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[90]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -523,7 +548,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(25)
     );
-\DEBUG[91]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[91]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -534,7 +559,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(26)
     );
-\DEBUG[92]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[92]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -545,7 +570,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(27)
     );
-\DEBUG[93]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[93]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -556,7 +581,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(28)
     );
-\DEBUG[94]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[94]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -567,7 +592,7 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(29)
     );
-\DEBUG[95]_INST_0_i_4\: unisim.vcomponents.LUT4
+\DEBUG[95]_INST_0_i_2\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"F888"
     )
@@ -578,53 +603,90 @@ begin
       I3 => \DEBUG[79]_INST_0_i_1_0\,
       O => data_reg_reg_0(30)
     );
-\FSM_sequential_phase[0]_i_1\: unisim.vcomponents.LUT4
+\FSM_onehot_phase[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"0100"
+      INIT => X"B8"
     )
         port map (
-      I0 => \phase_reg[0]\,
-      I1 => \phase_reg[0]_1\(0),
-      I2 => \phase_reg[0]_1\(1),
-      I3 => \^debug\(0),
-      O => \FSM_sequential_phase_reg[0]\(0)
+      I0 => \phase__1\(0),
+      I1 => \FSM_onehot_phase[2]_i_4_n_0\,
+      I2 => \phase__0\(0),
+      O => \FSM_onehot_phase_reg[0]\
     );
-\FSM_sequential_phase[1]_i_1\: unisim.vcomponents.LUT6
+\FSM_onehot_phase[0]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"7777777777777774"
+      INIT => X"F0FFFDFDF0F0F0F0"
     )
         port map (
-      I0 => \phase_reg[0]_1\(0),
-      I1 => \phase_reg[0]_1\(1),
-      I2 => \phase_reg[0]_2\,
-      I3 => \^debug\(0),
-      I4 => \phase_reg[0]_3\(1),
-      I5 => \phase_reg[0]_3\(0),
-      O => E(0)
+      I0 => \^bus\\.rack_reg_0\,
+      I1 => Q(27),
+      I2 => phase_reg(1),
+      I3 => \BUS\\.RACK_reg_1\,
+      I4 => \FSM_onehot_phase_reg[0]_3\,
+      I5 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \phase__1\(0)
     );
-\FSM_sequential_phase[1]_i_2\: unisim.vcomponents.LUT4
+\FSM_onehot_phase[1]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"00C8"
+      INIT => X"2F20"
     )
         port map (
-      I0 => \phase_reg[0]_1\(0),
-      I1 => \^debug\(0),
-      I2 => \phase_reg[0]\,
-      I3 => \phase_reg[0]_1\(1),
-      O => \FSM_sequential_phase_reg[0]\(1)
+      I0 => \^e\(0),
+      I1 => \FSM_onehot_phase_reg[2]\,
+      I2 => \FSM_onehot_phase[2]_i_4_n_0\,
+      I3 => phase_reg(0),
+      O => \FSM_onehot_phase_reg[1]_0\
+    );
+\FSM_onehot_phase[2]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"C888FFFFC8880000"
+    )
+        port map (
+      I0 => phase_reg(0),
+      I1 => \FSM_onehot_phase[2]_i_2_n_0\,
+      I2 => \phase__0\(0),
+      I3 => \FSM_onehot_phase_reg[2]\,
+      I4 => \FSM_onehot_phase[2]_i_4_n_0\,
+      I5 => phase_reg(1),
+      O => \FSM_onehot_phase_reg[1]\
+    );
+\FSM_onehot_phase[2]_i_2\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"F0F0F022"
+    )
+        port map (
+      I0 => \^bus\\.rack_reg_0\,
+      I1 => Q(27),
+      I2 => \BUS\\.RACK_reg_1\,
+      I3 => Q(28),
+      I4 => Q(29),
+      O => \FSM_onehot_phase[2]_i_2_n_0\
+    );
+\FSM_onehot_phase[2]_i_4\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFF0FFF0FFF0FEF0"
+    )
+        port map (
+      I0 => \FSM_onehot_phase[2]_i_2_n_0\,
+      I1 => \FSM_onehot_phase_reg[0]_1\(1),
+      I2 => phase_reg(1),
+      I3 => \^fsm_onehot_phase_reg[0]_0\,
+      I4 => \FSM_onehot_phase_reg[0]_2\,
+      I5 => \FSM_onehot_phase_reg[0]_1\(0),
+      O => \FSM_onehot_phase[2]_i_4_n_0\
     );
 \IR[31]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"1111100010001000"
+      INIT => X"E0F1E0E000000000"
     )
         port map (
-      I0 => \phase_reg[0]_1\(1),
-      I1 => \phase_reg[0]_1\(0),
-      I2 => \IR_reg[0]_0\,
-      I3 => \IR_reg[0]\,
-      I4 => \^debug\(1),
-      I5 => \IR_reg[0]_1\(0),
-      O => \FSM_sequential_phase_reg[1]\(0)
+      I0 => Q(29),
+      I1 => Q(28),
+      I2 => \BUS\\.RACK_reg_1\,
+      I3 => Q(27),
+      I4 => \^bus\\.rack_reg_0\,
+      I5 => \phase__0\(0),
+      O => \^e\(0)
     );
 data_reg1_carry: unisim.vcomponents.CARRY4
      port map (
@@ -703,8 +765,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(23),
-      I1 => Q(22),
+      I0 => Q(22),
+      I1 => Q(23),
       O => \data_reg1_carry__0_i_5_n_0\
     );
 \data_reg1_carry__0_i_6\: unisim.vcomponents.LUT2
@@ -712,8 +774,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(21),
-      I1 => Q(20),
+      I0 => Q(20),
+      I1 => Q(21),
       O => \data_reg1_carry__0_i_6_n_0\
     );
 \data_reg1_carry__0_i_7\: unisim.vcomponents.LUT2
@@ -721,8 +783,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(19),
-      I1 => Q(18),
+      I0 => Q(18),
+      I1 => Q(19),
       O => \data_reg1_carry__0_i_7_n_0\
     );
 \data_reg1_carry__0_i_8\: unisim.vcomponents.LUT2
@@ -730,8 +792,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(17),
-      I1 => Q(16),
+      I0 => Q(16),
+      I1 => Q(17),
       O => \data_reg1_carry__0_i_8_n_0\
     );
 \data_reg1_carry__1\: unisim.vcomponents.CARRY4
@@ -757,8 +819,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"E"
     )
         port map (
-      I0 => Q(29),
-      I1 => Q(28),
+      I0 => Q(28),
+      I1 => Q(29),
       O => \data_reg1_carry__1_i_1_n_0\
     );
 \data_reg1_carry__1_i_2\: unisim.vcomponents.LUT2
@@ -784,8 +846,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(28),
-      I1 => Q(29),
+      I0 => Q(29),
+      I1 => Q(28),
       O => \data_reg1_carry__1_i_4_n_0\
     );
 \data_reg1_carry__1_i_5\: unisim.vcomponents.LUT2
@@ -793,8 +855,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(27),
-      I1 => Q(26),
+      I0 => Q(26),
+      I1 => Q(27),
       O => \data_reg1_carry__1_i_5_n_0\
     );
 \data_reg1_carry__1_i_6\: unisim.vcomponents.LUT2
@@ -802,8 +864,8 @@ data_reg1_carry: unisim.vcomponents.CARRY4
       INIT => X"1"
     )
         port map (
-      I0 => Q(25),
-      I1 => Q(24),
+      I0 => Q(24),
+      I1 => Q(25),
       O => \data_reg1_carry__1_i_6_n_0\
     );
 data_reg1_carry_i_1: unisim.vcomponents.LUT2
@@ -838,8 +900,8 @@ data_reg1_carry_i_4: unisim.vcomponents.LUT2
       INIT => X"1"
     )
         port map (
-      I0 => Q(15),
-      I1 => Q(14),
+      I0 => Q(14),
+      I1 => Q(15),
       O => data_reg1_carry_i_4_n_0
     );
 data_reg1_carry_i_5: unisim.vcomponents.LUT2
@@ -847,8 +909,8 @@ data_reg1_carry_i_5: unisim.vcomponents.LUT2
       INIT => X"1"
     )
         port map (
-      I0 => Q(13),
-      I1 => Q(12),
+      I0 => Q(12),
+      I1 => Q(13),
       O => data_reg1_carry_i_5_n_0
     );
 data_reg1_carry_i_6: unisim.vcomponents.LUT2
@@ -856,8 +918,8 @@ data_reg1_carry_i_6: unisim.vcomponents.LUT2
       INIT => X"1"
     )
         port map (
-      I0 => Q(11),
-      I1 => Q(10),
+      I0 => Q(10),
+      I1 => Q(11),
       O => data_reg1_carry_i_6_n_0
     );
 data_reg1_carry_i_7: unisim.vcomponents.LUT2
@@ -991,38 +1053,18 @@ data_reg_reg: unisim.vcomponents.RAMB18E1
       WEA(1 downto 0) => B"00",
       WEBWE(3 downto 0) => B"0000"
     );
-data_reg_reg_i_1: unisim.vcomponents.LUT4
+data_reg_reg_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFE"
+      INIT => X"FFFFFFFFFFFFFFF1"
     )
         port map (
-      I0 => \data_reg1_carry__1_n_1\,
-      I1 => Q(27),
-      I2 => Q(29),
-      I3 => Q(28),
+      I0 => \^fsm_onehot_phase_reg[0]_0\,
+      I1 => phase_reg(1),
+      I2 => \data_reg1_carry__1_n_1\,
+      I3 => Q(27),
+      I4 => Q(28),
+      I5 => Q(29),
       O => data_reg_reg_i_1_n_0
-    );
-\phase[0]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0100"
-    )
-        port map (
-      I0 => \phase_reg[0]\,
-      I1 => \phase_reg[0]_0\(0),
-      I2 => \phase_reg[0]_0\(1),
-      I3 => \^debug\(0),
-      O => D(0)
-    );
-\phase[1]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"4440"
-    )
-        port map (
-      I0 => \phase_reg[0]_0\(1),
-      I1 => \^debug\(0),
-      I2 => \phase_reg[0]\,
-      I3 => \phase_reg[0]_0\(0),
-      O => D(1)
     );
 end STRUCTURE;
 library IEEE;
@@ -1033,10 +1075,9 @@ entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkriscv is
   port (
     D : out STD_LOGIC_VECTOR ( 31 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    \DEBUG[32]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    phase_reg : in STD_LOGIC_VECTOR ( 1 downto 0 );
     \RESMODE_reg[3]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 );
-    XCLK : in STD_LOGIC;
-    \XSIMM_reg[0]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
+    XCLK : in STD_LOGIC
   );
 end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkriscv;
 
@@ -1248,47 +1289,47 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkriscv is
   signal p_1_in : STD_LOGIC;
   signal \NLW_ADDR_reg[31]_i_3_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \ADDR_reg[0]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \ADDR_reg[10]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \ADDR_reg[11]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \ADDR_reg[0]_i_1\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \ADDR_reg[10]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \ADDR_reg[11]_i_1\ : label is "soft_lutpair20";
   attribute ADDER_THRESHOLD : integer;
   attribute ADDER_THRESHOLD of \ADDR_reg[11]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[12]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \ADDR_reg[13]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \ADDR_reg[14]_i_1\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \ADDR_reg[15]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \ADDR_reg[12]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \ADDR_reg[13]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \ADDR_reg[14]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \ADDR_reg[15]_i_1\ : label is "soft_lutpair18";
   attribute ADDER_THRESHOLD of \ADDR_reg[15]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[16]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \ADDR_reg[17]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \ADDR_reg[18]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \ADDR_reg[19]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \ADDR_reg[16]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \ADDR_reg[17]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \ADDR_reg[18]_i_1\ : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \ADDR_reg[19]_i_1\ : label is "soft_lutpair16";
   attribute ADDER_THRESHOLD of \ADDR_reg[19]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[1]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \ADDR_reg[20]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \ADDR_reg[21]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \ADDR_reg[22]_i_1\ : label is "soft_lutpair21";
-  attribute SOFT_HLUTNM of \ADDR_reg[23]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \ADDR_reg[1]_i_1\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \ADDR_reg[20]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \ADDR_reg[21]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \ADDR_reg[22]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \ADDR_reg[23]_i_1\ : label is "soft_lutpair14";
   attribute ADDER_THRESHOLD of \ADDR_reg[23]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[24]_i_1\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \ADDR_reg[25]_i_1\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \ADDR_reg[26]_i_1\ : label is "soft_lutpair23";
-  attribute SOFT_HLUTNM of \ADDR_reg[27]_i_1\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \ADDR_reg[24]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \ADDR_reg[25]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \ADDR_reg[26]_i_1\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \ADDR_reg[27]_i_1\ : label is "soft_lutpair12";
   attribute ADDER_THRESHOLD of \ADDR_reg[27]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[28]_i_1\ : label is "soft_lutpair24";
-  attribute SOFT_HLUTNM of \ADDR_reg[29]_i_1\ : label is "soft_lutpair24";
-  attribute SOFT_HLUTNM of \ADDR_reg[2]_i_1\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \ADDR_reg[30]_i_1\ : label is "soft_lutpair25";
-  attribute SOFT_HLUTNM of \ADDR_reg[31]_i_1\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \ADDR_reg[28]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \ADDR_reg[29]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \ADDR_reg[2]_i_1\ : label is "soft_lutpair24";
+  attribute SOFT_HLUTNM of \ADDR_reg[30]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \ADDR_reg[31]_i_1\ : label is "soft_lutpair10";
   attribute ADDER_THRESHOLD of \ADDR_reg[31]_i_3\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[3]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \ADDR_reg[3]_i_1\ : label is "soft_lutpair24";
   attribute ADDER_THRESHOLD of \ADDR_reg[3]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[4]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \ADDR_reg[5]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \ADDR_reg[6]_i_1\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \ADDR_reg[7]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \ADDR_reg[4]_i_1\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \ADDR_reg[5]_i_1\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \ADDR_reg[6]_i_1\ : label is "soft_lutpair22";
+  attribute SOFT_HLUTNM of \ADDR_reg[7]_i_1\ : label is "soft_lutpair22";
   attribute ADDER_THRESHOLD of \ADDR_reg[7]_i_2\ : label is 35;
-  attribute SOFT_HLUTNM of \ADDR_reg[8]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \ADDR_reg[9]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \ADDR_reg[8]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \ADDR_reg[9]_i_1\ : label is "soft_lutpair21";
   attribute RTL_RAM_BITS : integer;
   attribute RTL_RAM_BITS of REG1_reg_0_15_0_0 : label is 512;
   attribute RTL_RAM_NAME : string;
@@ -1607,34 +1648,31 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkriscv is
   attribute SOFT_HLUTNM of \XSIMM[8]_i_1\ : label is "soft_lutpair7";
   attribute SOFT_HLUTNM of \XSIMM[9]_i_1\ : label is "soft_lutpair8";
 begin
-\ADDR_reg[0]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[0]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[3]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[3]_i_2_n_7\,
       O => D(0)
     );
-\ADDR_reg[10]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[10]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[11]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[11]_i_2_n_5\,
       O => D(10)
     );
-\ADDR_reg[11]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[11]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[11]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[11]_i_2_n_4\,
       O => D(11)
     );
 \ADDR_reg[11]_i_2\: unisim.vcomponents.CARRY4
@@ -1691,44 +1729,40 @@ begin
       I1 => SIMM(8),
       O => \ADDR_reg[11]_i_6_n_0\
     );
-\ADDR_reg[12]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[12]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[15]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[15]_i_2_n_7\,
       O => D(12)
     );
-\ADDR_reg[13]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[13]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[15]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[15]_i_2_n_6\,
       O => D(13)
     );
-\ADDR_reg[14]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[14]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[15]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[15]_i_2_n_5\,
       O => D(14)
     );
-\ADDR_reg[15]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[15]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[15]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[15]_i_2_n_4\,
       O => D(15)
     );
 \ADDR_reg[15]_i_2\: unisim.vcomponents.CARRY4
@@ -1785,44 +1819,40 @@ begin
       I1 => SIMM(12),
       O => \ADDR_reg[15]_i_6_n_0\
     );
-\ADDR_reg[16]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[16]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[19]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[19]_i_2_n_7\,
       O => D(16)
     );
-\ADDR_reg[17]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[17]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[19]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[19]_i_2_n_6\,
       O => D(17)
     );
-\ADDR_reg[18]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[18]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[19]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[19]_i_2_n_5\,
       O => D(18)
     );
-\ADDR_reg[19]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[19]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[19]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[19]_i_2_n_4\,
       O => D(19)
     );
 \ADDR_reg[19]_i_2\: unisim.vcomponents.CARRY4
@@ -1879,54 +1909,49 @@ begin
       I1 => SIMM(16),
       O => \ADDR_reg[19]_i_6_n_0\
     );
-\ADDR_reg[1]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[1]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[3]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[3]_i_2_n_6\,
       O => D(1)
     );
-\ADDR_reg[20]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[20]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[23]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[23]_i_2_n_7\,
       O => D(20)
     );
-\ADDR_reg[21]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[21]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[23]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[23]_i_2_n_6\,
       O => D(21)
     );
-\ADDR_reg[22]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[22]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[23]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[23]_i_2_n_5\,
       O => D(22)
     );
-\ADDR_reg[23]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[23]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[23]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[23]_i_2_n_4\,
       O => D(23)
     );
 \ADDR_reg[23]_i_2\: unisim.vcomponents.CARRY4
@@ -1983,44 +2008,40 @@ begin
       I1 => SIMM(20),
       O => \ADDR_reg[23]_i_6_n_0\
     );
-\ADDR_reg[24]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[24]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[27]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[27]_i_2_n_7\,
       O => D(24)
     );
-\ADDR_reg[25]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[25]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[27]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[27]_i_2_n_6\,
       O => D(25)
     );
-\ADDR_reg[26]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[26]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[27]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[27]_i_2_n_5\,
       O => D(26)
     );
-\ADDR_reg[27]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[27]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[27]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[27]_i_2_n_4\,
       O => D(27)
     );
 \ADDR_reg[27]_i_2\: unisim.vcomponents.CARRY4
@@ -2077,54 +2098,49 @@ begin
       I1 => SIMM(24),
       O => \ADDR_reg[27]_i_6_n_0\
     );
-\ADDR_reg[28]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[28]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[31]_i_3_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[31]_i_3_n_7\,
       O => D(28)
     );
-\ADDR_reg[29]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[29]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[31]_i_3_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[31]_i_3_n_6\,
       O => D(29)
     );
-\ADDR_reg[2]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[2]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => p_0_in_0(0),
+      I0 => phase_reg(0),
+      I1 => p_0_in_0(0),
       O => D(2)
     );
-\ADDR_reg[30]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[30]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[31]_i_3_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[31]_i_3_n_5\,
       O => D(30)
     );
-\ADDR_reg[31]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[31]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => p_1_in,
+      I0 => phase_reg(0),
+      I1 => p_1_in,
       O => D(31)
     );
 \ADDR_reg[31]_i_3\: unisim.vcomponents.CARRY4
@@ -2182,14 +2198,13 @@ begin
       I1 => SIMM(28),
       O => \ADDR_reg[31]_i_7_n_0\
     );
-\ADDR_reg[3]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[3]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => p_0_in_0(1),
+      I0 => phase_reg(0),
+      I1 => p_0_in_0(1),
       O => D(3)
     );
 \ADDR_reg[3]_i_2\: unisim.vcomponents.CARRY4
@@ -2245,44 +2260,40 @@ begin
       I1 => SIMM(0),
       O => \ADDR_reg[3]_i_6_n_0\
     );
-\ADDR_reg[4]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[4]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[7]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[7]_i_2_n_7\,
       O => D(4)
     );
-\ADDR_reg[5]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[5]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[7]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[7]_i_2_n_6\,
       O => D(5)
     );
-\ADDR_reg[6]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[6]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[7]_i_2_n_5\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[7]_i_2_n_5\,
       O => D(6)
     );
-\ADDR_reg[7]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[7]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[7]_i_2_n_4\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[7]_i_2_n_4\,
       O => D(7)
     );
 \ADDR_reg[7]_i_2\: unisim.vcomponents.CARRY4
@@ -2339,24 +2350,22 @@ begin
       I1 => SIMM(4),
       O => \ADDR_reg[7]_i_6_n_0\
     );
-\ADDR_reg[8]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[8]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[11]_i_2_n_7\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[11]_i_2_n_7\,
       O => D(8)
     );
-\ADDR_reg[9]_i_1\: unisim.vcomponents.LUT3
+\ADDR_reg[9]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"40"
+      INIT => X"8"
     )
         port map (
-      I0 => \DEBUG[32]\(1),
-      I1 => \DEBUG[32]\(0),
-      I2 => \ADDR_reg[11]_i_2_n_6\,
+      I0 => phase_reg(0),
+      I1 => \ADDR_reg[11]_i_2_n_6\,
       O => D(9)
     );
 REG1_reg_0_15_0_0: unisim.vcomponents.RAM32X1D
@@ -3811,8 +3820,8 @@ XRES_reg: unisim.vcomponents.FDRE
       INIT => X"E"
     )
         port map (
-      I0 => \XSIMM_reg[0]_0\(0),
-      I1 => \XSIMM_reg[0]_0\(1),
+      I0 => phase_reg(0),
+      I1 => phase_reg(1),
       O => SIMM0
     );
 \XSIMM[3]_i_1\: unisim.vcomponents.LUT5
@@ -4152,7 +4161,11 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darksocv is
   port (
-    DEBUG : out STD_LOGIC_VECTOR ( 102 downto 0 );
+    Q : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    \DEBUG[3]\ : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    D : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    \FSM_onehot_phase_reg[0]_0\ : out STD_LOGIC;
+    DEBUG : out STD_LOGIC_VECTOR ( 6 downto 0 );
     XCLK : in STD_LOGIC;
     XRES : in STD_LOGIC
   );
@@ -4160,617 +4173,564 @@ end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darksocv;
 
 architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darksocv is
   signal ADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal \ADDR_reg[31]_i_2_n_0\ : STD_LOGIC;
-  signal \^debug\ : STD_LOGIC_VECTOR ( 102 downto 0 );
+  signal \^d\ : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal \^debug\ : STD_LOGIC_VECTOR ( 6 downto 0 );
+  signal \^debug[3]\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal \DEBUG[95]_INST_0_i_5_n_0\ : STD_LOGIC;
   signal \EDRAM\\.DATA\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal \FLASH\\.DATA\ : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal \FSM_sequential_phase[1]_i_3_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_phase[1]_i_4_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_phase[1]_i_5_n_0\ : STD_LOGIC;
-  signal \HLT__0\ : STD_LOGIC;
+  signal \FSM_onehot_phase[0]_i_3_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_phase[2]_i_3_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_phase[2]_i_5_n_0\ : STD_LOGIC;
+  signal \^fsm_onehot_phase_reg[0]_0\ : STD_LOGIC;
   signal IR : STD_LOGIC;
+  signal \IRES[0]_i_1_n_0\ : STD_LOGIC;
+  signal \IRES[5]_i_2_n_0\ : STD_LOGIC;
   signal \IRES[7]_i_2_n_0\ : STD_LOGIC;
   signal IRES_reg : STD_LOGIC_VECTOR ( 6 downto 0 );
-  signal \IR[31]_i_2_n_0\ : STD_LOGIC;
   signal \OCROM\\.DATA\ : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal \^q\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal RES : STD_LOGIC;
   signal \memory_map/CORE_DATA\ : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal p_0_in : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal phase : STD_LOGIC;
-  signal \phase__0\ : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal \phase__1\ : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal \phase_reg_n_0_[0]\ : STD_LOGIC;
-  signal \phase_reg_n_0_[1]\ : STD_LOGIC;
+  signal p_0_in : STD_LOGIC_VECTOR ( 7 downto 1 );
+  signal \phase__0\ : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal phase_reg : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal rom_n_33 : STD_LOGIC;
   signal rom_n_34 : STD_LOGIC;
-  signal rom_n_35 : STD_LOGIC;
-  attribute OPT_MODIFIED : string;
-  attribute OPT_MODIFIED of \ADDR_reg[0]\ : label is "MLO";
+  signal rom_n_36 : STD_LOGIC;
+  signal rom_n_37 : STD_LOGIC;
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[0]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[10]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[10]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[11]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[11]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[12]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[12]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[13]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[13]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[14]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[14]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[15]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[15]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[16]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[16]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[17]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[17]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[18]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[18]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[19]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[19]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[1]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[1]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[20]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[20]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[21]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[21]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[22]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[22]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[23]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[23]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[24]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[24]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[25]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[25]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[26]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[26]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[27]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[27]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[28]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[28]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[29]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[29]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[2]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[2]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[30]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[30]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[31]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[31]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[3]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[3]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[4]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[4]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[5]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[5]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[6]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[6]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[7]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[7]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[8]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[8]\ : label is "LD";
-  attribute OPT_MODIFIED of \ADDR_reg[9]\ : label is "MLO";
   attribute XILINX_LEGACY_PRIM of \ADDR_reg[9]\ : label is "LD";
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \DEBUG[14]_INST_0\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \DEBUG[19]_INST_0\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_2\ : label is "soft_lutpair51";
-  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_3\ : label is "soft_lutpair51";
-  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_2\ : label is "soft_lutpair52";
-  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_3\ : label is "soft_lutpair52";
-  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0_i_2\ : label is "soft_lutpair53";
-  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0_i_3\ : label is "soft_lutpair53";
-  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0_i_2\ : label is "soft_lutpair80";
-  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0_i_3\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0_i_2\ : label is "soft_lutpair80";
-  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0_i_3\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0_i_2\ : label is "soft_lutpair54";
-  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0_i_3\ : label is "soft_lutpair54";
-  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0_i_2\ : label is "soft_lutpair55";
-  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0_i_3\ : label is "soft_lutpair55";
-  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0_i_2\ : label is "soft_lutpair56";
-  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0_i_3\ : label is "soft_lutpair56";
-  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0_i_2\ : label is "soft_lutpair57";
-  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0_i_3\ : label is "soft_lutpair57";
-  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0_i_2\ : label is "soft_lutpair58";
-  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0_i_3\ : label is "soft_lutpair58";
-  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0_i_2\ : label is "soft_lutpair59";
-  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0_i_3\ : label is "soft_lutpair59";
-  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0_i_2\ : label is "soft_lutpair60";
-  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0_i_3\ : label is "soft_lutpair60";
-  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0_i_2\ : label is "soft_lutpair61";
-  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0_i_3\ : label is "soft_lutpair61";
-  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0_i_2\ : label is "soft_lutpair62";
-  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0_i_3\ : label is "soft_lutpair62";
-  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0_i_2\ : label is "soft_lutpair63";
-  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0_i_3\ : label is "soft_lutpair63";
-  attribute SOFT_HLUTNM of \DEBUG[7]_INST_0\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0_i_2\ : label is "soft_lutpair64";
-  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0_i_3\ : label is "soft_lutpair64";
-  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0_i_2\ : label is "soft_lutpair65";
-  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0_i_3\ : label is "soft_lutpair65";
-  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0_i_2\ : label is "soft_lutpair66";
-  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0_i_3\ : label is "soft_lutpair66";
-  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0_i_2\ : label is "soft_lutpair67";
-  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0_i_3\ : label is "soft_lutpair67";
-  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0_i_2\ : label is "soft_lutpair68";
-  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0_i_3\ : label is "soft_lutpair68";
-  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0_i_2\ : label is "soft_lutpair69";
-  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0_i_3\ : label is "soft_lutpair69";
-  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0_i_2\ : label is "soft_lutpair70";
-  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0_i_3\ : label is "soft_lutpair70";
-  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0_i_2\ : label is "soft_lutpair71";
-  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0_i_3\ : label is "soft_lutpair71";
-  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0_i_2\ : label is "soft_lutpair72";
-  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0_i_3\ : label is "soft_lutpair72";
-  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0\ : label is "soft_lutpair48";
-  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0_i_2\ : label is "soft_lutpair73";
-  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0_i_3\ : label is "soft_lutpair73";
-  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0\ : label is "soft_lutpair48";
-  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0_i_2\ : label is "soft_lutpair74";
-  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0_i_3\ : label is "soft_lutpair74";
-  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0\ : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0_i_2\ : label is "soft_lutpair75";
-  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0_i_3\ : label is "soft_lutpair75";
-  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0\ : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0_i_2\ : label is "soft_lutpair76";
-  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0_i_3\ : label is "soft_lutpair76";
-  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0\ : label is "soft_lutpair50";
-  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0_i_2\ : label is "soft_lutpair77";
-  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0_i_3\ : label is "soft_lutpair77";
-  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0\ : label is "soft_lutpair50";
-  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0_i_2\ : label is "soft_lutpair78";
-  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0_i_3\ : label is "soft_lutpair78";
-  attribute SOFT_HLUTNM of \DEBUG[95]_INST_0_i_2\ : label is "soft_lutpair79";
-  attribute SOFT_HLUTNM of \DEBUG[95]_INST_0_i_3\ : label is "soft_lutpair79";
-  attribute SOFT_HLUTNM of \DEBUG[9]_INST_0\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \FSM_sequential_phase[1]_i_4\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \FSM_sequential_phase[1]_i_5\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_3\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \DEBUG[64]_INST_0_i_4\ : label is "soft_lutpair78";
+  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_3\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \DEBUG[65]_INST_0_i_4\ : label is "soft_lutpair78";
+  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0_i_3\ : label is "soft_lutpair49";
+  attribute SOFT_HLUTNM of \DEBUG[66]_INST_0_i_4\ : label is "soft_lutpair49";
+  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0_i_3\ : label is "soft_lutpair50";
+  attribute SOFT_HLUTNM of \DEBUG[67]_INST_0_i_4\ : label is "soft_lutpair50";
+  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0_i_3\ : label is "soft_lutpair51";
+  attribute SOFT_HLUTNM of \DEBUG[68]_INST_0_i_4\ : label is "soft_lutpair51";
+  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0_i_3\ : label is "soft_lutpair52";
+  attribute SOFT_HLUTNM of \DEBUG[69]_INST_0_i_4\ : label is "soft_lutpair52";
+  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0_i_3\ : label is "soft_lutpair53";
+  attribute SOFT_HLUTNM of \DEBUG[70]_INST_0_i_4\ : label is "soft_lutpair53";
+  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0_i_3\ : label is "soft_lutpair54";
+  attribute SOFT_HLUTNM of \DEBUG[71]_INST_0_i_4\ : label is "soft_lutpair54";
+  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0_i_3\ : label is "soft_lutpair55";
+  attribute SOFT_HLUTNM of \DEBUG[72]_INST_0_i_4\ : label is "soft_lutpair55";
+  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0_i_3\ : label is "soft_lutpair56";
+  attribute SOFT_HLUTNM of \DEBUG[73]_INST_0_i_4\ : label is "soft_lutpair56";
+  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0_i_3\ : label is "soft_lutpair57";
+  attribute SOFT_HLUTNM of \DEBUG[74]_INST_0_i_4\ : label is "soft_lutpair57";
+  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0_i_3\ : label is "soft_lutpair58";
+  attribute SOFT_HLUTNM of \DEBUG[75]_INST_0_i_4\ : label is "soft_lutpair58";
+  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0_i_3\ : label is "soft_lutpair59";
+  attribute SOFT_HLUTNM of \DEBUG[76]_INST_0_i_4\ : label is "soft_lutpair59";
+  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0_i_3\ : label is "soft_lutpair60";
+  attribute SOFT_HLUTNM of \DEBUG[77]_INST_0_i_4\ : label is "soft_lutpair60";
+  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0_i_3\ : label is "soft_lutpair61";
+  attribute SOFT_HLUTNM of \DEBUG[78]_INST_0_i_4\ : label is "soft_lutpair61";
+  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0_i_3\ : label is "soft_lutpair62";
+  attribute SOFT_HLUTNM of \DEBUG[80]_INST_0_i_4\ : label is "soft_lutpair62";
+  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0_i_3\ : label is "soft_lutpair63";
+  attribute SOFT_HLUTNM of \DEBUG[81]_INST_0_i_4\ : label is "soft_lutpair63";
+  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0_i_3\ : label is "soft_lutpair64";
+  attribute SOFT_HLUTNM of \DEBUG[82]_INST_0_i_4\ : label is "soft_lutpair64";
+  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0_i_3\ : label is "soft_lutpair65";
+  attribute SOFT_HLUTNM of \DEBUG[83]_INST_0_i_4\ : label is "soft_lutpair65";
+  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0_i_3\ : label is "soft_lutpair66";
+  attribute SOFT_HLUTNM of \DEBUG[84]_INST_0_i_4\ : label is "soft_lutpair66";
+  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0_i_3\ : label is "soft_lutpair67";
+  attribute SOFT_HLUTNM of \DEBUG[85]_INST_0_i_4\ : label is "soft_lutpair67";
+  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0_i_3\ : label is "soft_lutpair68";
+  attribute SOFT_HLUTNM of \DEBUG[86]_INST_0_i_4\ : label is "soft_lutpair68";
+  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0_i_3\ : label is "soft_lutpair69";
+  attribute SOFT_HLUTNM of \DEBUG[87]_INST_0_i_4\ : label is "soft_lutpair69";
+  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0_i_3\ : label is "soft_lutpair70";
+  attribute SOFT_HLUTNM of \DEBUG[88]_INST_0_i_4\ : label is "soft_lutpair70";
+  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0_i_3\ : label is "soft_lutpair71";
+  attribute SOFT_HLUTNM of \DEBUG[89]_INST_0_i_4\ : label is "soft_lutpair71";
+  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0_i_3\ : label is "soft_lutpair72";
+  attribute SOFT_HLUTNM of \DEBUG[90]_INST_0_i_4\ : label is "soft_lutpair72";
+  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0\ : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0_i_3\ : label is "soft_lutpair73";
+  attribute SOFT_HLUTNM of \DEBUG[91]_INST_0_i_4\ : label is "soft_lutpair73";
+  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0\ : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0_i_3\ : label is "soft_lutpair74";
+  attribute SOFT_HLUTNM of \DEBUG[92]_INST_0_i_4\ : label is "soft_lutpair74";
+  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0\ : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0_i_3\ : label is "soft_lutpair75";
+  attribute SOFT_HLUTNM of \DEBUG[93]_INST_0_i_4\ : label is "soft_lutpair75";
+  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0\ : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0_i_3\ : label is "soft_lutpair76";
+  attribute SOFT_HLUTNM of \DEBUG[94]_INST_0_i_4\ : label is "soft_lutpair76";
+  attribute SOFT_HLUTNM of \DEBUG[95]_INST_0_i_3\ : label is "soft_lutpair77";
+  attribute SOFT_HLUTNM of \DEBUG[95]_INST_0_i_4\ : label is "soft_lutpair77";
+  attribute SOFT_HLUTNM of \FSM_onehot_phase[2]_i_3\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \FSM_onehot_phase[2]_i_5\ : label is "soft_lutpair31";
   attribute FSM_ENCODED_STATES : string;
-  attribute FSM_ENCODED_STATES of \FSM_sequential_phase_reg[0]\ : label is "PHASE_L:01,PHASE_I:00,PHASE_E:10";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_phase_reg[1]\ : label is "PHASE_L:01,PHASE_I:00,PHASE_E:10";
-  attribute SOFT_HLUTNM of \IRES[1]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \IRES[2]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \IRES[3]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \IRES[7]_i_2\ : label is "soft_lutpair35";
-  attribute OPT_MODIFIED of RE_reg : label is "MLO";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_phase_reg[0]\ : label is "PHASE_L:010,PHASE_I:001,PHASE_E:100";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_phase_reg[1]\ : label is "PHASE_L:010,PHASE_I:001,PHASE_E:100";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_phase_reg[2]\ : label is "PHASE_L:010,PHASE_I:001,PHASE_E:100";
+  attribute SOFT_HLUTNM of \IRES[0]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \IRES[1]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \IRES[2]_i_1\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \IRES[3]_i_1\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \IRES[5]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \IRES[6]_i_1\ : label is "soft_lutpair33";
   attribute XILINX_LEGACY_PRIM of RE_reg : label is "LD";
 begin
-  DEBUG(102 downto 0) <= \^debug\(102 downto 0);
+  D(31 downto 0) <= \^d\(31 downto 0);
+  DEBUG(6 downto 0) <= \^debug\(6 downto 0);
+  \DEBUG[3]\(31 downto 0) <= \^debug[3]\(31 downto 0);
+  \FSM_onehot_phase_reg[0]_0\ <= \^fsm_onehot_phase_reg[0]_0\;
+  Q(31 downto 0) <= \^q\(31 downto 0);
 \ADDR_reg[0]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(0),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(7)
+      Q => \^q\(0)
     );
 \ADDR_reg[10]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(10),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(17)
+      Q => \^q\(10)
     );
 \ADDR_reg[11]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(11),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(18)
+      Q => \^q\(11)
     );
 \ADDR_reg[12]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(12),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(19)
+      Q => \^q\(12)
     );
 \ADDR_reg[13]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(13),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(20)
+      Q => \^q\(13)
     );
 \ADDR_reg[14]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(14),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(21)
+      Q => \^q\(14)
     );
 \ADDR_reg[15]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(15),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(22)
+      Q => \^q\(15)
     );
 \ADDR_reg[16]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(16),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(23)
+      Q => \^q\(16)
     );
 \ADDR_reg[17]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(17),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(24)
+      Q => \^q\(17)
     );
 \ADDR_reg[18]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(18),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(25)
+      Q => \^q\(18)
     );
 \ADDR_reg[19]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(19),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(26)
+      Q => \^q\(19)
     );
 \ADDR_reg[1]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(1),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(8)
+      Q => \^q\(1)
     );
 \ADDR_reg[20]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(20),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(27)
+      Q => \^q\(20)
     );
 \ADDR_reg[21]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(21),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(28)
+      Q => \^q\(21)
     );
 \ADDR_reg[22]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(22),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(29)
+      Q => \^q\(22)
     );
 \ADDR_reg[23]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(23),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(30)
+      Q => \^q\(23)
     );
 \ADDR_reg[24]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(24),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(31)
+      Q => \^q\(24)
     );
 \ADDR_reg[25]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(25),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(32)
+      Q => \^q\(25)
     );
 \ADDR_reg[26]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(26),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(33)
+      Q => \^q\(26)
     );
 \ADDR_reg[27]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(27),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(34)
+      Q => \^q\(27)
     );
 \ADDR_reg[28]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(28),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(35)
+      Q => \^q\(28)
     );
 \ADDR_reg[29]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(29),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(36)
+      Q => \^q\(29)
     );
 \ADDR_reg[2]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(2),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(9)
+      Q => \^q\(2)
     );
 \ADDR_reg[30]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(30),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(37)
+      Q => \^q\(30)
     );
 \ADDR_reg[31]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(31),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(38)
-    );
-\ADDR_reg[31]_i_2\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => \phase__0\(1),
-      O => \ADDR_reg[31]_i_2_n_0\
+      Q => \^q\(31)
     );
 \ADDR_reg[3]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(3),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(10)
+      Q => \^q\(3)
     );
 \ADDR_reg[4]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(4),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(11)
+      Q => \^q\(4)
     );
 \ADDR_reg[5]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(5),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(12)
+      Q => \^q\(5)
     );
 \ADDR_reg[6]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(6),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(13)
+      Q => \^q\(6)
     );
 \ADDR_reg[7]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(7),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(14)
+      Q => \^q\(7)
     );
 \ADDR_reg[8]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(8),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(15)
+      Q => \^q\(8)
     );
 \ADDR_reg[9]\: unisim.vcomponents.LDCE
     generic map(
-      INIT => '0',
-      IS_G_INVERTED => '1'
+      INIT => '0'
     )
         port map (
       CLR => '0',
       D => ADDR(9),
-      G => \phase__0\(1),
+      G => rom_n_37,
       GE => '1',
-      Q => \^debug\(16)
+      Q => \^q\(9)
     );
-\DEBUG[14]_INST_0\: unisim.vcomponents.LUT3
+\DEBUG[14]_INST_0\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"02"
+      INIT => X"1010101010101000"
     )
         port map (
-      I0 => \^debug\(36),
-      I1 => \^debug\(38),
-      I2 => \^debug\(37),
-      O => \^debug\(3)
+      I0 => \^q\(30),
+      I1 => \^q\(31),
+      I2 => \^q\(29),
+      I3 => phase_reg(1),
+      I4 => \phase__0\(0),
+      I5 => phase_reg(0),
+      O => \^debug\(4)
     );
-\DEBUG[19]_INST_0\: unisim.vcomponents.LUT3
+\DEBUG[19]_INST_0\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"01"
+      INIT => X"00000000000000FE"
     )
         port map (
-      I0 => \^debug\(37),
-      I1 => \^debug\(38),
-      I2 => \^debug\(36),
+      I0 => phase_reg(1),
+      I1 => \phase__0\(0),
+      I2 => phase_reg(0),
+      I3 => \^q\(29),
+      I4 => \^q\(30),
+      I5 => \^q\(31),
       O => \^debug\(6)
+    );
+\DEBUG[4]_INST_0\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"FE"
+    )
+        port map (
+      I0 => phase_reg(0),
+      I1 => \phase__0\(0),
+      I2 => phase_reg(1),
+      O => \^debug\(1)
     );
 \DEBUG[64]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4778,39 +4738,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(0),
-      I1 => \^debug\(5),
-      O => \^debug\(39)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(0)
     );
 \DEBUG[64]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(0),
-      I1 => \FLASH\\.DATA\(0),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(0),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(0),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(0),
+      I4 => \EDRAM\\.DATA\(0),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(0)
-    );
-\DEBUG[64]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(39),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(0)
     );
 \DEBUG[64]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(39),
+      I0 => \^d\(0),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(0)
+    );
+\DEBUG[64]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(0),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(0)
     );
 \DEBUG[65]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4818,39 +4778,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(1),
-      I1 => \^debug\(5),
-      O => \^debug\(40)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(1)
     );
 \DEBUG[65]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(1),
-      I1 => \FLASH\\.DATA\(1),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(1),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(1),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(1),
+      I4 => \EDRAM\\.DATA\(1),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(1)
-    );
-\DEBUG[65]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(40),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(1)
     );
 \DEBUG[65]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(40),
+      I0 => \^d\(1),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(1)
+    );
+\DEBUG[65]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(1),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(1)
     );
 \DEBUG[66]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4858,39 +4818,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(2),
-      I1 => \^debug\(5),
-      O => \^debug\(41)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(2)
     );
 \DEBUG[66]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(2),
-      I1 => \FLASH\\.DATA\(2),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(2),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(2),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(2),
+      I4 => \EDRAM\\.DATA\(2),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(2)
-    );
-\DEBUG[66]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(41),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(2)
     );
 \DEBUG[66]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(41),
+      I0 => \^d\(2),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(2)
+    );
+\DEBUG[66]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(2),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(2)
     );
 \DEBUG[67]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4898,39 +4858,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(3),
-      I1 => \^debug\(5),
-      O => \^debug\(42)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(3)
     );
 \DEBUG[67]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(3),
-      I1 => \FLASH\\.DATA\(3),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(3),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(3),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(3),
+      I4 => \EDRAM\\.DATA\(3),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(3)
-    );
-\DEBUG[67]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(42),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(3)
     );
 \DEBUG[67]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(42),
+      I0 => \^d\(3),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(3)
+    );
+\DEBUG[67]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(3),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(3)
     );
 \DEBUG[68]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4938,39 +4898,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(4),
-      I1 => \^debug\(5),
-      O => \^debug\(43)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(4)
     );
 \DEBUG[68]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(4),
-      I1 => \FLASH\\.DATA\(4),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(4),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(4),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(4),
+      I4 => \EDRAM\\.DATA\(4),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(4)
-    );
-\DEBUG[68]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(43),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(4)
     );
 \DEBUG[68]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(43),
+      I0 => \^d\(4),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(4)
+    );
+\DEBUG[68]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(4),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(4)
     );
 \DEBUG[69]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -4978,39 +4938,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(5),
-      I1 => \^debug\(5),
-      O => \^debug\(44)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(5)
     );
 \DEBUG[69]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(5),
-      I1 => \FLASH\\.DATA\(5),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(5),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(5),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(5),
+      I4 => \EDRAM\\.DATA\(5),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(5)
-    );
-\DEBUG[69]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(44),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(5)
     );
 \DEBUG[69]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(44),
+      I0 => \^d\(5),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(5)
+    );
+\DEBUG[69]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(5),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(5)
     );
 \DEBUG[70]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5018,39 +4978,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(6),
-      I1 => \^debug\(5),
-      O => \^debug\(45)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(6)
     );
 \DEBUG[70]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(6),
-      I1 => \FLASH\\.DATA\(6),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(6),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(6),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(6),
+      I4 => \EDRAM\\.DATA\(6),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(6)
-    );
-\DEBUG[70]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(45),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(6)
     );
 \DEBUG[70]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(45),
+      I0 => \^d\(6),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(6)
+    );
+\DEBUG[70]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(6),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(6)
     );
 \DEBUG[71]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5058,39 +5018,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(7),
-      I1 => \^debug\(5),
-      O => \^debug\(46)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(7)
     );
 \DEBUG[71]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(7),
-      I1 => \FLASH\\.DATA\(7),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(7),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(7),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(7),
+      I4 => \EDRAM\\.DATA\(7),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(7)
-    );
-\DEBUG[71]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(46),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(7)
     );
 \DEBUG[71]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(46),
+      I0 => \^d\(7),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(7)
+    );
+\DEBUG[71]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(7),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(7)
     );
 \DEBUG[72]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5098,39 +5058,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(8),
-      I1 => \^debug\(5),
-      O => \^debug\(47)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(8)
     );
 \DEBUG[72]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(8),
-      I1 => \FLASH\\.DATA\(8),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(8),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(8),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(8),
+      I4 => \EDRAM\\.DATA\(8),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(8)
-    );
-\DEBUG[72]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(47),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(8)
     );
 \DEBUG[72]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(47),
+      I0 => \^d\(8),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(8)
+    );
+\DEBUG[72]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(8),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(8)
     );
 \DEBUG[73]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5138,39 +5098,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(9),
-      I1 => \^debug\(5),
-      O => \^debug\(48)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(9)
     );
 \DEBUG[73]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(9),
-      I1 => \FLASH\\.DATA\(9),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(9),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(9),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(9),
+      I4 => \EDRAM\\.DATA\(9),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(9)
-    );
-\DEBUG[73]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(48),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(9)
     );
 \DEBUG[73]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(48),
+      I0 => \^d\(9),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(9)
+    );
+\DEBUG[73]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(9),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(9)
     );
 \DEBUG[74]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5178,39 +5138,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(10),
-      I1 => \^debug\(5),
-      O => \^debug\(49)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(10)
     );
 \DEBUG[74]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(10),
-      I1 => \FLASH\\.DATA\(10),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(10),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(10),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(10),
+      I4 => \EDRAM\\.DATA\(10),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(10)
-    );
-\DEBUG[74]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(49),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(10)
     );
 \DEBUG[74]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(49),
+      I0 => \^d\(10),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(10)
+    );
+\DEBUG[74]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(10),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(10)
     );
 \DEBUG[75]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5218,39 +5178,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(11),
-      I1 => \^debug\(5),
-      O => \^debug\(50)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(11)
     );
 \DEBUG[75]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(11),
-      I1 => \FLASH\\.DATA\(11),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(11),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(11),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(11),
+      I4 => \EDRAM\\.DATA\(11),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(11)
-    );
-\DEBUG[75]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(50),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(11)
     );
 \DEBUG[75]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(50),
+      I0 => \^d\(11),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(11)
+    );
+\DEBUG[75]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(11),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(11)
     );
 \DEBUG[76]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5258,39 +5218,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(12),
-      I1 => \^debug\(5),
-      O => \^debug\(51)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(12)
     );
 \DEBUG[76]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(12),
-      I1 => \FLASH\\.DATA\(12),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(12),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(12),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(12),
+      I4 => \EDRAM\\.DATA\(12),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(12)
-    );
-\DEBUG[76]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(51),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(12)
     );
 \DEBUG[76]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(51),
+      I0 => \^d\(12),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(12)
+    );
+\DEBUG[76]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(12),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(12)
     );
 \DEBUG[77]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5298,39 +5258,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(13),
-      I1 => \^debug\(5),
-      O => \^debug\(52)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(13)
     );
 \DEBUG[77]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(13),
-      I1 => \FLASH\\.DATA\(13),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(13),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(13),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(13),
+      I4 => \EDRAM\\.DATA\(13),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(13)
-    );
-\DEBUG[77]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(52),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(13)
     );
 \DEBUG[77]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(52),
+      I0 => \^d\(13),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(13)
+    );
+\DEBUG[77]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(13),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(13)
     );
 \DEBUG[78]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5338,49 +5298,52 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(14),
-      I1 => \^debug\(5),
-      O => \^debug\(53)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(14)
     );
 \DEBUG[78]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(14),
-      I1 => \FLASH\\.DATA\(14),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(14),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(14),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(14),
+      I4 => \EDRAM\\.DATA\(14),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(14)
-    );
-\DEBUG[78]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(53),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(14)
     );
 \DEBUG[78]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(53),
+      I0 => \^d\(14),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(14)
     );
-\DEBUG[7]_INST_0\: unisim.vcomponents.LUT3
+\DEBUG[78]_INST_0_i_4\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"E0"
+      INIT => X"8"
     )
         port map (
-      I0 => \^debug\(37),
-      I1 => \^debug\(38),
-      I2 => \^debug\(5),
-      O => \^debug\(1)
+      I0 => \^d\(14),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(14)
+    );
+\DEBUG[7]_INST_0\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"A8A8A8A8A8A8A800"
+    )
+        port map (
+      I0 => \^fsm_onehot_phase_reg[0]_0\,
+      I1 => \^q\(30),
+      I2 => \^q\(31),
+      I3 => phase_reg(1),
+      I4 => \phase__0\(0),
+      I5 => phase_reg(0),
+      O => \^debug\(2)
     );
 \DEBUG[80]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5388,39 +5351,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(16),
-      I1 => \^debug\(5),
-      O => \^debug\(55)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(16)
     );
 \DEBUG[80]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(16),
-      I1 => \FLASH\\.DATA\(16),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(16),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(16),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(16),
+      I4 => \EDRAM\\.DATA\(16),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(16)
-    );
-\DEBUG[80]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(55),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(16)
     );
 \DEBUG[80]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(55),
+      I0 => \^d\(16),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(16)
+    );
+\DEBUG[80]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(16),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(16)
     );
 \DEBUG[81]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5428,39 +5391,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(17),
-      I1 => \^debug\(5),
-      O => \^debug\(56)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(17)
     );
 \DEBUG[81]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(17),
-      I1 => \FLASH\\.DATA\(17),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(17),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(17),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(17),
+      I4 => \EDRAM\\.DATA\(17),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(17)
-    );
-\DEBUG[81]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(56),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(17)
     );
 \DEBUG[81]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(56),
+      I0 => \^d\(17),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(17)
+    );
+\DEBUG[81]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(17),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(17)
     );
 \DEBUG[82]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5468,39 +5431,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(18),
-      I1 => \^debug\(5),
-      O => \^debug\(57)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(18)
     );
 \DEBUG[82]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(18),
-      I1 => \FLASH\\.DATA\(18),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(18),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(18),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(18),
+      I4 => \EDRAM\\.DATA\(18),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(18)
-    );
-\DEBUG[82]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(57),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(18)
     );
 \DEBUG[82]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(57),
+      I0 => \^d\(18),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(18)
+    );
+\DEBUG[82]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(18),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(18)
     );
 \DEBUG[83]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5508,39 +5471,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(19),
-      I1 => \^debug\(5),
-      O => \^debug\(58)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(19)
     );
 \DEBUG[83]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(19),
-      I1 => \FLASH\\.DATA\(19),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(19),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(19),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(19),
+      I4 => \EDRAM\\.DATA\(19),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(19)
-    );
-\DEBUG[83]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(58),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(19)
     );
 \DEBUG[83]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(58),
+      I0 => \^d\(19),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(19)
+    );
+\DEBUG[83]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(19),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(19)
     );
 \DEBUG[84]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5548,39 +5511,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(20),
-      I1 => \^debug\(5),
-      O => \^debug\(59)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(20)
     );
 \DEBUG[84]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(20),
-      I1 => \FLASH\\.DATA\(20),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(20),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(20),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(20),
+      I4 => \EDRAM\\.DATA\(20),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(20)
-    );
-\DEBUG[84]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(59),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(20)
     );
 \DEBUG[84]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(59),
+      I0 => \^d\(20),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(20)
+    );
+\DEBUG[84]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(20),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(20)
     );
 \DEBUG[85]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5588,39 +5551,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(21),
-      I1 => \^debug\(5),
-      O => \^debug\(60)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(21)
     );
 \DEBUG[85]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(21),
-      I1 => \FLASH\\.DATA\(21),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(21),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(21),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(21),
+      I4 => \EDRAM\\.DATA\(21),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(21)
-    );
-\DEBUG[85]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(60),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(21)
     );
 \DEBUG[85]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(60),
+      I0 => \^d\(21),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(21)
+    );
+\DEBUG[85]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(21),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(21)
     );
 \DEBUG[86]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5628,39 +5591,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(22),
-      I1 => \^debug\(5),
-      O => \^debug\(61)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(22)
     );
 \DEBUG[86]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(22),
-      I1 => \FLASH\\.DATA\(22),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(22),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(22),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(22),
+      I4 => \EDRAM\\.DATA\(22),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(22)
-    );
-\DEBUG[86]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(61),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(22)
     );
 \DEBUG[86]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(61),
+      I0 => \^d\(22),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(22)
+    );
+\DEBUG[86]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(22),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(22)
     );
 \DEBUG[87]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5668,39 +5631,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(23),
-      I1 => \^debug\(5),
-      O => \^debug\(62)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(23)
     );
 \DEBUG[87]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(23),
-      I1 => \FLASH\\.DATA\(23),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(23),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(23),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(23),
+      I4 => \EDRAM\\.DATA\(23),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(23)
-    );
-\DEBUG[87]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(62),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(23)
     );
 \DEBUG[87]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(62),
+      I0 => \^d\(23),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(23)
+    );
+\DEBUG[87]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(23),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(23)
     );
 \DEBUG[88]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5708,39 +5671,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(24),
-      I1 => \^debug\(5),
-      O => \^debug\(63)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(24)
     );
 \DEBUG[88]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(24),
-      I1 => \FLASH\\.DATA\(24),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(24),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(24),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(24),
+      I4 => \EDRAM\\.DATA\(24),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(24)
-    );
-\DEBUG[88]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(63),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(24)
     );
 \DEBUG[88]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(63),
+      I0 => \^d\(24),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(24)
+    );
+\DEBUG[88]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(24),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(24)
     );
 \DEBUG[89]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5748,39 +5711,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(25),
-      I1 => \^debug\(5),
-      O => \^debug\(64)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(25)
     );
 \DEBUG[89]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(25),
-      I1 => \FLASH\\.DATA\(25),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(25),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(25),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(25),
+      I4 => \EDRAM\\.DATA\(25),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(25)
-    );
-\DEBUG[89]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(64),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(25)
     );
 \DEBUG[89]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(64),
+      I0 => \^d\(25),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(25)
+    );
+\DEBUG[89]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(25),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(25)
     );
 \DEBUG[90]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5788,39 +5751,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(26),
-      I1 => \^debug\(5),
-      O => \^debug\(65)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(26)
     );
 \DEBUG[90]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(26),
-      I1 => \FLASH\\.DATA\(26),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(26),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(26),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(26),
+      I4 => \EDRAM\\.DATA\(26),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(26)
-    );
-\DEBUG[90]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(65),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(26)
     );
 \DEBUG[90]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(65),
+      I0 => \^d\(26),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(26)
+    );
+\DEBUG[90]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(26),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(26)
     );
 \DEBUG[91]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5828,39 +5791,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(27),
-      I1 => \^debug\(5),
-      O => \^debug\(66)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(27)
     );
 \DEBUG[91]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(27),
-      I1 => \FLASH\\.DATA\(27),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(27),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(27),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(27),
+      I4 => \EDRAM\\.DATA\(27),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(27)
-    );
-\DEBUG[91]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(66),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(27)
     );
 \DEBUG[91]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(66),
+      I0 => \^d\(27),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(27)
+    );
+\DEBUG[91]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(27),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(27)
     );
 \DEBUG[92]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5868,39 +5831,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(28),
-      I1 => \^debug\(5),
-      O => \^debug\(67)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(28)
     );
 \DEBUG[92]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(28),
-      I1 => \FLASH\\.DATA\(28),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(28),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(28),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(28),
+      I4 => \EDRAM\\.DATA\(28),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(28)
-    );
-\DEBUG[92]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(67),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(28)
     );
 \DEBUG[92]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(67),
+      I0 => \^d\(28),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(28)
+    );
+\DEBUG[92]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(28),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(28)
     );
 \DEBUG[93]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5908,39 +5871,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(29),
-      I1 => \^debug\(5),
-      O => \^debug\(68)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(29)
     );
 \DEBUG[93]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(29),
-      I1 => \FLASH\\.DATA\(29),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(29),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(29),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(29),
+      I4 => \EDRAM\\.DATA\(29),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(29)
-    );
-\DEBUG[93]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(68),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(29)
     );
 \DEBUG[93]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(68),
+      I0 => \^d\(29),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(29)
+    );
+\DEBUG[93]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(29),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(29)
     );
 \DEBUG[94]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5948,39 +5911,39 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(30),
-      I1 => \^debug\(5),
-      O => \^debug\(69)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(30)
     );
 \DEBUG[94]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(30),
-      I1 => \FLASH\\.DATA\(30),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(30),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(30),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(30),
+      I4 => \EDRAM\\.DATA\(30),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(30)
-    );
-\DEBUG[94]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(69),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(30)
     );
 \DEBUG[94]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(69),
+      I0 => \^d\(30),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(30)
+    );
+\DEBUG[94]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(30),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(30)
     );
 \DEBUG[95]_INST_0\: unisim.vcomponents.LUT2
     generic map(
@@ -5988,112 +5951,122 @@ begin
     )
         port map (
       I0 => \memory_map/CORE_DATA\(31),
-      I1 => \^debug\(5),
-      O => \^debug\(70)
+      I1 => \^fsm_onehot_phase_reg[0]_0\,
+      O => \^d\(31)
     );
 \DEBUG[95]_INST_0_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAACAAAFAAACAAA0"
+      INIT => X"FFFFF888F888F888"
     )
         port map (
-      I0 => \EDRAM\\.DATA\(31),
-      I1 => \FLASH\\.DATA\(31),
-      I2 => \^debug\(37),
-      I3 => \^debug\(38),
-      I4 => \^debug\(36),
-      I5 => \OCROM\\.DATA\(31),
+      I0 => \^debug\(6),
+      I1 => \OCROM\\.DATA\(31),
+      I2 => \^debug\(4),
+      I3 => \FLASH\\.DATA\(31),
+      I4 => \EDRAM\\.DATA\(31),
+      I5 => \^debug\(3),
       O => \memory_map/CORE_DATA\(31)
-    );
-\DEBUG[95]_INST_0_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => \^debug\(70),
-      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
-      O => \EDRAM\\.DATA\(31)
     );
 \DEBUG[95]_INST_0_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"8"
     )
         port map (
-      I0 => \^debug\(70),
+      I0 => \^d\(31),
       I1 => \DEBUG[95]_INST_0_i_5_n_0\,
       O => \FLASH\\.DATA\(31)
+    );
+\DEBUG[95]_INST_0_i_4\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => \^d\(31),
+      I1 => \DEBUG[95]_INST_0_i_5_n_0\,
+      O => \EDRAM\\.DATA\(31)
     );
 \DEBUG[95]_INST_0_i_5\: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
     )
         port map (
-      I0 => \^debug\(5),
+      I0 => \^fsm_onehot_phase_reg[0]_0\,
       O => \DEBUG[95]_INST_0_i_5_n_0\
     );
-\DEBUG[9]_INST_0\: unisim.vcomponents.LUT2
+\DEBUG[9]_INST_0\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FEFEFE00"
+    )
+        port map (
+      I0 => phase_reg(1),
+      I1 => \phase__0\(0),
+      I2 => phase_reg(0),
+      I3 => \^q\(31),
+      I4 => \^q\(30),
+      O => \^debug\(3)
+    );
+\FSM_onehot_phase[0]_i_3\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"E"
     )
         port map (
-      I0 => \^debug\(38),
-      I1 => \^debug\(37),
-      O => \^debug\(2)
+      I0 => \^q\(30),
+      I1 => \^q\(31),
+      O => \FSM_onehot_phase[0]_i_3_n_0\
     );
-\FSM_sequential_phase[1]_i_3\: unisim.vcomponents.LUT6
+\FSM_onehot_phase[2]_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFFFFFFFFFFE"
+      INIT => X"FFFB"
     )
         port map (
-      I0 => RES,
-      I1 => IRES_reg(6),
-      I2 => IRES_reg(1),
-      I3 => IRES_reg(0),
-      I4 => IRES_reg(2),
-      I5 => IRES_reg(4),
-      O => \FSM_sequential_phase[1]_i_3_n_0\
+      I0 => \FSM_onehot_phase[2]_i_5_n_0\,
+      I1 => \^d\(0),
+      I2 => \^d\(5),
+      I3 => \^d\(6),
+      O => \FSM_onehot_phase[2]_i_3_n_0\
     );
-\FSM_sequential_phase[1]_i_4\: unisim.vcomponents.LUT4
+\FSM_onehot_phase[2]_i_5\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FEFF"
+      INIT => X"FFFD"
     )
         port map (
-      I0 => \FSM_sequential_phase[1]_i_5_n_0\,
-      I1 => \^debug\(43),
-      I2 => \^debug\(44),
-      I3 => \^debug\(39),
-      O => \FSM_sequential_phase[1]_i_4_n_0\
+      I0 => \^d\(1),
+      I1 => \^d\(2),
+      I2 => \^d\(4),
+      I3 => \^d\(3),
+      O => \FSM_onehot_phase[2]_i_5_n_0\
     );
-\FSM_sequential_phase[1]_i_5\: unisim.vcomponents.LUT4
+\FSM_onehot_phase_reg[0]\: unisim.vcomponents.FDRE
     generic map(
-      INIT => X"FFEF"
-    )
-        port map (
-      I0 => \^debug\(42),
-      I1 => \^debug\(45),
-      I2 => \^debug\(40),
-      I3 => \^debug\(41),
-      O => \FSM_sequential_phase[1]_i_5_n_0\
-    );
-\FSM_sequential_phase_reg[0]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
+      INIT => '1'
     )
         port map (
       C => XCLK,
-      CE => phase,
-      D => \phase__1\(0),
+      CE => '1',
+      D => rom_n_36,
       Q => \phase__0\(0),
       R => '0'
     );
-\FSM_sequential_phase_reg[1]\: unisim.vcomponents.FDRE
+\FSM_onehot_phase_reg[1]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => XCLK,
-      CE => phase,
-      D => \phase__1\(1),
-      Q => \phase__0\(1),
+      CE => '1',
+      D => rom_n_34,
+      Q => phase_reg(0),
+      R => '0'
+    );
+\FSM_onehot_phase_reg[2]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => XCLK,
+      CE => '1',
+      D => rom_n_33,
+      Q => phase_reg(1),
       R => '0'
     );
 \IRES[0]_i_1\: unisim.vcomponents.LUT2
@@ -6103,16 +6076,16 @@ begin
         port map (
       I0 => RES,
       I1 => IRES_reg(0),
-      O => p_0_in(0)
+      O => \IRES[0]_i_1_n_0\
     );
 \IRES[1]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"84"
+      INIT => X"90"
     )
         port map (
       I0 => IRES_reg(0),
-      I1 => RES,
-      I2 => IRES_reg(1),
+      I1 => IRES_reg(1),
+      I2 => RES,
       O => p_0_in(1)
     );
 \IRES[2]_i_1\: unisim.vcomponents.LUT4
@@ -6128,19 +6101,7 @@ begin
     );
 \IRES[3]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FE000100"
-    )
-        port map (
-      I0 => IRES_reg(1),
-      I1 => IRES_reg(0),
-      I2 => IRES_reg(2),
-      I3 => RES,
-      I4 => IRES_reg(3),
-      O => p_0_in(3)
-    );
-\IRES[4]_i_1\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFE000000010000"
+      INIT => X"FE010000"
     )
         port map (
       I0 => IRES_reg(2),
@@ -6148,55 +6109,74 @@ begin
       I2 => IRES_reg(1),
       I3 => IRES_reg(3),
       I4 => RES,
-      I5 => IRES_reg(4),
-      O => p_0_in(4)
+      O => p_0_in(3)
     );
-\IRES[5]_i_1\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FE000100"
-    )
-        port map (
-      I0 => IRES_reg(3),
-      I1 => \IRES[7]_i_2_n_0\,
-      I2 => IRES_reg(4),
-      I3 => RES,
-      I4 => IRES_reg(5),
-      O => p_0_in(5)
-    );
-\IRES[6]_i_1\: unisim.vcomponents.LUT6
+\IRES[4]_i_1\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"FFFE000100000000"
     )
         port map (
-      I0 => IRES_reg(5),
-      I1 => IRES_reg(3),
-      I2 => \IRES[7]_i_2_n_0\,
-      I3 => IRES_reg(4),
-      I4 => IRES_reg(6),
+      I0 => IRES_reg(3),
+      I1 => IRES_reg(1),
+      I2 => IRES_reg(0),
+      I3 => IRES_reg(2),
+      I4 => IRES_reg(4),
       I5 => RES,
+      O => p_0_in(4)
+    );
+\IRES[5]_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"90"
+    )
+        port map (
+      I0 => \IRES[5]_i_2_n_0\,
+      I1 => IRES_reg(5),
+      I2 => RES,
+      O => p_0_in(5)
+    );
+\IRES[5]_i_2\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => IRES_reg(3),
+      I1 => IRES_reg(1),
+      I2 => IRES_reg(0),
+      I3 => IRES_reg(2),
+      I4 => IRES_reg(4),
+      O => \IRES[5]_i_2_n_0\
+    );
+\IRES[6]_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"90"
+    )
+        port map (
+      I0 => \IRES[7]_i_2_n_0\,
+      I1 => IRES_reg(6),
+      I2 => RES,
       O => p_0_in(6)
     );
-\IRES[7]_i_1\: unisim.vcomponents.LUT6
+\IRES[7]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"FFFFFFFE00000000"
+      INIT => X"E0"
     )
         port map (
       I0 => IRES_reg(6),
-      I1 => IRES_reg(4),
-      I2 => \IRES[7]_i_2_n_0\,
-      I3 => IRES_reg(3),
-      I4 => IRES_reg(5),
-      I5 => RES,
+      I1 => \IRES[7]_i_2_n_0\,
+      I2 => RES,
       O => p_0_in(7)
     );
-\IRES[7]_i_2\: unisim.vcomponents.LUT3
+\IRES[7]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FE"
+      INIT => X"FFFFFFFFFFFFFFFE"
     )
         port map (
-      I0 => IRES_reg(1),
-      I1 => IRES_reg(0),
-      I2 => IRES_reg(2),
+      I0 => IRES_reg(4),
+      I1 => IRES_reg(2),
+      I2 => IRES_reg(0),
+      I3 => IRES_reg(1),
+      I4 => IRES_reg(3),
+      I5 => IRES_reg(5),
       O => \IRES[7]_i_2_n_0\
     );
 \IRES_reg[0]\: unisim.vcomponents.FDSE
@@ -6206,7 +6186,7 @@ begin
         port map (
       C => XCLK,
       CE => '1',
-      D => p_0_in(0),
+      D => \IRES[0]_i_1_n_0\,
       Q => IRES_reg(0),
       S => XRES
     );
@@ -6287,269 +6267,260 @@ begin
       Q => RES,
       S => XRES
     );
-\IR[31]_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"E"
-    )
-        port map (
-      I0 => \^debug\(37),
-      I1 => \^debug\(38),
-      O => \IR[31]_i_2_n_0\
-    );
 \IR_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(39),
-      Q => \^debug\(71),
+      D => \^d\(0),
+      Q => \^debug[3]\(0),
       R => '0'
     );
 \IR_reg[10]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(49),
-      Q => \^debug\(81),
+      D => \^d\(10),
+      Q => \^debug[3]\(10),
       R => '0'
     );
 \IR_reg[11]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(50),
-      Q => \^debug\(82),
+      D => \^d\(11),
+      Q => \^debug[3]\(11),
       R => '0'
     );
 \IR_reg[12]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(51),
-      Q => \^debug\(83),
+      D => \^d\(12),
+      Q => \^debug[3]\(12),
       R => '0'
     );
 \IR_reg[13]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(52),
-      Q => \^debug\(84),
+      D => \^d\(13),
+      Q => \^debug[3]\(13),
       R => '0'
     );
 \IR_reg[14]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(53),
-      Q => \^debug\(85),
+      D => \^d\(14),
+      Q => \^debug[3]\(14),
       R => '0'
     );
 \IR_reg[15]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(54),
-      Q => \^debug\(86),
+      D => \^d\(15),
+      Q => \^debug[3]\(15),
       R => '0'
     );
 \IR_reg[16]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(55),
-      Q => \^debug\(87),
+      D => \^d\(16),
+      Q => \^debug[3]\(16),
       R => '0'
     );
 \IR_reg[17]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(56),
-      Q => \^debug\(88),
+      D => \^d\(17),
+      Q => \^debug[3]\(17),
       R => '0'
     );
 \IR_reg[18]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(57),
-      Q => \^debug\(89),
+      D => \^d\(18),
+      Q => \^debug[3]\(18),
       R => '0'
     );
 \IR_reg[19]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(58),
-      Q => \^debug\(90),
+      D => \^d\(19),
+      Q => \^debug[3]\(19),
       R => '0'
     );
 \IR_reg[1]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(40),
-      Q => \^debug\(72),
+      D => \^d\(1),
+      Q => \^debug[3]\(1),
       R => '0'
     );
 \IR_reg[20]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(59),
-      Q => \^debug\(91),
+      D => \^d\(20),
+      Q => \^debug[3]\(20),
       R => '0'
     );
 \IR_reg[21]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(60),
-      Q => \^debug\(92),
+      D => \^d\(21),
+      Q => \^debug[3]\(21),
       R => '0'
     );
 \IR_reg[22]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(61),
-      Q => \^debug\(93),
+      D => \^d\(22),
+      Q => \^debug[3]\(22),
       R => '0'
     );
 \IR_reg[23]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(62),
-      Q => \^debug\(94),
+      D => \^d\(23),
+      Q => \^debug[3]\(23),
       R => '0'
     );
 \IR_reg[24]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(63),
-      Q => \^debug\(95),
+      D => \^d\(24),
+      Q => \^debug[3]\(24),
       R => '0'
     );
 \IR_reg[25]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(64),
-      Q => \^debug\(96),
+      D => \^d\(25),
+      Q => \^debug[3]\(25),
       R => '0'
     );
 \IR_reg[26]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(65),
-      Q => \^debug\(97),
+      D => \^d\(26),
+      Q => \^debug[3]\(26),
       R => '0'
     );
 \IR_reg[27]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(66),
-      Q => \^debug\(98),
+      D => \^d\(27),
+      Q => \^debug[3]\(27),
       R => '0'
     );
 \IR_reg[28]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(67),
-      Q => \^debug\(99),
+      D => \^d\(28),
+      Q => \^debug[3]\(28),
       R => '0'
     );
 \IR_reg[29]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(68),
-      Q => \^debug\(100),
+      D => \^d\(29),
+      Q => \^debug[3]\(29),
       R => '0'
     );
 \IR_reg[2]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(41),
-      Q => \^debug\(73),
+      D => \^d\(2),
+      Q => \^debug[3]\(2),
       R => '0'
     );
 \IR_reg[30]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(69),
-      Q => \^debug\(101),
+      D => \^d\(30),
+      Q => \^debug[3]\(30),
       R => '0'
     );
 \IR_reg[31]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(70),
-      Q => \^debug\(102),
+      D => \^d\(31),
+      Q => \^debug[3]\(31),
       R => '0'
     );
 \IR_reg[3]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(42),
-      Q => \^debug\(74),
+      D => \^d\(3),
+      Q => \^debug[3]\(3),
       R => '0'
     );
 \IR_reg[4]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(43),
-      Q => \^debug\(75),
+      D => \^d\(4),
+      Q => \^debug[3]\(4),
       R => '0'
     );
 \IR_reg[5]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(44),
-      Q => \^debug\(76),
+      D => \^d\(5),
+      Q => \^debug[3]\(5),
       R => '0'
     );
 \IR_reg[6]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(45),
-      Q => \^debug\(77),
+      D => \^d\(6),
+      Q => \^debug[3]\(6),
       R => '0'
     );
 \IR_reg[7]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(46),
-      Q => \^debug\(78),
+      D => \^d\(7),
+      Q => \^debug[3]\(7),
       R => '0'
     );
 \IR_reg[8]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(47),
-      Q => \^debug\(79),
+      D => \^d\(8),
+      Q => \^debug[3]\(8),
       R => '0'
     );
 \IR_reg[9]\: unisim.vcomponents.FDRE
      port map (
       C => XCLK,
       CE => IR,
-      D => \^debug\(48),
-      Q => \^debug\(80),
+      D => \^d\(9),
+      Q => \^debug[3]\(9),
       R => '0'
     );
 RE_reg: unisim.vcomponents.LDCE
@@ -6558,108 +6529,77 @@ RE_reg: unisim.vcomponents.LDCE
     )
         port map (
       CLR => '0',
-      D => \ADDR_reg[31]_i_2_n_0\,
-      G => \HLT__0\,
+      D => rom_n_37,
+      G => \^debug\(1),
       GE => '1',
-      Q => \^debug\(5)
-    );
-RE_reg_i_1: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"7"
-    )
-        port map (
-      I0 => \phase__0\(0),
-      I1 => \phase__0\(1),
-      O => \HLT__0\
+      Q => \^fsm_onehot_phase_reg[0]_0\
     );
 core0: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkriscv
      port map (
       D(31 downto 0) => ADDR(31 downto 0),
-      \DEBUG[32]\(1 downto 0) => \phase__0\(1 downto 0),
-      Q(31 downto 0) => \^debug\(102 downto 71),
+      Q(31 downto 0) => \^debug[3]\(31 downto 0),
       \RESMODE_reg[3]_0\(0) => RES,
       XCLK => XCLK,
-      \XSIMM_reg[0]_0\(1) => \phase_reg_n_0_[1]\,
-      \XSIMM_reg[0]_0\(0) => \phase_reg_n_0_[0]\
-    );
-\phase_reg[0]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => XCLK,
-      CE => phase,
-      D => rom_n_35,
-      Q => \phase_reg_n_0_[0]\,
-      R => '0'
-    );
-\phase_reg[1]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => XCLK,
-      CE => phase,
-      D => rom_n_34,
-      Q => \phase_reg_n_0_[1]\,
-      R => '0'
+      phase_reg(1 downto 0) => phase_reg(1 downto 0)
     );
 rom: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darkocrom
      port map (
-      D(1) => rom_n_34,
-      D(0) => rom_n_35,
-      DEBUG(2) => \^debug\(54),
-      DEBUG(1) => \^debug\(4),
+      \BUS\\.RACK_reg_0\ => \^debug\(5),
+      \BUS\\.RACK_reg_1\ => \^fsm_onehot_phase_reg[0]_0\,
       DEBUG(0) => \^debug\(0),
-      \DEBUG[64]_INST_0_i_1\ => \^debug\(39),
-      \DEBUG[65]_INST_0_i_1\ => \^debug\(40),
-      \DEBUG[66]_INST_0_i_1\ => \^debug\(41),
-      \DEBUG[67]_INST_0_i_1\ => \^debug\(42),
-      \DEBUG[68]_INST_0_i_1\ => \^debug\(43),
-      \DEBUG[69]_INST_0_i_1\ => \^debug\(44),
-      \DEBUG[70]_INST_0_i_1\ => \^debug\(45),
-      \DEBUG[71]_INST_0_i_1\ => \^debug\(46),
-      \DEBUG[72]_INST_0_i_1\ => \^debug\(47),
-      \DEBUG[73]_INST_0_i_1\ => \^debug\(48),
-      \DEBUG[74]_INST_0_i_1\ => \^debug\(49),
-      \DEBUG[75]_INST_0_i_1\ => \^debug\(50),
-      \DEBUG[76]_INST_0_i_1\ => \^debug\(51),
-      \DEBUG[77]_INST_0_i_1\ => \^debug\(52),
-      \DEBUG[78]_INST_0_i_1\ => \^debug\(53),
+      \DEBUG[2]\(0) => \^debug\(1),
+      \DEBUG[64]_INST_0_i_1\ => \^d\(0),
+      \DEBUG[65]_INST_0_i_1\ => \^d\(1),
+      \DEBUG[66]_INST_0_i_1\ => \^d\(2),
+      \DEBUG[67]_INST_0_i_1\ => \^d\(3),
+      \DEBUG[68]_INST_0_i_1\ => \^d\(4),
+      \DEBUG[69]_INST_0_i_1\ => \^d\(5),
+      \DEBUG[70]_INST_0_i_1\ => \^d\(6),
+      \DEBUG[71]_INST_0_i_1\ => \^d\(7),
+      \DEBUG[72]_INST_0_i_1\ => \^d\(8),
+      \DEBUG[73]_INST_0_i_1\ => \^d\(9),
+      \DEBUG[74]_INST_0_i_1\ => \^d\(10),
+      \DEBUG[75]_INST_0_i_1\ => \^d\(11),
+      \DEBUG[76]_INST_0_i_1\ => \^d\(12),
+      \DEBUG[77]_INST_0_i_1\ => \^d\(13),
+      \DEBUG[78]_INST_0_i_1\ => \^d\(14),
       \DEBUG[79]_INST_0_i_1_0\ => \DEBUG[95]_INST_0_i_5_n_0\,
-      \DEBUG[80]_INST_0_i_1\ => \^debug\(55),
-      \DEBUG[81]_INST_0_i_1\ => \^debug\(56),
-      \DEBUG[82]_INST_0_i_1\ => \^debug\(57),
-      \DEBUG[83]_INST_0_i_1\ => \^debug\(58),
-      \DEBUG[84]_INST_0_i_1\ => \^debug\(59),
-      \DEBUG[85]_INST_0_i_1\ => \^debug\(60),
-      \DEBUG[86]_INST_0_i_1\ => \^debug\(61),
-      \DEBUG[87]_INST_0_i_1\ => \^debug\(62),
-      \DEBUG[88]_INST_0_i_1\ => \^debug\(63),
-      \DEBUG[89]_INST_0_i_1\ => \^debug\(64),
-      \DEBUG[90]_INST_0_i_1\ => \^debug\(65),
-      \DEBUG[91]_INST_0_i_1\ => \^debug\(66),
-      \DEBUG[92]_INST_0_i_1\ => \^debug\(67),
-      \DEBUG[93]_INST_0_i_1\ => \^debug\(68),
-      \DEBUG[94]_INST_0_i_1\ => \^debug\(69),
-      \DEBUG[95]_INST_0_i_1\ => \^debug\(70),
-      E(0) => phase,
-      \FSM_sequential_phase_reg[0]\(1 downto 0) => \phase__1\(1 downto 0),
-      \FSM_sequential_phase_reg[1]\(0) => IR,
-      \IR_reg[0]\ => \^debug\(5),
-      \IR_reg[0]_0\ => \IR[31]_i_2_n_0\,
-      \IR_reg[0]_1\(0) => \^debug\(6),
-      Q(29 downto 0) => \^debug\(38 downto 9),
+      \DEBUG[80]_INST_0_i_1\ => \^d\(16),
+      \DEBUG[81]_INST_0_i_1\ => \^d\(17),
+      \DEBUG[82]_INST_0_i_1\ => \^d\(18),
+      \DEBUG[83]_INST_0_i_1\ => \^d\(19),
+      \DEBUG[84]_INST_0_i_1\ => \^d\(20),
+      \DEBUG[85]_INST_0_i_1\ => \^d\(21),
+      \DEBUG[86]_INST_0_i_1\ => \^d\(22),
+      \DEBUG[87]_INST_0_i_1\ => \^d\(23),
+      \DEBUG[88]_INST_0_i_1\ => \^d\(24),
+      \DEBUG[89]_INST_0_i_1\ => \^d\(25),
+      \DEBUG[90]_INST_0_i_1\ => \^d\(26),
+      \DEBUG[91]_INST_0_i_1\ => \^d\(27),
+      \DEBUG[92]_INST_0_i_1\ => \^d\(28),
+      \DEBUG[93]_INST_0_i_1\ => \^d\(29),
+      \DEBUG[94]_INST_0_i_1\ => \^d\(30),
+      \DEBUG[95]_INST_0_i_1\ => \^d\(31),
+      E(0) => IR,
+      \FSM_onehot_phase_reg[0]\ => rom_n_36,
+      \FSM_onehot_phase_reg[0]_0\ => rom_n_37,
+      \FSM_onehot_phase_reg[0]_1\(1) => RES,
+      \FSM_onehot_phase_reg[0]_1\(0) => IRES_reg(6),
+      \FSM_onehot_phase_reg[0]_2\ => \IRES[7]_i_2_n_0\,
+      \FSM_onehot_phase_reg[0]_3\ => \FSM_onehot_phase[0]_i_3_n_0\,
+      \FSM_onehot_phase_reg[1]\ => rom_n_33,
+      \FSM_onehot_phase_reg[1]_0\ => rom_n_34,
+      \FSM_onehot_phase_reg[2]\ => \FSM_onehot_phase[2]_i_3_n_0\,
+      \IR_reg[15]\ => \^debug\(6),
+      \IR_reg[15]_0\ => \^debug\(4),
+      \IR_reg[15]_1\ => \^debug\(3),
+      Q(29 downto 0) => \^q\(31 downto 2),
+      RE_reg => \^d\(15),
       XCLK => XCLK,
       data_reg_reg_0(30 downto 15) => \OCROM\\.DATA\(31 downto 16),
       data_reg_reg_0(14 downto 0) => \OCROM\\.DATA\(14 downto 0),
-      \phase_reg[0]\ => \FSM_sequential_phase[1]_i_4_n_0\,
-      \phase_reg[0]_0\(1) => \phase_reg_n_0_[1]\,
-      \phase_reg[0]_0\(0) => \phase_reg_n_0_[0]\,
-      \phase_reg[0]_1\(1 downto 0) => \phase__0\(1 downto 0),
-      \phase_reg[0]_2\ => \FSM_sequential_phase[1]_i_3_n_0\,
-      \phase_reg[0]_3\(1) => IRES_reg(5),
-      \phase_reg[0]_3\(0) => IRES_reg(3)
+      \phase__0\(0) => \phase__0\(0),
+      phase_reg(1 downto 0) => phase_reg(1 downto 0)
     );
 end STRUCTURE;
 library IEEE;
@@ -6668,7 +6608,42 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_soc is
   port (
-    DEBUG : out STD_LOGIC_VECTOR ( 102 downto 0 );
+    \DEBUG[1]\ : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    Q : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    RE_reg : out STD_LOGIC;
+    \FSM_onehot_phase_reg[0]\ : out STD_LOGIC;
+    RE_reg_0 : out STD_LOGIC;
+    RE_reg_1 : out STD_LOGIC;
+    RE_reg_2 : out STD_LOGIC;
+    RE_reg_3 : out STD_LOGIC;
+    RE_reg_4 : out STD_LOGIC;
+    RE_reg_5 : out STD_LOGIC;
+    RE_reg_6 : out STD_LOGIC;
+    RE_reg_7 : out STD_LOGIC;
+    RE_reg_8 : out STD_LOGIC;
+    RE_reg_9 : out STD_LOGIC;
+    RE_reg_10 : out STD_LOGIC;
+    RE_reg_11 : out STD_LOGIC;
+    RE_reg_12 : out STD_LOGIC;
+    RE_reg_13 : out STD_LOGIC;
+    RE_reg_14 : out STD_LOGIC;
+    RE_reg_15 : out STD_LOGIC;
+    RE_reg_16 : out STD_LOGIC;
+    RE_reg_17 : out STD_LOGIC;
+    RE_reg_18 : out STD_LOGIC;
+    RE_reg_19 : out STD_LOGIC;
+    RE_reg_20 : out STD_LOGIC;
+    RE_reg_21 : out STD_LOGIC;
+    RE_reg_22 : out STD_LOGIC;
+    RE_reg_23 : out STD_LOGIC;
+    RE_reg_24 : out STD_LOGIC;
+    RE_reg_25 : out STD_LOGIC;
+    RE_reg_26 : out STD_LOGIC;
+    RE_reg_27 : out STD_LOGIC;
+    RE_reg_28 : out STD_LOGIC;
+    RE_reg_29 : out STD_LOGIC;
+    RE_reg_30 : out STD_LOGIC;
+    DEBUG : out STD_LOGIC_VECTOR ( 6 downto 0 );
     XCLK : in STD_LOGIC;
     XRES : in STD_LOGIC
   );
@@ -6678,7 +6653,42 @@ architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_soc is
 begin
 internal_soc: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_darksocv
      port map (
-      DEBUG(102 downto 0) => DEBUG(102 downto 0),
+      D(31) => RE_reg_30,
+      D(30) => RE_reg_29,
+      D(29) => RE_reg_28,
+      D(28) => RE_reg_27,
+      D(27) => RE_reg_26,
+      D(26) => RE_reg_25,
+      D(25) => RE_reg_24,
+      D(24) => RE_reg_23,
+      D(23) => RE_reg_22,
+      D(22) => RE_reg_21,
+      D(21) => RE_reg_20,
+      D(20) => RE_reg_19,
+      D(19) => RE_reg_18,
+      D(18) => RE_reg_17,
+      D(17) => RE_reg_16,
+      D(16) => RE_reg_15,
+      D(15) => RE_reg_14,
+      D(14) => RE_reg_13,
+      D(13) => RE_reg_12,
+      D(12) => RE_reg_11,
+      D(11) => RE_reg_10,
+      D(10) => RE_reg_9,
+      D(9) => RE_reg_8,
+      D(8) => RE_reg_7,
+      D(7) => RE_reg_6,
+      D(6) => RE_reg_5,
+      D(5) => RE_reg_4,
+      D(4) => RE_reg_3,
+      D(3) => RE_reg_2,
+      D(2) => RE_reg_1,
+      D(1) => RE_reg_0,
+      D(0) => RE_reg,
+      DEBUG(6 downto 0) => DEBUG(6 downto 0),
+      \DEBUG[3]\(31 downto 0) => Q(31 downto 0),
+      \FSM_onehot_phase_reg[0]_0\ => \FSM_onehot_phase_reg[0]\,
+      Q(31 downto 0) => \DEBUG[1]\(31 downto 0),
       XCLK => XCLK,
       XRES => XRES
     );
@@ -6708,7 +6718,6 @@ end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix;
 
 architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix is
   signal \<const0>\ : STD_LOGIC;
-  signal \<const1>\ : STD_LOGIC;
   signal \^debug\ : STD_LOGIC_VECTOR ( 127 downto 2 );
 begin
   DEBUG(127 downto 32) <= \^debug\(127 downto 32);
@@ -6739,8 +6748,7 @@ begin
   DEBUG(7) <= \^debug\(7);
   DEBUG(6) <= \<const0>\;
   DEBUG(5) <= \<const0>\;
-  DEBUG(4) <= \<const1>\;
-  DEBUG(3 downto 2) <= \^debug\(3 downto 2);
+  DEBUG(4 downto 2) <= \^debug\(4 downto 2);
   DEBUG(1) <= \<const0>\;
   DEBUG(0) <= \<const0>\;
   LED(3) <= \<const0>\;
@@ -6751,20 +6759,50 @@ GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
     );
-VCC: unisim.vcomponents.VCC
-     port map (
-      P => \<const1>\
-    );
 inst: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_soc
      port map (
-      DEBUG(102 downto 7) => \^debug\(127 downto 32),
       DEBUG(6) => \^debug\(19),
-      DEBUG(5) => \^debug\(3),
-      DEBUG(4) => \^debug\(17),
-      DEBUG(3) => \^debug\(14),
-      DEBUG(2) => \^debug\(9),
-      DEBUG(1) => \^debug\(7),
+      DEBUG(5) => \^debug\(17),
+      DEBUG(4) => \^debug\(14),
+      DEBUG(3) => \^debug\(9),
+      DEBUG(2) => \^debug\(7),
+      DEBUG(1) => \^debug\(4),
       DEBUG(0) => \^debug\(2),
+      \DEBUG[1]\(31 downto 0) => \^debug\(63 downto 32),
+      \FSM_onehot_phase_reg[0]\ => \^debug\(3),
+      Q(31 downto 0) => \^debug\(127 downto 96),
+      RE_reg => \^debug\(64),
+      RE_reg_0 => \^debug\(65),
+      RE_reg_1 => \^debug\(66),
+      RE_reg_10 => \^debug\(75),
+      RE_reg_11 => \^debug\(76),
+      RE_reg_12 => \^debug\(77),
+      RE_reg_13 => \^debug\(78),
+      RE_reg_14 => \^debug\(79),
+      RE_reg_15 => \^debug\(80),
+      RE_reg_16 => \^debug\(81),
+      RE_reg_17 => \^debug\(82),
+      RE_reg_18 => \^debug\(83),
+      RE_reg_19 => \^debug\(84),
+      RE_reg_2 => \^debug\(67),
+      RE_reg_20 => \^debug\(85),
+      RE_reg_21 => \^debug\(86),
+      RE_reg_22 => \^debug\(87),
+      RE_reg_23 => \^debug\(88),
+      RE_reg_24 => \^debug\(89),
+      RE_reg_25 => \^debug\(90),
+      RE_reg_26 => \^debug\(91),
+      RE_reg_27 => \^debug\(92),
+      RE_reg_28 => \^debug\(93),
+      RE_reg_29 => \^debug\(94),
+      RE_reg_3 => \^debug\(68),
+      RE_reg_30 => \^debug\(95),
+      RE_reg_4 => \^debug\(69),
+      RE_reg_5 => \^debug\(70),
+      RE_reg_6 => \^debug\(71),
+      RE_reg_7 => \^debug\(72),
+      RE_reg_8 => \^debug\(73),
+      RE_reg_9 => \^debug\(74),
       XCLK => XCLK,
       XRES => XRES
     );

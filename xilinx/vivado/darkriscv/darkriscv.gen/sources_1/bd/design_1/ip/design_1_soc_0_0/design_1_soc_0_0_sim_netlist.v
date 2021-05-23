@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Sun May 23 11:44:57 2021
+// Date        : Sun May 23 21:06:03 2021
 // Host        : DESKTOP-6SV72UJ running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/User/Documents/GitHub/darkriscv/xilinx/vivado/darkriscv/darkriscv.gen/sources_1/bd/design_1/ip/design_1_soc_0_0/design_1_soc_0_0_sim_netlist.v
@@ -26,7 +26,6 @@ module design_1_soc_0_0
   output [127:0]DEBUG;
 
   wire \<const0> ;
-  wire \<const1> ;
   wire [127:2]\^DEBUG ;
   wire XCLK;
   wire XRES;
@@ -59,8 +58,7 @@ module design_1_soc_0_0
   assign DEBUG[7] = \^DEBUG [7];
   assign DEBUG[6] = \<const0> ;
   assign DEBUG[5] = \<const0> ;
-  assign DEBUG[4] = \<const1> ;
-  assign DEBUG[3:2] = \^DEBUG [3:2];
+  assign DEBUG[4:2] = \^DEBUG [4:2];
   assign DEBUG[1] = \<const0> ;
   assign DEBUG[0] = \<const0> ;
   assign LED[3] = \<const0> ;
@@ -69,25 +67,61 @@ module design_1_soc_0_0
   assign LED[0] = \<const0> ;
   GND GND
        (.G(\<const0> ));
-  VCC VCC
-       (.P(\<const1> ));
   design_1_soc_0_0_soc inst
-       (.DEBUG({\^DEBUG [127:32],\^DEBUG [19],\^DEBUG [3],\^DEBUG [17],\^DEBUG [14],\^DEBUG [9],\^DEBUG [7],\^DEBUG [2]}),
+       (.DEBUG({\^DEBUG [19],\^DEBUG [17],\^DEBUG [14],\^DEBUG [9],\^DEBUG [7],\^DEBUG [4],\^DEBUG [2]}),
+        .\DEBUG[1] (\^DEBUG [63:32]),
+        .\FSM_onehot_phase_reg[0] (\^DEBUG [3]),
+        .Q(\^DEBUG [127:96]),
+        .RE_reg(\^DEBUG [64]),
+        .RE_reg_0(\^DEBUG [65]),
+        .RE_reg_1(\^DEBUG [66]),
+        .RE_reg_10(\^DEBUG [75]),
+        .RE_reg_11(\^DEBUG [76]),
+        .RE_reg_12(\^DEBUG [77]),
+        .RE_reg_13(\^DEBUG [78]),
+        .RE_reg_14(\^DEBUG [79]),
+        .RE_reg_15(\^DEBUG [80]),
+        .RE_reg_16(\^DEBUG [81]),
+        .RE_reg_17(\^DEBUG [82]),
+        .RE_reg_18(\^DEBUG [83]),
+        .RE_reg_19(\^DEBUG [84]),
+        .RE_reg_2(\^DEBUG [67]),
+        .RE_reg_20(\^DEBUG [85]),
+        .RE_reg_21(\^DEBUG [86]),
+        .RE_reg_22(\^DEBUG [87]),
+        .RE_reg_23(\^DEBUG [88]),
+        .RE_reg_24(\^DEBUG [89]),
+        .RE_reg_25(\^DEBUG [90]),
+        .RE_reg_26(\^DEBUG [91]),
+        .RE_reg_27(\^DEBUG [92]),
+        .RE_reg_28(\^DEBUG [93]),
+        .RE_reg_29(\^DEBUG [94]),
+        .RE_reg_3(\^DEBUG [68]),
+        .RE_reg_30(\^DEBUG [95]),
+        .RE_reg_4(\^DEBUG [69]),
+        .RE_reg_5(\^DEBUG [70]),
+        .RE_reg_6(\^DEBUG [71]),
+        .RE_reg_7(\^DEBUG [72]),
+        .RE_reg_8(\^DEBUG [73]),
+        .RE_reg_9(\^DEBUG [74]),
         .XCLK(XCLK),
         .XRES(XRES));
 endmodule
 
 (* ORIG_REF_NAME = "darkocrom" *) 
 module design_1_soc_0_0_darkocrom
-   (DEBUG,
+   (\BUS\.RACK_reg_0 ,
+    RE_reg,
     data_reg_reg_0,
-    D,
+    \FSM_onehot_phase_reg[1] ,
+    \FSM_onehot_phase_reg[1]_0 ,
     E,
-    \FSM_sequential_phase_reg[1] ,
-    \FSM_sequential_phase_reg[0] ,
+    \FSM_onehot_phase_reg[0] ,
+    \FSM_onehot_phase_reg[0]_0 ,
+    DEBUG,
     XCLK,
     Q,
-    \IR_reg[0] ,
+    \BUS\.RACK_reg_1 ,
     \DEBUG[64]_INST_0_i_1 ,
     \DEBUG[79]_INST_0_i_1_0 ,
     \DEBUG[65]_INST_0_i_1 ,
@@ -120,22 +154,28 @@ module design_1_soc_0_0_darkocrom
     \DEBUG[93]_INST_0_i_1 ,
     \DEBUG[94]_INST_0_i_1 ,
     \DEBUG[95]_INST_0_i_1 ,
-    \phase_reg[0] ,
-    \phase_reg[0]_0 ,
-    \phase_reg[0]_1 ,
-    \phase_reg[0]_2 ,
-    \phase_reg[0]_3 ,
-    \IR_reg[0]_0 ,
-    \IR_reg[0]_1 );
-  output [2:0]DEBUG;
+    phase_reg,
+    phase__0,
+    \FSM_onehot_phase_reg[2] ,
+    \IR_reg[15] ,
+    \IR_reg[15]_0 ,
+    \IR_reg[15]_1 ,
+    \FSM_onehot_phase_reg[0]_1 ,
+    \FSM_onehot_phase_reg[0]_2 ,
+    \DEBUG[2] ,
+    \FSM_onehot_phase_reg[0]_3 );
+  output \BUS\.RACK_reg_0 ;
+  output RE_reg;
   output [30:0]data_reg_reg_0;
-  output [1:0]D;
+  output \FSM_onehot_phase_reg[1] ;
+  output \FSM_onehot_phase_reg[1]_0 ;
   output [0:0]E;
-  output [0:0]\FSM_sequential_phase_reg[1] ;
-  output [1:0]\FSM_sequential_phase_reg[0] ;
+  output \FSM_onehot_phase_reg[0] ;
+  output \FSM_onehot_phase_reg[0]_0 ;
+  output [0:0]DEBUG;
   input XCLK;
   input [29:0]Q;
-  input \IR_reg[0] ;
+  input \BUS\.RACK_reg_1 ;
   input \DEBUG[64]_INST_0_i_1 ;
   input \DEBUG[79]_INST_0_i_1_0 ;
   input \DEBUG[65]_INST_0_i_1 ;
@@ -168,17 +208,22 @@ module design_1_soc_0_0_darkocrom
   input \DEBUG[93]_INST_0_i_1 ;
   input \DEBUG[94]_INST_0_i_1 ;
   input \DEBUG[95]_INST_0_i_1 ;
-  input \phase_reg[0] ;
-  input [1:0]\phase_reg[0]_0 ;
-  input [1:0]\phase_reg[0]_1 ;
-  input \phase_reg[0]_2 ;
-  input [1:0]\phase_reg[0]_3 ;
-  input \IR_reg[0]_0 ;
-  input [0:0]\IR_reg[0]_1 ;
+  input [1:0]phase_reg;
+  input [0:0]phase__0;
+  input \FSM_onehot_phase_reg[2] ;
+  input \IR_reg[15] ;
+  input \IR_reg[15]_0 ;
+  input \IR_reg[15]_1 ;
+  input [1:0]\FSM_onehot_phase_reg[0]_1 ;
+  input \FSM_onehot_phase_reg[0]_2 ;
+  input [0:0]\DEBUG[2] ;
+  input \FSM_onehot_phase_reg[0]_3 ;
 
   wire \BUS\.RACK_reg0 ;
-  wire [1:0]D;
-  wire [2:0]DEBUG;
+  wire \BUS\.RACK_reg_0 ;
+  wire \BUS\.RACK_reg_1 ;
+  wire [0:0]DEBUG;
+  wire [0:0]\DEBUG[2] ;
   wire \DEBUG[64]_INST_0_i_1 ;
   wire \DEBUG[65]_INST_0_i_1 ;
   wire \DEBUG[66]_INST_0_i_1 ;
@@ -214,13 +259,22 @@ module design_1_soc_0_0_darkocrom
   wire [0:0]E;
   wire [15:15]\EDRAM\.DATA ;
   wire [15:15]\FLASH\.DATA ;
-  wire [1:0]\FSM_sequential_phase_reg[0] ;
-  wire [0:0]\FSM_sequential_phase_reg[1] ;
-  wire \IR_reg[0] ;
-  wire \IR_reg[0]_0 ;
-  wire [0:0]\IR_reg[0]_1 ;
+  wire \FSM_onehot_phase[2]_i_2_n_0 ;
+  wire \FSM_onehot_phase[2]_i_4_n_0 ;
+  wire \FSM_onehot_phase_reg[0] ;
+  wire \FSM_onehot_phase_reg[0]_0 ;
+  wire [1:0]\FSM_onehot_phase_reg[0]_1 ;
+  wire \FSM_onehot_phase_reg[0]_2 ;
+  wire \FSM_onehot_phase_reg[0]_3 ;
+  wire \FSM_onehot_phase_reg[1] ;
+  wire \FSM_onehot_phase_reg[1]_0 ;
+  wire \FSM_onehot_phase_reg[2] ;
+  wire \IR_reg[15] ;
+  wire \IR_reg[15]_0 ;
+  wire \IR_reg[15]_1 ;
   wire [15:15]\OCROM\.DATA ;
   wire [29:0]Q;
+  wire RE_reg;
   wire XCLK;
   wire data_reg1_carry__0_i_1_n_0;
   wire data_reg1_carry__0_i_2_n_0;
@@ -258,11 +312,9 @@ module design_1_soc_0_0_darkocrom
   wire [31:0]data_reg_reg__0;
   wire data_reg_reg_i_1_n_0;
   wire [15:15]\memory_map/CORE_DATA ;
-  wire \phase_reg[0] ;
-  wire [1:0]\phase_reg[0]_0 ;
-  wire [1:0]\phase_reg[0]_1 ;
-  wire \phase_reg[0]_2 ;
-  wire [1:0]\phase_reg[0]_3 ;
+  wire [0:0]phase__0;
+  wire [0:0]phase__1;
+  wire [1:0]phase_reg;
   wire [3:0]NLW_data_reg1_carry_O_UNCONNECTED;
   wire [3:0]NLW_data_reg1_carry__0_O_UNCONNECTED;
   wire [3:3]NLW_data_reg1_carry__1_CO_UNCONNECTED;
@@ -270,33 +322,43 @@ module design_1_soc_0_0_darkocrom
   wire [15:14]NLW_data_reg_reg_DOBDO_UNCONNECTED;
   wire [1:0]NLW_data_reg_reg_DOPBDOP_UNCONNECTED;
 
-  LUT4 #(
-    .INIT(16'h0100)) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    \ADDR_reg[31]_i_2 
+       (.I0(phase__0),
+        .I1(phase_reg[0]),
+        .O(\FSM_onehot_phase_reg[0]_0 ));
+  LUT6 #(
+    .INIT(64'h00000000000000A8)) 
     \BUS\.RACK_i_1 
-       (.I0(Q[27]),
-        .I1(Q[29]),
-        .I2(Q[28]),
-        .I3(\IR_reg[0] ),
+       (.I0(\BUS\.RACK_reg_1 ),
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .I2(phase_reg[1]),
+        .I3(Q[27]),
+        .I4(Q[28]),
+        .I5(Q[29]),
         .O(\BUS\.RACK_reg0 ));
   FDRE \BUS\.RACK_reg 
        (.C(XCLK),
         .CE(1'b1),
         .D(\BUS\.RACK_reg0 ),
-        .Q(DEBUG[1]),
+        .Q(\BUS\.RACK_reg_0 ),
         .R(1'b0));
-  LUT5 #(
-    .INIT(32'hCCCCCC0A)) 
+  LUT6 #(
+    .INIT(64'hE0F1E0E000000000)) 
     \DEBUG[2]_INST_0 
-       (.I0(DEBUG[1]),
-        .I1(\IR_reg[0] ),
-        .I2(Q[27]),
-        .I3(Q[28]),
-        .I4(Q[29]),
-        .O(DEBUG[0]));
+       (.I0(Q[29]),
+        .I1(Q[28]),
+        .I2(\BUS\.RACK_reg_1 ),
+        .I3(Q[27]),
+        .I4(\BUS\.RACK_reg_0 ),
+        .I5(\DEBUG[2] ),
+        .O(DEBUG));
   (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[64]_INST_0_i_4 
+    \DEBUG[64]_INST_0_i_2 
        (.I0(data_reg_reg__0[0]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[64]_INST_0_i_1 ),
@@ -305,7 +367,7 @@ module design_1_soc_0_0_darkocrom
   (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[65]_INST_0_i_4 
+    \DEBUG[65]_INST_0_i_2 
        (.I0(data_reg_reg__0[1]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[65]_INST_0_i_1 ),
@@ -313,7 +375,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[1]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[66]_INST_0_i_4 
+    \DEBUG[66]_INST_0_i_2 
        (.I0(data_reg_reg__0[2]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[66]_INST_0_i_1 ),
@@ -321,7 +383,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[2]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[67]_INST_0_i_4 
+    \DEBUG[67]_INST_0_i_2 
        (.I0(data_reg_reg__0[3]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[67]_INST_0_i_1 ),
@@ -329,7 +391,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[3]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[68]_INST_0_i_4 
+    \DEBUG[68]_INST_0_i_2 
        (.I0(data_reg_reg__0[4]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[68]_INST_0_i_1 ),
@@ -337,7 +399,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[4]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[69]_INST_0_i_4 
+    \DEBUG[69]_INST_0_i_2 
        (.I0(data_reg_reg__0[5]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[69]_INST_0_i_1 ),
@@ -345,7 +407,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[5]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[70]_INST_0_i_4 
+    \DEBUG[70]_INST_0_i_2 
        (.I0(data_reg_reg__0[6]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[70]_INST_0_i_1 ),
@@ -353,7 +415,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[6]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[71]_INST_0_i_4 
+    \DEBUG[71]_INST_0_i_2 
        (.I0(data_reg_reg__0[7]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[71]_INST_0_i_1 ),
@@ -361,7 +423,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[7]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[72]_INST_0_i_4 
+    \DEBUG[72]_INST_0_i_2 
        (.I0(data_reg_reg__0[8]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[72]_INST_0_i_1 ),
@@ -369,7 +431,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[8]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[73]_INST_0_i_4 
+    \DEBUG[73]_INST_0_i_2 
        (.I0(data_reg_reg__0[9]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[73]_INST_0_i_1 ),
@@ -377,7 +439,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[9]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[74]_INST_0_i_4 
+    \DEBUG[74]_INST_0_i_2 
        (.I0(data_reg_reg__0[10]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[74]_INST_0_i_1 ),
@@ -385,7 +447,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[10]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[75]_INST_0_i_4 
+    \DEBUG[75]_INST_0_i_2 
        (.I0(data_reg_reg__0[11]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[75]_INST_0_i_1 ),
@@ -393,7 +455,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[11]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[76]_INST_0_i_4 
+    \DEBUG[76]_INST_0_i_2 
        (.I0(data_reg_reg__0[12]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[76]_INST_0_i_1 ),
@@ -401,7 +463,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[12]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[77]_INST_0_i_4 
+    \DEBUG[77]_INST_0_i_2 
        (.I0(data_reg_reg__0[13]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[77]_INST_0_i_1 ),
@@ -409,7 +471,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[13]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[78]_INST_0_i_4 
+    \DEBUG[78]_INST_0_i_2 
        (.I0(data_reg_reg__0[14]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[78]_INST_0_i_1 ),
@@ -419,43 +481,43 @@ module design_1_soc_0_0_darkocrom
     .INIT(4'h8)) 
     \DEBUG[79]_INST_0 
        (.I0(\memory_map/CORE_DATA ),
-        .I1(\IR_reg[0] ),
-        .O(DEBUG[2]));
+        .I1(\BUS\.RACK_reg_1 ),
+        .O(RE_reg));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[79]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA ),
-        .I1(\FLASH\.DATA ),
-        .I2(Q[28]),
-        .I3(Q[29]),
-        .I4(Q[27]),
-        .I5(\OCROM\.DATA ),
+       (.I0(\IR_reg[15] ),
+        .I1(\OCROM\.DATA ),
+        .I2(\IR_reg[15]_0 ),
+        .I3(\FLASH\.DATA ),
+        .I4(\EDRAM\.DATA ),
+        .I5(\IR_reg[15]_1 ),
         .O(\memory_map/CORE_DATA ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
+  LUT4 #(
+    .INIT(16'hF888)) 
     \DEBUG[79]_INST_0_i_2 
-       (.I0(DEBUG[2]),
-        .I1(\DEBUG[79]_INST_0_i_1_0 ),
-        .O(\EDRAM\.DATA ));
+       (.I0(data_reg_reg__0[15]),
+        .I1(\BUS\.RACK_reg0 ),
+        .I2(RE_reg),
+        .I3(\DEBUG[79]_INST_0_i_1_0 ),
+        .O(\OCROM\.DATA ));
   (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[79]_INST_0_i_3 
-       (.I0(DEBUG[2]),
+       (.I0(RE_reg),
         .I1(\DEBUG[79]_INST_0_i_1_0 ),
         .O(\FLASH\.DATA ));
-  LUT4 #(
-    .INIT(16'hF888)) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \DEBUG[79]_INST_0_i_4 
-       (.I0(data_reg_reg__0[15]),
-        .I1(\BUS\.RACK_reg0 ),
-        .I2(DEBUG[2]),
-        .I3(\DEBUG[79]_INST_0_i_1_0 ),
-        .O(\OCROM\.DATA ));
+       (.I0(RE_reg),
+        .I1(\DEBUG[79]_INST_0_i_1_0 ),
+        .O(\EDRAM\.DATA ));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[80]_INST_0_i_4 
+    \DEBUG[80]_INST_0_i_2 
        (.I0(data_reg_reg__0[16]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[80]_INST_0_i_1 ),
@@ -463,7 +525,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[15]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[81]_INST_0_i_4 
+    \DEBUG[81]_INST_0_i_2 
        (.I0(data_reg_reg__0[17]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[81]_INST_0_i_1 ),
@@ -471,7 +533,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[16]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[82]_INST_0_i_4 
+    \DEBUG[82]_INST_0_i_2 
        (.I0(data_reg_reg__0[18]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[82]_INST_0_i_1 ),
@@ -479,7 +541,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[17]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[83]_INST_0_i_4 
+    \DEBUG[83]_INST_0_i_2 
        (.I0(data_reg_reg__0[19]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[83]_INST_0_i_1 ),
@@ -487,7 +549,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[18]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[84]_INST_0_i_4 
+    \DEBUG[84]_INST_0_i_2 
        (.I0(data_reg_reg__0[20]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[84]_INST_0_i_1 ),
@@ -495,7 +557,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[19]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[85]_INST_0_i_4 
+    \DEBUG[85]_INST_0_i_2 
        (.I0(data_reg_reg__0[21]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[85]_INST_0_i_1 ),
@@ -503,7 +565,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[20]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[86]_INST_0_i_4 
+    \DEBUG[86]_INST_0_i_2 
        (.I0(data_reg_reg__0[22]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[86]_INST_0_i_1 ),
@@ -511,7 +573,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[21]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[87]_INST_0_i_4 
+    \DEBUG[87]_INST_0_i_2 
        (.I0(data_reg_reg__0[23]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[87]_INST_0_i_1 ),
@@ -519,7 +581,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[22]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[88]_INST_0_i_4 
+    \DEBUG[88]_INST_0_i_2 
        (.I0(data_reg_reg__0[24]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[88]_INST_0_i_1 ),
@@ -527,7 +589,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[23]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[89]_INST_0_i_4 
+    \DEBUG[89]_INST_0_i_2 
        (.I0(data_reg_reg__0[25]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[89]_INST_0_i_1 ),
@@ -535,7 +597,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[24]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[90]_INST_0_i_4 
+    \DEBUG[90]_INST_0_i_2 
        (.I0(data_reg_reg__0[26]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[90]_INST_0_i_1 ),
@@ -543,7 +605,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[25]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[91]_INST_0_i_4 
+    \DEBUG[91]_INST_0_i_2 
        (.I0(data_reg_reg__0[27]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[91]_INST_0_i_1 ),
@@ -551,7 +613,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[26]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[92]_INST_0_i_4 
+    \DEBUG[92]_INST_0_i_2 
        (.I0(data_reg_reg__0[28]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[92]_INST_0_i_1 ),
@@ -559,7 +621,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[27]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[93]_INST_0_i_4 
+    \DEBUG[93]_INST_0_i_2 
        (.I0(data_reg_reg__0[29]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[93]_INST_0_i_1 ),
@@ -567,7 +629,7 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[28]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[94]_INST_0_i_4 
+    \DEBUG[94]_INST_0_i_2 
        (.I0(data_reg_reg__0[30]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[94]_INST_0_i_1 ),
@@ -575,50 +637,77 @@ module design_1_soc_0_0_darkocrom
         .O(data_reg_reg_0[29]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \DEBUG[95]_INST_0_i_4 
+    \DEBUG[95]_INST_0_i_2 
        (.I0(data_reg_reg__0[31]),
         .I1(\BUS\.RACK_reg0 ),
         .I2(\DEBUG[95]_INST_0_i_1 ),
         .I3(\DEBUG[79]_INST_0_i_1_0 ),
         .O(data_reg_reg_0[30]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
-  LUT4 #(
-    .INIT(16'h0100)) 
-    \FSM_sequential_phase[0]_i_1 
-       (.I0(\phase_reg[0] ),
-        .I1(\phase_reg[0]_1 [0]),
-        .I2(\phase_reg[0]_1 [1]),
-        .I3(DEBUG[0]),
-        .O(\FSM_sequential_phase_reg[0] [0]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \FSM_onehot_phase[0]_i_1 
+       (.I0(phase__1),
+        .I1(\FSM_onehot_phase[2]_i_4_n_0 ),
+        .I2(phase__0),
+        .O(\FSM_onehot_phase_reg[0] ));
   LUT6 #(
-    .INIT(64'h7777777777777774)) 
-    \FSM_sequential_phase[1]_i_1 
-       (.I0(\phase_reg[0]_1 [0]),
-        .I1(\phase_reg[0]_1 [1]),
-        .I2(\phase_reg[0]_2 ),
-        .I3(DEBUG[0]),
-        .I4(\phase_reg[0]_3 [1]),
-        .I5(\phase_reg[0]_3 [0]),
-        .O(E));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+    .INIT(64'hF0FFFDFDF0F0F0F0)) 
+    \FSM_onehot_phase[0]_i_2 
+       (.I0(\BUS\.RACK_reg_0 ),
+        .I1(Q[27]),
+        .I2(phase_reg[1]),
+        .I3(\BUS\.RACK_reg_1 ),
+        .I4(\FSM_onehot_phase_reg[0]_3 ),
+        .I5(\FSM_onehot_phase_reg[0]_0 ),
+        .O(phase__1));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT4 #(
-    .INIT(16'h00C8)) 
-    \FSM_sequential_phase[1]_i_2 
-       (.I0(\phase_reg[0]_1 [0]),
-        .I1(DEBUG[0]),
-        .I2(\phase_reg[0] ),
-        .I3(\phase_reg[0]_1 [1]),
-        .O(\FSM_sequential_phase_reg[0] [1]));
+    .INIT(16'h2F20)) 
+    \FSM_onehot_phase[1]_i_1 
+       (.I0(E),
+        .I1(\FSM_onehot_phase_reg[2] ),
+        .I2(\FSM_onehot_phase[2]_i_4_n_0 ),
+        .I3(phase_reg[0]),
+        .O(\FSM_onehot_phase_reg[1]_0 ));
   LUT6 #(
-    .INIT(64'h1111100010001000)) 
+    .INIT(64'hC888FFFFC8880000)) 
+    \FSM_onehot_phase[2]_i_1 
+       (.I0(phase_reg[0]),
+        .I1(\FSM_onehot_phase[2]_i_2_n_0 ),
+        .I2(phase__0),
+        .I3(\FSM_onehot_phase_reg[2] ),
+        .I4(\FSM_onehot_phase[2]_i_4_n_0 ),
+        .I5(phase_reg[1]),
+        .O(\FSM_onehot_phase_reg[1] ));
+  LUT5 #(
+    .INIT(32'hF0F0F022)) 
+    \FSM_onehot_phase[2]_i_2 
+       (.I0(\BUS\.RACK_reg_0 ),
+        .I1(Q[27]),
+        .I2(\BUS\.RACK_reg_1 ),
+        .I3(Q[28]),
+        .I4(Q[29]),
+        .O(\FSM_onehot_phase[2]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFF0FFF0FFF0FEF0)) 
+    \FSM_onehot_phase[2]_i_4 
+       (.I0(\FSM_onehot_phase[2]_i_2_n_0 ),
+        .I1(\FSM_onehot_phase_reg[0]_1 [1]),
+        .I2(phase_reg[1]),
+        .I3(\FSM_onehot_phase_reg[0]_0 ),
+        .I4(\FSM_onehot_phase_reg[0]_2 ),
+        .I5(\FSM_onehot_phase_reg[0]_1 [0]),
+        .O(\FSM_onehot_phase[2]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hE0F1E0E000000000)) 
     \IR[31]_i_1 
-       (.I0(\phase_reg[0]_1 [1]),
-        .I1(\phase_reg[0]_1 [0]),
-        .I2(\IR_reg[0]_0 ),
-        .I3(\IR_reg[0] ),
-        .I4(DEBUG[1]),
-        .I5(\IR_reg[0]_1 ),
-        .O(\FSM_sequential_phase_reg[1] ));
+       (.I0(Q[29]),
+        .I1(Q[28]),
+        .I2(\BUS\.RACK_reg_1 ),
+        .I3(Q[27]),
+        .I4(\BUS\.RACK_reg_0 ),
+        .I5(phase__0),
+        .O(E));
   (* COMPARATOR_THRESHOLD = "11" *) 
   CARRY4 data_reg1_carry
        (.CI(1'b0),
@@ -662,26 +751,26 @@ module design_1_soc_0_0_darkocrom
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__0_i_5
-       (.I0(Q[23]),
-        .I1(Q[22]),
+       (.I0(Q[22]),
+        .I1(Q[23]),
         .O(data_reg1_carry__0_i_5_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__0_i_6
-       (.I0(Q[21]),
-        .I1(Q[20]),
+       (.I0(Q[20]),
+        .I1(Q[21]),
         .O(data_reg1_carry__0_i_6_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__0_i_7
-       (.I0(Q[19]),
-        .I1(Q[18]),
+       (.I0(Q[18]),
+        .I1(Q[19]),
         .O(data_reg1_carry__0_i_7_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__0_i_8
-       (.I0(Q[17]),
-        .I1(Q[16]),
+       (.I0(Q[16]),
+        .I1(Q[17]),
         .O(data_reg1_carry__0_i_8_n_0));
   (* COMPARATOR_THRESHOLD = "11" *) 
   CARRY4 data_reg1_carry__1
@@ -694,8 +783,8 @@ module design_1_soc_0_0_darkocrom
   LUT2 #(
     .INIT(4'hE)) 
     data_reg1_carry__1_i_1
-       (.I0(Q[29]),
-        .I1(Q[28]),
+       (.I0(Q[28]),
+        .I1(Q[29]),
         .O(data_reg1_carry__1_i_1_n_0));
   LUT2 #(
     .INIT(4'hE)) 
@@ -712,20 +801,20 @@ module design_1_soc_0_0_darkocrom
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__1_i_4
-       (.I0(Q[28]),
-        .I1(Q[29]),
+       (.I0(Q[29]),
+        .I1(Q[28]),
         .O(data_reg1_carry__1_i_4_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__1_i_5
-       (.I0(Q[27]),
-        .I1(Q[26]),
+       (.I0(Q[26]),
+        .I1(Q[27]),
         .O(data_reg1_carry__1_i_5_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry__1_i_6
-       (.I0(Q[25]),
-        .I1(Q[24]),
+       (.I0(Q[24]),
+        .I1(Q[25]),
         .O(data_reg1_carry__1_i_6_n_0));
   LUT2 #(
     .INIT(4'hE)) 
@@ -748,20 +837,20 @@ module design_1_soc_0_0_darkocrom
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry_i_4
-       (.I0(Q[15]),
-        .I1(Q[14]),
+       (.I0(Q[14]),
+        .I1(Q[15]),
         .O(data_reg1_carry_i_4_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry_i_5
-       (.I0(Q[13]),
-        .I1(Q[12]),
+       (.I0(Q[12]),
+        .I1(Q[13]),
         .O(data_reg1_carry_i_5_n_0));
   LUT2 #(
     .INIT(4'h1)) 
     data_reg1_carry_i_6
-       (.I0(Q[11]),
-        .I1(Q[10]),
+       (.I0(Q[10]),
+        .I1(Q[11]),
         .O(data_reg1_carry_i_6_n_0));
   LUT2 #(
     .INIT(4'h2)) 
@@ -896,48 +985,30 @@ module design_1_soc_0_0_darkocrom
         .RSTREGB(1'b0),
         .WEA({1'b0,1'b0}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0}));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFF1)) 
     data_reg_reg_i_1
-       (.I0(data_reg1_carry__1_n_1),
-        .I1(Q[27]),
-        .I2(Q[29]),
-        .I3(Q[28]),
+       (.I0(\FSM_onehot_phase_reg[0]_0 ),
+        .I1(phase_reg[1]),
+        .I2(data_reg1_carry__1_n_1),
+        .I3(Q[27]),
+        .I4(Q[28]),
+        .I5(Q[29]),
         .O(data_reg_reg_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT4 #(
-    .INIT(16'h0100)) 
-    \phase[0]_i_1 
-       (.I0(\phase_reg[0] ),
-        .I1(\phase_reg[0]_0 [0]),
-        .I2(\phase_reg[0]_0 [1]),
-        .I3(DEBUG[0]),
-        .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT4 #(
-    .INIT(16'h4440)) 
-    \phase[1]_i_1 
-       (.I0(\phase_reg[0]_0 [1]),
-        .I1(DEBUG[0]),
-        .I2(\phase_reg[0] ),
-        .I3(\phase_reg[0]_0 [0]),
-        .O(D[1]));
 endmodule
 
 (* ORIG_REF_NAME = "darkriscv" *) 
 module design_1_soc_0_0_darkriscv
    (D,
     Q,
-    \DEBUG[32] ,
+    phase_reg,
     \RESMODE_reg[3]_0 ,
-    XCLK,
-    \XSIMM_reg[0]_0 );
+    XCLK);
   output [31:0]D;
   input [31:0]Q;
-  input [1:0]\DEBUG[32] ;
+  input [1:0]phase_reg;
   input [0:0]\RESMODE_reg[3]_0 ;
   input XCLK;
-  input [1:0]\XSIMM_reg[0]_0 ;
 
   wire \ADDR_reg[11]_i_2_n_0 ;
   wire \ADDR_reg[11]_i_2_n_1 ;
@@ -1032,7 +1103,6 @@ module design_1_soc_0_0_darkriscv
   wire \ADDR_reg[7]_i_5_n_0 ;
   wire \ADDR_reg[7]_i_6_n_0 ;
   wire [31:0]D;
-  wire [1:0]\DEBUG[32] ;
   wire [3:0]DPTR;
   wire [31:0]Q;
   wire REG1_reg_0_15_0_0_i_1_n_0;
@@ -1147,34 +1217,31 @@ module design_1_soc_0_0_darkriscv
   wire \XSIMM[7]_i_1_n_0 ;
   wire \XSIMM[8]_i_1_n_0 ;
   wire \XSIMM[9]_i_1_n_0 ;
-  wire [1:0]\XSIMM_reg[0]_0 ;
   wire [1:0]p_0_in_0;
   wire p_1_in;
+  wire [1:0]phase_reg;
   wire [3:3]\NLW_ADDR_reg[31]_i_3_CO_UNCONNECTED ;
 
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[0]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[3]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[3]_i_2_n_7 ),
         .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[10]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[11]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[11]_i_2_n_5 ),
         .O(D[10]));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[11]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[11]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[11]_i_2_n_4 ),
         .O(D[11]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[11]_i_2 
@@ -1208,37 +1275,33 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[8]),
         .I1(SIMM[8]),
         .O(\ADDR_reg[11]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[12]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[15]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[15]_i_2_n_7 ),
         .O(D[12]));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[13]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[15]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[15]_i_2_n_6 ),
         .O(D[13]));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[14]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[15]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[15]_i_2_n_5 ),
         .O(D[14]));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[15]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[15]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[15]_i_2_n_4 ),
         .O(D[15]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[15]_i_2 
@@ -1272,37 +1335,33 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[12]),
         .I1(SIMM[12]),
         .O(\ADDR_reg[15]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[16]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[19]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[19]_i_2_n_7 ),
         .O(D[16]));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[17]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[19]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[19]_i_2_n_6 ),
         .O(D[17]));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[18]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[19]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[19]_i_2_n_5 ),
         .O(D[18]));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[19]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[19]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[19]_i_2_n_4 ),
         .O(D[19]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[19]_i_2 
@@ -1336,45 +1395,40 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[16]),
         .I1(SIMM[16]),
         .O(\ADDR_reg[19]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[1]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[3]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[3]_i_2_n_6 ),
         .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[20]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[23]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[23]_i_2_n_7 ),
         .O(D[20]));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[21]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[23]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[23]_i_2_n_6 ),
         .O(D[21]));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[22]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[23]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[23]_i_2_n_5 ),
         .O(D[22]));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[23]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[23]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[23]_i_2_n_4 ),
         .O(D[23]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[23]_i_2 
@@ -1408,37 +1462,33 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[20]),
         .I1(SIMM[20]),
         .O(\ADDR_reg[23]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[24]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[27]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[27]_i_2_n_7 ),
         .O(D[24]));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[25]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[27]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[27]_i_2_n_6 ),
         .O(D[25]));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[26]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[27]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[27]_i_2_n_5 ),
         .O(D[26]));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[27]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[27]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[27]_i_2_n_4 ),
         .O(D[27]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[27]_i_2 
@@ -1472,45 +1522,40 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[24]),
         .I1(SIMM[24]),
         .O(\ADDR_reg[27]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
-    \ADDR_reg[28]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[31]_i_3_n_7 ),
-        .O(D[28]));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
-    \ADDR_reg[29]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[31]_i_3_n_6 ),
-        .O(D[29]));
   (* SOFT_HLUTNM = "soft_lutpair11" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \ADDR_reg[28]_i_1 
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[31]_i_3_n_7 ),
+        .O(D[28]));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \ADDR_reg[29]_i_1 
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[31]_i_3_n_6 ),
+        .O(D[29]));
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[2]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(p_0_in_0[0]),
+       (.I0(phase_reg[0]),
+        .I1(p_0_in_0[0]),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[30]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[31]_i_3_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[31]_i_3_n_5 ),
         .O(D[30]));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[31]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(p_1_in),
+       (.I0(phase_reg[0]),
+        .I1(p_1_in),
         .O(D[31]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[31]_i_3 
@@ -1544,13 +1589,12 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[28]),
         .I1(SIMM[28]),
         .O(\ADDR_reg[31]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[3]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(p_0_in_0[1]),
+       (.I0(phase_reg[0]),
+        .I1(p_0_in_0[1]),
         .O(D[3]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[3]_i_2 
@@ -1584,37 +1628,33 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[0]),
         .I1(SIMM[0]),
         .O(\ADDR_reg[3]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[4]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[7]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[7]_i_2_n_7 ),
         .O(D[4]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[5]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[7]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[7]_i_2_n_6 ),
         .O(D[5]));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[6]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[7]_i_2_n_5 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[7]_i_2_n_5 ),
         .O(D[6]));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[7]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[7]_i_2_n_4 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[7]_i_2_n_4 ),
         .O(D[7]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 \ADDR_reg[7]_i_2 
@@ -1648,21 +1688,19 @@ module design_1_soc_0_0_darkriscv
        (.I0(S1REG[4]),
         .I1(SIMM[4]),
         .O(\ADDR_reg[7]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[8]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[11]_i_2_n_7 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[11]_i_2_n_7 ),
         .O(D[8]));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT3 #(
-    .INIT(8'h40)) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ADDR_reg[9]_i_1 
-       (.I0(\DEBUG[32] [1]),
-        .I1(\DEBUG[32] [0]),
-        .I2(\ADDR_reg[11]_i_2_n_6 ),
+       (.I0(phase_reg[0]),
+        .I1(\ADDR_reg[11]_i_2_n_6 ),
         .O(D[9]));
   (* RTL_RAM_BITS = "512" *) 
   (* RTL_RAM_NAME = "REG1" *) 
@@ -3097,8 +3135,8 @@ module design_1_soc_0_0_darkriscv
   LUT2 #(
     .INIT(4'hE)) 
     \XSIMM[31]_i_1 
-       (.I0(\XSIMM_reg[0]_0 [0]),
-        .I1(\XSIMM_reg[0]_0 [1]),
+       (.I0(phase_reg[0]),
+        .I1(phase_reg[1]),
         .O(SIMM0));
   LUT5 #(
     .INIT(32'h2EEE2222)) 
@@ -3353,1455 +3391,1417 @@ endmodule
 
 (* ORIG_REF_NAME = "darksocv" *) 
 module design_1_soc_0_0_darksocv
-   (DEBUG,
+   (Q,
+    \DEBUG[3] ,
+    D,
+    \FSM_onehot_phase_reg[0]_0 ,
+    DEBUG,
     XCLK,
     XRES);
-  output [102:0]DEBUG;
+  output [31:0]Q;
+  output [31:0]\DEBUG[3] ;
+  output [31:0]D;
+  output \FSM_onehot_phase_reg[0]_0 ;
+  output [6:0]DEBUG;
   input XCLK;
   input XRES;
 
   wire [31:0]ADDR;
-  wire \ADDR_reg[31]_i_2_n_0 ;
-  wire [102:0]DEBUG;
+  wire [31:0]D;
+  wire [6:0]DEBUG;
+  wire [31:0]\DEBUG[3] ;
   wire \DEBUG[95]_INST_0_i_5_n_0 ;
   wire [31:0]\EDRAM\.DATA ;
   wire [31:0]\FLASH\.DATA ;
-  wire \FSM_sequential_phase[1]_i_3_n_0 ;
-  wire \FSM_sequential_phase[1]_i_4_n_0 ;
-  wire \FSM_sequential_phase[1]_i_5_n_0 ;
-  wire HLT__0;
+  wire \FSM_onehot_phase[0]_i_3_n_0 ;
+  wire \FSM_onehot_phase[2]_i_3_n_0 ;
+  wire \FSM_onehot_phase[2]_i_5_n_0 ;
+  wire \FSM_onehot_phase_reg[0]_0 ;
   wire IR;
+  wire \IRES[0]_i_1_n_0 ;
+  wire \IRES[5]_i_2_n_0 ;
   wire \IRES[7]_i_2_n_0 ;
   wire [6:0]IRES_reg;
-  wire \IR[31]_i_2_n_0 ;
   wire [31:0]\OCROM\.DATA ;
+  wire [31:0]Q;
   wire RES;
   wire XCLK;
   wire XRES;
   wire [31:0]\memory_map/CORE_DATA ;
-  wire [7:0]p_0_in;
-  wire phase;
-  wire [1:0]phase__0;
-  wire [1:0]phase__1;
-  wire \phase_reg_n_0_[0] ;
-  wire \phase_reg_n_0_[1] ;
+  wire [7:1]p_0_in;
+  wire [0:0]phase__0;
+  wire [1:0]phase_reg;
+  wire rom_n_33;
   wire rom_n_34;
-  wire rom_n_35;
+  wire rom_n_36;
+  wire rom_n_37;
 
-  (* OPT_MODIFIED = "MLO" *) 
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[0] 
        (.CLR(1'b0),
         .D(ADDR[0]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[7]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[0]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[10] 
        (.CLR(1'b0),
         .D(ADDR[10]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[17]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[10]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[11] 
        (.CLR(1'b0),
         .D(ADDR[11]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[18]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[11]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[12] 
        (.CLR(1'b0),
         .D(ADDR[12]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[19]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[12]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[13] 
        (.CLR(1'b0),
         .D(ADDR[13]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[20]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[13]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[14] 
        (.CLR(1'b0),
         .D(ADDR[14]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[21]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[14]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[15] 
        (.CLR(1'b0),
         .D(ADDR[15]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[22]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[15]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[16] 
        (.CLR(1'b0),
         .D(ADDR[16]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[23]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[16]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[17] 
        (.CLR(1'b0),
         .D(ADDR[17]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[24]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[17]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[18] 
        (.CLR(1'b0),
         .D(ADDR[18]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[25]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[18]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[19] 
        (.CLR(1'b0),
         .D(ADDR[19]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[26]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[19]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[1] 
        (.CLR(1'b0),
         .D(ADDR[1]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[8]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[1]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[20] 
        (.CLR(1'b0),
         .D(ADDR[20]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[27]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[20]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[21] 
        (.CLR(1'b0),
         .D(ADDR[21]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[28]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[21]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[22] 
        (.CLR(1'b0),
         .D(ADDR[22]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[29]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[22]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[23] 
        (.CLR(1'b0),
         .D(ADDR[23]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[30]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[23]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[24] 
        (.CLR(1'b0),
         .D(ADDR[24]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[31]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[24]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[25] 
        (.CLR(1'b0),
         .D(ADDR[25]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[32]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[25]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[26] 
        (.CLR(1'b0),
         .D(ADDR[26]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[33]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[26]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[27] 
        (.CLR(1'b0),
         .D(ADDR[27]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[34]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[27]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[28] 
        (.CLR(1'b0),
         .D(ADDR[28]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[35]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[28]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[29] 
        (.CLR(1'b0),
         .D(ADDR[29]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[36]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[29]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[2] 
        (.CLR(1'b0),
         .D(ADDR[2]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[9]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[2]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[30] 
        (.CLR(1'b0),
         .D(ADDR[30]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[37]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[30]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[31] 
        (.CLR(1'b0),
         .D(ADDR[31]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[38]));
-  LUT1 #(
-    .INIT(2'h1)) 
-    \ADDR_reg[31]_i_2 
-       (.I0(phase__0[1]),
-        .O(\ADDR_reg[31]_i_2_n_0 ));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[31]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[3] 
        (.CLR(1'b0),
         .D(ADDR[3]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[10]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[3]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[4] 
        (.CLR(1'b0),
         .D(ADDR[4]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[11]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[4]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[5] 
        (.CLR(1'b0),
         .D(ADDR[5]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[12]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[5]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[6] 
        (.CLR(1'b0),
         .D(ADDR[6]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[13]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[6]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[7] 
        (.CLR(1'b0),
         .D(ADDR[7]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[14]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[7]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[8] 
        (.CLR(1'b0),
         .D(ADDR[8]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[15]));
-  (* OPT_MODIFIED = "MLO" *) 
+        .Q(Q[8]));
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
-    .INIT(1'b0),
-    .IS_G_INVERTED(1'b1)) 
+    .INIT(1'b0)) 
     \ADDR_reg[9] 
        (.CLR(1'b0),
         .D(ADDR[9]),
-        .G(phase__0[1]),
+        .G(rom_n_37),
         .GE(1'b1),
-        .Q(DEBUG[16]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
-  LUT3 #(
-    .INIT(8'h02)) 
+        .Q(Q[9]));
+  LUT6 #(
+    .INIT(64'h1010101010101000)) 
     \DEBUG[14]_INST_0 
-       (.I0(DEBUG[36]),
-        .I1(DEBUG[38]),
-        .I2(DEBUG[37]),
-        .O(DEBUG[3]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
-  LUT3 #(
-    .INIT(8'h01)) 
+       (.I0(Q[30]),
+        .I1(Q[31]),
+        .I2(Q[29]),
+        .I3(phase_reg[1]),
+        .I4(phase__0),
+        .I5(phase_reg[0]),
+        .O(DEBUG[4]));
+  LUT6 #(
+    .INIT(64'h00000000000000FE)) 
     \DEBUG[19]_INST_0 
-       (.I0(DEBUG[37]),
-        .I1(DEBUG[38]),
-        .I2(DEBUG[36]),
+       (.I0(phase_reg[1]),
+        .I1(phase__0),
+        .I2(phase_reg[0]),
+        .I3(Q[29]),
+        .I4(Q[30]),
+        .I5(Q[31]),
         .O(DEBUG[6]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT3 #(
+    .INIT(8'hFE)) 
+    \DEBUG[4]_INST_0 
+       (.I0(phase_reg[0]),
+        .I1(phase__0),
+        .I2(phase_reg[1]),
+        .O(DEBUG[1]));
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[64]_INST_0 
        (.I0(\memory_map/CORE_DATA [0]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[39]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[0]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[64]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [0]),
-        .I1(\FLASH\.DATA [0]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [0]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [0]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [0]),
+        .I4(\EDRAM\.DATA [0]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [0]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[64]_INST_0_i_2 
-       (.I0(DEBUG[39]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [0]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[64]_INST_0_i_3 
-       (.I0(DEBUG[39]),
+       (.I0(D[0]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [0]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[64]_INST_0_i_4 
+       (.I0(D[0]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [0]));
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[65]_INST_0 
        (.I0(\memory_map/CORE_DATA [1]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[40]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[1]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[65]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [1]),
-        .I1(\FLASH\.DATA [1]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [1]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [1]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [1]),
+        .I4(\EDRAM\.DATA [1]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [1]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[65]_INST_0_i_2 
-       (.I0(DEBUG[40]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [1]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[65]_INST_0_i_3 
-       (.I0(DEBUG[40]),
+       (.I0(D[1]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [1]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[65]_INST_0_i_4 
+       (.I0(D[1]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [1]));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[66]_INST_0 
        (.I0(\memory_map/CORE_DATA [2]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[41]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[2]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[66]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [2]),
-        .I1(\FLASH\.DATA [2]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [2]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [2]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [2]),
+        .I4(\EDRAM\.DATA [2]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [2]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[66]_INST_0_i_2 
-       (.I0(DEBUG[41]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [2]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[66]_INST_0_i_3 
-       (.I0(DEBUG[41]),
+       (.I0(D[2]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [2]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[66]_INST_0_i_4 
+       (.I0(D[2]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [2]));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[67]_INST_0 
        (.I0(\memory_map/CORE_DATA [3]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[42]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[3]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[67]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [3]),
-        .I1(\FLASH\.DATA [3]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [3]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [3]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [3]),
+        .I4(\EDRAM\.DATA [3]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [3]));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[67]_INST_0_i_2 
-       (.I0(DEBUG[42]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [3]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[67]_INST_0_i_3 
-       (.I0(DEBUG[42]),
+       (.I0(D[3]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [3]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[67]_INST_0_i_4 
+       (.I0(D[3]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [3]));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[68]_INST_0 
        (.I0(\memory_map/CORE_DATA [4]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[43]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[4]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[68]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [4]),
-        .I1(\FLASH\.DATA [4]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [4]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [4]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [4]),
+        .I4(\EDRAM\.DATA [4]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [4]));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[68]_INST_0_i_2 
-       (.I0(DEBUG[43]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [4]));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[68]_INST_0_i_3 
-       (.I0(DEBUG[43]),
+       (.I0(D[4]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [4]));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[68]_INST_0_i_4 
+       (.I0(D[4]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [4]));
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[69]_INST_0 
        (.I0(\memory_map/CORE_DATA [5]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[44]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[5]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[69]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [5]),
-        .I1(\FLASH\.DATA [5]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [5]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [5]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [5]),
+        .I4(\EDRAM\.DATA [5]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [5]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[69]_INST_0_i_2 
-       (.I0(DEBUG[44]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [5]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[69]_INST_0_i_3 
-       (.I0(DEBUG[44]),
+       (.I0(D[5]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [5]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[69]_INST_0_i_4 
+       (.I0(D[5]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [5]));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[70]_INST_0 
        (.I0(\memory_map/CORE_DATA [6]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[45]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[6]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[70]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [6]),
-        .I1(\FLASH\.DATA [6]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [6]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [6]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [6]),
+        .I4(\EDRAM\.DATA [6]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [6]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[70]_INST_0_i_2 
-       (.I0(DEBUG[45]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [6]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[70]_INST_0_i_3 
-       (.I0(DEBUG[45]),
+       (.I0(D[6]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [6]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[70]_INST_0_i_4 
+       (.I0(D[6]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [6]));
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[71]_INST_0 
        (.I0(\memory_map/CORE_DATA [7]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[46]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[7]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[71]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [7]),
-        .I1(\FLASH\.DATA [7]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [7]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [7]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [7]),
+        .I4(\EDRAM\.DATA [7]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [7]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[71]_INST_0_i_2 
-       (.I0(DEBUG[46]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [7]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[71]_INST_0_i_3 
-       (.I0(DEBUG[46]),
+       (.I0(D[7]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [7]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[71]_INST_0_i_4 
+       (.I0(D[7]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [7]));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[72]_INST_0 
        (.I0(\memory_map/CORE_DATA [8]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[47]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[8]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[72]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [8]),
-        .I1(\FLASH\.DATA [8]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [8]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [8]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [8]),
+        .I4(\EDRAM\.DATA [8]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [8]));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[72]_INST_0_i_2 
-       (.I0(DEBUG[47]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [8]));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[72]_INST_0_i_3 
-       (.I0(DEBUG[47]),
+       (.I0(D[8]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [8]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[72]_INST_0_i_4 
+       (.I0(D[8]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [8]));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[73]_INST_0 
        (.I0(\memory_map/CORE_DATA [9]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[48]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[9]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[73]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [9]),
-        .I1(\FLASH\.DATA [9]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [9]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [9]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [9]),
+        .I4(\EDRAM\.DATA [9]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [9]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[73]_INST_0_i_2 
-       (.I0(DEBUG[48]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [9]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[73]_INST_0_i_3 
-       (.I0(DEBUG[48]),
+       (.I0(D[9]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [9]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[73]_INST_0_i_4 
+       (.I0(D[9]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [9]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[74]_INST_0 
        (.I0(\memory_map/CORE_DATA [10]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[49]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[10]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[74]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [10]),
-        .I1(\FLASH\.DATA [10]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [10]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [10]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [10]),
+        .I4(\EDRAM\.DATA [10]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [10]));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[74]_INST_0_i_2 
-       (.I0(DEBUG[49]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [10]));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[74]_INST_0_i_3 
-       (.I0(DEBUG[49]),
+       (.I0(D[10]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [10]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[74]_INST_0_i_4 
+       (.I0(D[10]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [10]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[75]_INST_0 
        (.I0(\memory_map/CORE_DATA [11]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[50]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[11]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[75]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [11]),
-        .I1(\FLASH\.DATA [11]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [11]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [11]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [11]),
+        .I4(\EDRAM\.DATA [11]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [11]));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[75]_INST_0_i_2 
-       (.I0(DEBUG[50]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [11]));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[75]_INST_0_i_3 
-       (.I0(DEBUG[50]),
+       (.I0(D[11]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [11]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[75]_INST_0_i_4 
+       (.I0(D[11]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [11]));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[76]_INST_0 
        (.I0(\memory_map/CORE_DATA [12]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[51]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[12]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[76]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [12]),
-        .I1(\FLASH\.DATA [12]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [12]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [12]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [12]),
+        .I4(\EDRAM\.DATA [12]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [12]));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[76]_INST_0_i_2 
-       (.I0(DEBUG[51]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [12]));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[76]_INST_0_i_3 
-       (.I0(DEBUG[51]),
+       (.I0(D[12]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [12]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[76]_INST_0_i_4 
+       (.I0(D[12]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [12]));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[77]_INST_0 
        (.I0(\memory_map/CORE_DATA [13]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[52]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[13]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[77]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [13]),
-        .I1(\FLASH\.DATA [13]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [13]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [13]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [13]),
+        .I4(\EDRAM\.DATA [13]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [13]));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[77]_INST_0_i_2 
-       (.I0(DEBUG[52]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [13]));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[77]_INST_0_i_3 
-       (.I0(DEBUG[52]),
+       (.I0(D[13]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [13]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[77]_INST_0_i_4 
+       (.I0(D[13]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [13]));
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[78]_INST_0 
        (.I0(\memory_map/CORE_DATA [14]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[53]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[14]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[78]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [14]),
-        .I1(\FLASH\.DATA [14]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [14]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [14]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [14]),
+        .I4(\EDRAM\.DATA [14]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [14]));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[78]_INST_0_i_2 
-       (.I0(DEBUG[53]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [14]));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[78]_INST_0_i_3 
-       (.I0(DEBUG[53]),
+       (.I0(D[14]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [14]));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
-  LUT3 #(
-    .INIT(8'hE0)) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[78]_INST_0_i_4 
+       (.I0(D[14]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [14]));
+  LUT6 #(
+    .INIT(64'hA8A8A8A8A8A8A800)) 
     \DEBUG[7]_INST_0 
-       (.I0(DEBUG[37]),
-        .I1(DEBUG[38]),
-        .I2(DEBUG[5]),
-        .O(DEBUG[1]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+       (.I0(\FSM_onehot_phase_reg[0]_0 ),
+        .I1(Q[30]),
+        .I2(Q[31]),
+        .I3(phase_reg[1]),
+        .I4(phase__0),
+        .I5(phase_reg[0]),
+        .O(DEBUG[2]));
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[80]_INST_0 
        (.I0(\memory_map/CORE_DATA [16]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[55]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[16]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[80]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [16]),
-        .I1(\FLASH\.DATA [16]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [16]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [16]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [16]),
+        .I4(\EDRAM\.DATA [16]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [16]));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[80]_INST_0_i_2 
-       (.I0(DEBUG[55]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [16]));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[80]_INST_0_i_3 
-       (.I0(DEBUG[55]),
+       (.I0(D[16]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [16]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[80]_INST_0_i_4 
+       (.I0(D[16]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [16]));
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[81]_INST_0 
        (.I0(\memory_map/CORE_DATA [17]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[56]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[17]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[81]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [17]),
-        .I1(\FLASH\.DATA [17]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [17]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [17]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [17]),
+        .I4(\EDRAM\.DATA [17]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [17]));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[81]_INST_0_i_2 
-       (.I0(DEBUG[56]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [17]));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[81]_INST_0_i_3 
-       (.I0(DEBUG[56]),
+       (.I0(D[17]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [17]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[81]_INST_0_i_4 
+       (.I0(D[17]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [17]));
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[82]_INST_0 
        (.I0(\memory_map/CORE_DATA [18]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[57]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[18]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[82]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [18]),
-        .I1(\FLASH\.DATA [18]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [18]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [18]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [18]),
+        .I4(\EDRAM\.DATA [18]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [18]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[82]_INST_0_i_2 
-       (.I0(DEBUG[57]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [18]));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[82]_INST_0_i_3 
-       (.I0(DEBUG[57]),
+       (.I0(D[18]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [18]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[82]_INST_0_i_4 
+       (.I0(D[18]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [18]));
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[83]_INST_0 
        (.I0(\memory_map/CORE_DATA [19]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[58]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[19]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[83]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [19]),
-        .I1(\FLASH\.DATA [19]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [19]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [19]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [19]),
+        .I4(\EDRAM\.DATA [19]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [19]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[83]_INST_0_i_2 
-       (.I0(DEBUG[58]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [19]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[83]_INST_0_i_3 
-       (.I0(DEBUG[58]),
+       (.I0(D[19]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [19]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[83]_INST_0_i_4 
+       (.I0(D[19]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [19]));
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[84]_INST_0 
        (.I0(\memory_map/CORE_DATA [20]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[59]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[20]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[84]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [20]),
-        .I1(\FLASH\.DATA [20]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [20]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [20]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [20]),
+        .I4(\EDRAM\.DATA [20]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [20]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[84]_INST_0_i_2 
-       (.I0(DEBUG[59]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [20]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[84]_INST_0_i_3 
-       (.I0(DEBUG[59]),
+       (.I0(D[20]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [20]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[84]_INST_0_i_4 
+       (.I0(D[20]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [20]));
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[85]_INST_0 
        (.I0(\memory_map/CORE_DATA [21]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[60]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[21]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[85]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [21]),
-        .I1(\FLASH\.DATA [21]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [21]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [21]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [21]),
+        .I4(\EDRAM\.DATA [21]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [21]));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[85]_INST_0_i_2 
-       (.I0(DEBUG[60]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [21]));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[85]_INST_0_i_3 
-       (.I0(DEBUG[60]),
+       (.I0(D[21]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [21]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[85]_INST_0_i_4 
+       (.I0(D[21]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [21]));
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[86]_INST_0 
        (.I0(\memory_map/CORE_DATA [22]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[61]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[22]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[86]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [22]),
-        .I1(\FLASH\.DATA [22]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [22]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [22]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [22]),
+        .I4(\EDRAM\.DATA [22]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [22]));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[86]_INST_0_i_2 
-       (.I0(DEBUG[61]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [22]));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[86]_INST_0_i_3 
-       (.I0(DEBUG[61]),
+       (.I0(D[22]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [22]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[86]_INST_0_i_4 
+       (.I0(D[22]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [22]));
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[87]_INST_0 
        (.I0(\memory_map/CORE_DATA [23]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[62]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[23]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[87]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [23]),
-        .I1(\FLASH\.DATA [23]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [23]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [23]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [23]),
+        .I4(\EDRAM\.DATA [23]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [23]));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[87]_INST_0_i_2 
-       (.I0(DEBUG[62]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [23]));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[87]_INST_0_i_3 
-       (.I0(DEBUG[62]),
+       (.I0(D[23]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [23]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[87]_INST_0_i_4 
+       (.I0(D[23]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [23]));
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[88]_INST_0 
        (.I0(\memory_map/CORE_DATA [24]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[63]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[24]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[88]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [24]),
-        .I1(\FLASH\.DATA [24]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [24]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [24]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [24]),
+        .I4(\EDRAM\.DATA [24]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [24]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[88]_INST_0_i_2 
-       (.I0(DEBUG[63]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [24]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[88]_INST_0_i_3 
-       (.I0(DEBUG[63]),
+       (.I0(D[24]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [24]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[88]_INST_0_i_4 
+       (.I0(D[24]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [24]));
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[89]_INST_0 
        (.I0(\memory_map/CORE_DATA [25]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[64]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[25]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[89]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [25]),
-        .I1(\FLASH\.DATA [25]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [25]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [25]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [25]),
+        .I4(\EDRAM\.DATA [25]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [25]));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[89]_INST_0_i_2 
-       (.I0(DEBUG[64]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [25]));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[89]_INST_0_i_3 
-       (.I0(DEBUG[64]),
+       (.I0(D[25]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [25]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[89]_INST_0_i_4 
+       (.I0(D[25]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [25]));
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[90]_INST_0 
        (.I0(\memory_map/CORE_DATA [26]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[65]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[26]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[90]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [26]),
-        .I1(\FLASH\.DATA [26]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [26]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [26]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [26]),
+        .I4(\EDRAM\.DATA [26]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [26]));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[90]_INST_0_i_2 
-       (.I0(DEBUG[65]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [26]));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[90]_INST_0_i_3 
-       (.I0(DEBUG[65]),
+       (.I0(D[26]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [26]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[90]_INST_0_i_4 
+       (.I0(D[26]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [26]));
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[91]_INST_0 
        (.I0(\memory_map/CORE_DATA [27]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[66]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[27]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[91]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [27]),
-        .I1(\FLASH\.DATA [27]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [27]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [27]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [27]),
+        .I4(\EDRAM\.DATA [27]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [27]));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[91]_INST_0_i_2 
-       (.I0(DEBUG[66]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [27]));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[91]_INST_0_i_3 
-       (.I0(DEBUG[66]),
+       (.I0(D[27]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [27]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[91]_INST_0_i_4 
+       (.I0(D[27]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [27]));
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[92]_INST_0 
        (.I0(\memory_map/CORE_DATA [28]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[67]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[28]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[92]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [28]),
-        .I1(\FLASH\.DATA [28]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [28]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [28]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [28]),
+        .I4(\EDRAM\.DATA [28]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [28]));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[92]_INST_0_i_2 
-       (.I0(DEBUG[67]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [28]));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[92]_INST_0_i_3 
-       (.I0(DEBUG[67]),
+       (.I0(D[28]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [28]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[92]_INST_0_i_4 
+       (.I0(D[28]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [28]));
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[93]_INST_0 
        (.I0(\memory_map/CORE_DATA [29]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[68]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[29]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[93]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [29]),
-        .I1(\FLASH\.DATA [29]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [29]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [29]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [29]),
+        .I4(\EDRAM\.DATA [29]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [29]));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[93]_INST_0_i_2 
-       (.I0(DEBUG[68]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [29]));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[93]_INST_0_i_3 
-       (.I0(DEBUG[68]),
+       (.I0(D[29]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [29]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[93]_INST_0_i_4 
+       (.I0(D[29]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [29]));
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[94]_INST_0 
        (.I0(\memory_map/CORE_DATA [30]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[69]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[30]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[94]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [30]),
-        .I1(\FLASH\.DATA [30]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [30]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [30]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [30]),
+        .I4(\EDRAM\.DATA [30]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [30]));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[94]_INST_0_i_2 
-       (.I0(DEBUG[69]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [30]));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[94]_INST_0_i_3 
-       (.I0(DEBUG[69]),
+       (.I0(D[30]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [30]));
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[94]_INST_0_i_4 
+       (.I0(D[30]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [30]));
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[95]_INST_0 
        (.I0(\memory_map/CORE_DATA [31]),
-        .I1(DEBUG[5]),
-        .O(DEBUG[70]));
+        .I1(\FSM_onehot_phase_reg[0]_0 ),
+        .O(D[31]));
   LUT6 #(
-    .INIT(64'hAAACAAAFAAACAAA0)) 
+    .INIT(64'hFFFFF888F888F888)) 
     \DEBUG[95]_INST_0_i_1 
-       (.I0(\EDRAM\.DATA [31]),
-        .I1(\FLASH\.DATA [31]),
-        .I2(DEBUG[37]),
-        .I3(DEBUG[38]),
-        .I4(DEBUG[36]),
-        .I5(\OCROM\.DATA [31]),
+       (.I0(DEBUG[6]),
+        .I1(\OCROM\.DATA [31]),
+        .I2(DEBUG[4]),
+        .I3(\FLASH\.DATA [31]),
+        .I4(\EDRAM\.DATA [31]),
+        .I5(DEBUG[3]),
         .O(\memory_map/CORE_DATA [31]));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \DEBUG[95]_INST_0_i_2 
-       (.I0(DEBUG[70]),
-        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
-        .O(\EDRAM\.DATA [31]));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \DEBUG[95]_INST_0_i_3 
-       (.I0(DEBUG[70]),
+       (.I0(D[31]),
         .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
         .O(\FLASH\.DATA [31]));
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \DEBUG[95]_INST_0_i_4 
+       (.I0(D[31]),
+        .I1(\DEBUG[95]_INST_0_i_5_n_0 ),
+        .O(\EDRAM\.DATA [31]));
   LUT1 #(
     .INIT(2'h1)) 
     \DEBUG[95]_INST_0_i_5 
-       (.I0(DEBUG[5]),
+       (.I0(\FSM_onehot_phase_reg[0]_0 ),
         .O(\DEBUG[95]_INST_0_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  LUT5 #(
+    .INIT(32'hFEFEFE00)) 
+    \DEBUG[9]_INST_0 
+       (.I0(phase_reg[1]),
+        .I1(phase__0),
+        .I2(phase_reg[0]),
+        .I3(Q[31]),
+        .I4(Q[30]),
+        .O(DEBUG[3]));
   LUT2 #(
     .INIT(4'hE)) 
-    \DEBUG[9]_INST_0 
-       (.I0(DEBUG[38]),
-        .I1(DEBUG[37]),
-        .O(DEBUG[2]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \FSM_sequential_phase[1]_i_3 
-       (.I0(RES),
-        .I1(IRES_reg[6]),
-        .I2(IRES_reg[1]),
-        .I3(IRES_reg[0]),
-        .I4(IRES_reg[2]),
-        .I5(IRES_reg[4]),
-        .O(\FSM_sequential_phase[1]_i_3_n_0 ));
+    \FSM_onehot_phase[0]_i_3 
+       (.I0(Q[30]),
+        .I1(Q[31]),
+        .O(\FSM_onehot_phase[0]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  LUT4 #(
+    .INIT(16'hFFFB)) 
+    \FSM_onehot_phase[2]_i_3 
+       (.I0(\FSM_onehot_phase[2]_i_5_n_0 ),
+        .I1(D[0]),
+        .I2(D[5]),
+        .I3(D[6]),
+        .O(\FSM_onehot_phase[2]_i_3_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT4 #(
-    .INIT(16'hFEFF)) 
-    \FSM_sequential_phase[1]_i_4 
-       (.I0(\FSM_sequential_phase[1]_i_5_n_0 ),
-        .I1(DEBUG[43]),
-        .I2(DEBUG[44]),
-        .I3(DEBUG[39]),
-        .O(\FSM_sequential_phase[1]_i_4_n_0 ));
+    .INIT(16'hFFFD)) 
+    \FSM_onehot_phase[2]_i_5 
+       (.I0(D[1]),
+        .I1(D[2]),
+        .I2(D[4]),
+        .I3(D[3]),
+        .O(\FSM_onehot_phase[2]_i_5_n_0 ));
+  (* FSM_ENCODED_STATES = "PHASE_L:010,PHASE_I:001,PHASE_E:100" *) 
+  FDRE #(
+    .INIT(1'b1)) 
+    \FSM_onehot_phase_reg[0] 
+       (.C(XCLK),
+        .CE(1'b1),
+        .D(rom_n_36),
+        .Q(phase__0),
+        .R(1'b0));
+  (* FSM_ENCODED_STATES = "PHASE_L:010,PHASE_I:001,PHASE_E:100" *) 
+  FDRE #(
+    .INIT(1'b0)) 
+    \FSM_onehot_phase_reg[1] 
+       (.C(XCLK),
+        .CE(1'b1),
+        .D(rom_n_34),
+        .Q(phase_reg[0]),
+        .R(1'b0));
+  (* FSM_ENCODED_STATES = "PHASE_L:010,PHASE_I:001,PHASE_E:100" *) 
+  FDRE #(
+    .INIT(1'b0)) 
+    \FSM_onehot_phase_reg[2] 
+       (.C(XCLK),
+        .CE(1'b1),
+        .D(rom_n_33),
+        .Q(phase_reg[1]),
+        .R(1'b0));
   (* SOFT_HLUTNM = "soft_lutpair32" *) 
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    \FSM_sequential_phase[1]_i_5 
-       (.I0(DEBUG[42]),
-        .I1(DEBUG[45]),
-        .I2(DEBUG[40]),
-        .I3(DEBUG[41]),
-        .O(\FSM_sequential_phase[1]_i_5_n_0 ));
-  (* FSM_ENCODED_STATES = "PHASE_L:01,PHASE_I:00,PHASE_E:10" *) 
-  FDRE #(
-    .INIT(1'b0)) 
-    \FSM_sequential_phase_reg[0] 
-       (.C(XCLK),
-        .CE(phase),
-        .D(phase__1[0]),
-        .Q(phase__0[0]),
-        .R(1'b0));
-  (* FSM_ENCODED_STATES = "PHASE_L:01,PHASE_I:00,PHASE_E:10" *) 
-  FDRE #(
-    .INIT(1'b0)) 
-    \FSM_sequential_phase_reg[1] 
-       (.C(XCLK),
-        .CE(phase),
-        .D(phase__1[1]),
-        .Q(phase__0[1]),
-        .R(1'b0));
   LUT2 #(
     .INIT(4'h2)) 
     \IRES[0]_i_1 
        (.I0(RES),
         .I1(IRES_reg[0]),
-        .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+        .O(\IRES[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
-    .INIT(8'h84)) 
+    .INIT(8'h90)) 
     \IRES[1]_i_1 
        (.I0(IRES_reg[0]),
-        .I1(RES),
-        .I2(IRES_reg[1]),
+        .I1(IRES_reg[1]),
+        .I2(RES),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT4 #(
     .INIT(16'hE100)) 
     \IRES[2]_i_1 
@@ -4810,69 +4810,74 @@ module design_1_soc_0_0_darksocv
         .I2(IRES_reg[2]),
         .I3(RES),
         .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT5 #(
-    .INIT(32'hFE000100)) 
+    .INIT(32'hFE010000)) 
     \IRES[3]_i_1 
-       (.I0(IRES_reg[1]),
-        .I1(IRES_reg[0]),
-        .I2(IRES_reg[2]),
-        .I3(RES),
-        .I4(IRES_reg[3]),
-        .O(p_0_in[3]));
-  LUT6 #(
-    .INIT(64'hFFFE000000010000)) 
-    \IRES[4]_i_1 
        (.I0(IRES_reg[2]),
         .I1(IRES_reg[0]),
         .I2(IRES_reg[1]),
         .I3(IRES_reg[3]),
         .I4(RES),
-        .I5(IRES_reg[4]),
-        .O(p_0_in[4]));
-  LUT5 #(
-    .INIT(32'hFE000100)) 
-    \IRES[5]_i_1 
-       (.I0(IRES_reg[3]),
-        .I1(\IRES[7]_i_2_n_0 ),
-        .I2(IRES_reg[4]),
-        .I3(RES),
-        .I4(IRES_reg[5]),
-        .O(p_0_in[5]));
+        .O(p_0_in[3]));
   LUT6 #(
     .INIT(64'hFFFE000100000000)) 
-    \IRES[6]_i_1 
-       (.I0(IRES_reg[5]),
-        .I1(IRES_reg[3]),
-        .I2(\IRES[7]_i_2_n_0 ),
-        .I3(IRES_reg[4]),
-        .I4(IRES_reg[6]),
+    \IRES[4]_i_1 
+       (.I0(IRES_reg[3]),
+        .I1(IRES_reg[1]),
+        .I2(IRES_reg[0]),
+        .I3(IRES_reg[2]),
+        .I4(IRES_reg[4]),
         .I5(RES),
+        .O(p_0_in[4]));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  LUT3 #(
+    .INIT(8'h90)) 
+    \IRES[5]_i_1 
+       (.I0(\IRES[5]_i_2_n_0 ),
+        .I1(IRES_reg[5]),
+        .I2(RES),
+        .O(p_0_in[5]));
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    \IRES[5]_i_2 
+       (.I0(IRES_reg[3]),
+        .I1(IRES_reg[1]),
+        .I2(IRES_reg[0]),
+        .I3(IRES_reg[2]),
+        .I4(IRES_reg[4]),
+        .O(\IRES[5]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  LUT3 #(
+    .INIT(8'h90)) 
+    \IRES[6]_i_1 
+       (.I0(\IRES[7]_i_2_n_0 ),
+        .I1(IRES_reg[6]),
+        .I2(RES),
         .O(p_0_in[6]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFE00000000)) 
+  LUT3 #(
+    .INIT(8'hE0)) 
     \IRES[7]_i_1 
        (.I0(IRES_reg[6]),
-        .I1(IRES_reg[4]),
-        .I2(\IRES[7]_i_2_n_0 ),
-        .I3(IRES_reg[3]),
-        .I4(IRES_reg[5]),
-        .I5(RES),
+        .I1(\IRES[7]_i_2_n_0 ),
+        .I2(RES),
         .O(p_0_in[7]));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
     \IRES[7]_i_2 
-       (.I0(IRES_reg[1]),
-        .I1(IRES_reg[0]),
-        .I2(IRES_reg[2]),
+       (.I0(IRES_reg[4]),
+        .I1(IRES_reg[2]),
+        .I2(IRES_reg[0]),
+        .I3(IRES_reg[1]),
+        .I4(IRES_reg[3]),
+        .I5(IRES_reg[5]),
         .O(\IRES[7]_i_2_n_0 ));
   FDSE #(
     .INIT(1'b1)) 
     \IRES_reg[0] 
        (.C(XCLK),
         .CE(1'b1),
-        .D(p_0_in[0]),
+        .D(\IRES[0]_i_1_n_0 ),
         .Q(IRES_reg[0]),
         .S(XRES));
   FDSE #(
@@ -4931,309 +4936,394 @@ module design_1_soc_0_0_darksocv
         .D(p_0_in[7]),
         .Q(RES),
         .S(XRES));
-  LUT2 #(
-    .INIT(4'hE)) 
-    \IR[31]_i_2 
-       (.I0(DEBUG[37]),
-        .I1(DEBUG[38]),
-        .O(\IR[31]_i_2_n_0 ));
   FDRE \IR_reg[0] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[39]),
-        .Q(DEBUG[71]),
+        .D(D[0]),
+        .Q(\DEBUG[3] [0]),
         .R(1'b0));
   FDRE \IR_reg[10] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[49]),
-        .Q(DEBUG[81]),
+        .D(D[10]),
+        .Q(\DEBUG[3] [10]),
         .R(1'b0));
   FDRE \IR_reg[11] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[50]),
-        .Q(DEBUG[82]),
+        .D(D[11]),
+        .Q(\DEBUG[3] [11]),
         .R(1'b0));
   FDRE \IR_reg[12] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[51]),
-        .Q(DEBUG[83]),
+        .D(D[12]),
+        .Q(\DEBUG[3] [12]),
         .R(1'b0));
   FDRE \IR_reg[13] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[52]),
-        .Q(DEBUG[84]),
+        .D(D[13]),
+        .Q(\DEBUG[3] [13]),
         .R(1'b0));
   FDRE \IR_reg[14] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[53]),
-        .Q(DEBUG[85]),
+        .D(D[14]),
+        .Q(\DEBUG[3] [14]),
         .R(1'b0));
   FDRE \IR_reg[15] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[54]),
-        .Q(DEBUG[86]),
+        .D(D[15]),
+        .Q(\DEBUG[3] [15]),
         .R(1'b0));
   FDRE \IR_reg[16] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[55]),
-        .Q(DEBUG[87]),
+        .D(D[16]),
+        .Q(\DEBUG[3] [16]),
         .R(1'b0));
   FDRE \IR_reg[17] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[56]),
-        .Q(DEBUG[88]),
+        .D(D[17]),
+        .Q(\DEBUG[3] [17]),
         .R(1'b0));
   FDRE \IR_reg[18] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[57]),
-        .Q(DEBUG[89]),
+        .D(D[18]),
+        .Q(\DEBUG[3] [18]),
         .R(1'b0));
   FDRE \IR_reg[19] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[58]),
-        .Q(DEBUG[90]),
+        .D(D[19]),
+        .Q(\DEBUG[3] [19]),
         .R(1'b0));
   FDRE \IR_reg[1] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[40]),
-        .Q(DEBUG[72]),
+        .D(D[1]),
+        .Q(\DEBUG[3] [1]),
         .R(1'b0));
   FDRE \IR_reg[20] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[59]),
-        .Q(DEBUG[91]),
+        .D(D[20]),
+        .Q(\DEBUG[3] [20]),
         .R(1'b0));
   FDRE \IR_reg[21] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[60]),
-        .Q(DEBUG[92]),
+        .D(D[21]),
+        .Q(\DEBUG[3] [21]),
         .R(1'b0));
   FDRE \IR_reg[22] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[61]),
-        .Q(DEBUG[93]),
+        .D(D[22]),
+        .Q(\DEBUG[3] [22]),
         .R(1'b0));
   FDRE \IR_reg[23] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[62]),
-        .Q(DEBUG[94]),
+        .D(D[23]),
+        .Q(\DEBUG[3] [23]),
         .R(1'b0));
   FDRE \IR_reg[24] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[63]),
-        .Q(DEBUG[95]),
+        .D(D[24]),
+        .Q(\DEBUG[3] [24]),
         .R(1'b0));
   FDRE \IR_reg[25] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[64]),
-        .Q(DEBUG[96]),
+        .D(D[25]),
+        .Q(\DEBUG[3] [25]),
         .R(1'b0));
   FDRE \IR_reg[26] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[65]),
-        .Q(DEBUG[97]),
+        .D(D[26]),
+        .Q(\DEBUG[3] [26]),
         .R(1'b0));
   FDRE \IR_reg[27] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[66]),
-        .Q(DEBUG[98]),
+        .D(D[27]),
+        .Q(\DEBUG[3] [27]),
         .R(1'b0));
   FDRE \IR_reg[28] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[67]),
-        .Q(DEBUG[99]),
+        .D(D[28]),
+        .Q(\DEBUG[3] [28]),
         .R(1'b0));
   FDRE \IR_reg[29] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[68]),
-        .Q(DEBUG[100]),
+        .D(D[29]),
+        .Q(\DEBUG[3] [29]),
         .R(1'b0));
   FDRE \IR_reg[2] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[41]),
-        .Q(DEBUG[73]),
+        .D(D[2]),
+        .Q(\DEBUG[3] [2]),
         .R(1'b0));
   FDRE \IR_reg[30] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[69]),
-        .Q(DEBUG[101]),
+        .D(D[30]),
+        .Q(\DEBUG[3] [30]),
         .R(1'b0));
   FDRE \IR_reg[31] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[70]),
-        .Q(DEBUG[102]),
+        .D(D[31]),
+        .Q(\DEBUG[3] [31]),
         .R(1'b0));
   FDRE \IR_reg[3] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[42]),
-        .Q(DEBUG[74]),
+        .D(D[3]),
+        .Q(\DEBUG[3] [3]),
         .R(1'b0));
   FDRE \IR_reg[4] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[43]),
-        .Q(DEBUG[75]),
+        .D(D[4]),
+        .Q(\DEBUG[3] [4]),
         .R(1'b0));
   FDRE \IR_reg[5] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[44]),
-        .Q(DEBUG[76]),
+        .D(D[5]),
+        .Q(\DEBUG[3] [5]),
         .R(1'b0));
   FDRE \IR_reg[6] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[45]),
-        .Q(DEBUG[77]),
+        .D(D[6]),
+        .Q(\DEBUG[3] [6]),
         .R(1'b0));
   FDRE \IR_reg[7] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[46]),
-        .Q(DEBUG[78]),
+        .D(D[7]),
+        .Q(\DEBUG[3] [7]),
         .R(1'b0));
   FDRE \IR_reg[8] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[47]),
-        .Q(DEBUG[79]),
+        .D(D[8]),
+        .Q(\DEBUG[3] [8]),
         .R(1'b0));
   FDRE \IR_reg[9] 
        (.C(XCLK),
         .CE(IR),
-        .D(DEBUG[48]),
-        .Q(DEBUG[80]),
+        .D(D[9]),
+        .Q(\DEBUG[3] [9]),
         .R(1'b0));
-  (* OPT_MODIFIED = "MLO" *) 
   (* XILINX_LEGACY_PRIM = "LD" *) 
   LDCE #(
     .INIT(1'b0)) 
     RE_reg
        (.CLR(1'b0),
-        .D(\ADDR_reg[31]_i_2_n_0 ),
-        .G(HLT__0),
+        .D(rom_n_37),
+        .G(DEBUG[1]),
         .GE(1'b1),
-        .Q(DEBUG[5]));
-  LUT2 #(
-    .INIT(4'h7)) 
-    RE_reg_i_1
-       (.I0(phase__0[0]),
-        .I1(phase__0[1]),
-        .O(HLT__0));
+        .Q(\FSM_onehot_phase_reg[0]_0 ));
   design_1_soc_0_0_darkriscv core0
        (.D(ADDR),
-        .\DEBUG[32] (phase__0),
-        .Q(DEBUG[102:71]),
+        .Q(\DEBUG[3] ),
         .\RESMODE_reg[3]_0 (RES),
         .XCLK(XCLK),
-        .\XSIMM_reg[0]_0 ({\phase_reg_n_0_[1] ,\phase_reg_n_0_[0] }));
-  FDRE #(
-    .INIT(1'b0)) 
-    \phase_reg[0] 
-       (.C(XCLK),
-        .CE(phase),
-        .D(rom_n_35),
-        .Q(\phase_reg_n_0_[0] ),
-        .R(1'b0));
-  FDRE #(
-    .INIT(1'b0)) 
-    \phase_reg[1] 
-       (.C(XCLK),
-        .CE(phase),
-        .D(rom_n_34),
-        .Q(\phase_reg_n_0_[1] ),
-        .R(1'b0));
+        .phase_reg(phase_reg));
   design_1_soc_0_0_darkocrom rom
-       (.D({rom_n_34,rom_n_35}),
-        .DEBUG({DEBUG[54],DEBUG[4],DEBUG[0]}),
-        .\DEBUG[64]_INST_0_i_1 (DEBUG[39]),
-        .\DEBUG[65]_INST_0_i_1 (DEBUG[40]),
-        .\DEBUG[66]_INST_0_i_1 (DEBUG[41]),
-        .\DEBUG[67]_INST_0_i_1 (DEBUG[42]),
-        .\DEBUG[68]_INST_0_i_1 (DEBUG[43]),
-        .\DEBUG[69]_INST_0_i_1 (DEBUG[44]),
-        .\DEBUG[70]_INST_0_i_1 (DEBUG[45]),
-        .\DEBUG[71]_INST_0_i_1 (DEBUG[46]),
-        .\DEBUG[72]_INST_0_i_1 (DEBUG[47]),
-        .\DEBUG[73]_INST_0_i_1 (DEBUG[48]),
-        .\DEBUG[74]_INST_0_i_1 (DEBUG[49]),
-        .\DEBUG[75]_INST_0_i_1 (DEBUG[50]),
-        .\DEBUG[76]_INST_0_i_1 (DEBUG[51]),
-        .\DEBUG[77]_INST_0_i_1 (DEBUG[52]),
-        .\DEBUG[78]_INST_0_i_1 (DEBUG[53]),
+       (.\BUS\.RACK_reg_0 (DEBUG[5]),
+        .\BUS\.RACK_reg_1 (\FSM_onehot_phase_reg[0]_0 ),
+        .DEBUG(DEBUG[0]),
+        .\DEBUG[2] (DEBUG[1]),
+        .\DEBUG[64]_INST_0_i_1 (D[0]),
+        .\DEBUG[65]_INST_0_i_1 (D[1]),
+        .\DEBUG[66]_INST_0_i_1 (D[2]),
+        .\DEBUG[67]_INST_0_i_1 (D[3]),
+        .\DEBUG[68]_INST_0_i_1 (D[4]),
+        .\DEBUG[69]_INST_0_i_1 (D[5]),
+        .\DEBUG[70]_INST_0_i_1 (D[6]),
+        .\DEBUG[71]_INST_0_i_1 (D[7]),
+        .\DEBUG[72]_INST_0_i_1 (D[8]),
+        .\DEBUG[73]_INST_0_i_1 (D[9]),
+        .\DEBUG[74]_INST_0_i_1 (D[10]),
+        .\DEBUG[75]_INST_0_i_1 (D[11]),
+        .\DEBUG[76]_INST_0_i_1 (D[12]),
+        .\DEBUG[77]_INST_0_i_1 (D[13]),
+        .\DEBUG[78]_INST_0_i_1 (D[14]),
         .\DEBUG[79]_INST_0_i_1_0 (\DEBUG[95]_INST_0_i_5_n_0 ),
-        .\DEBUG[80]_INST_0_i_1 (DEBUG[55]),
-        .\DEBUG[81]_INST_0_i_1 (DEBUG[56]),
-        .\DEBUG[82]_INST_0_i_1 (DEBUG[57]),
-        .\DEBUG[83]_INST_0_i_1 (DEBUG[58]),
-        .\DEBUG[84]_INST_0_i_1 (DEBUG[59]),
-        .\DEBUG[85]_INST_0_i_1 (DEBUG[60]),
-        .\DEBUG[86]_INST_0_i_1 (DEBUG[61]),
-        .\DEBUG[87]_INST_0_i_1 (DEBUG[62]),
-        .\DEBUG[88]_INST_0_i_1 (DEBUG[63]),
-        .\DEBUG[89]_INST_0_i_1 (DEBUG[64]),
-        .\DEBUG[90]_INST_0_i_1 (DEBUG[65]),
-        .\DEBUG[91]_INST_0_i_1 (DEBUG[66]),
-        .\DEBUG[92]_INST_0_i_1 (DEBUG[67]),
-        .\DEBUG[93]_INST_0_i_1 (DEBUG[68]),
-        .\DEBUG[94]_INST_0_i_1 (DEBUG[69]),
-        .\DEBUG[95]_INST_0_i_1 (DEBUG[70]),
-        .E(phase),
-        .\FSM_sequential_phase_reg[0] (phase__1),
-        .\FSM_sequential_phase_reg[1] (IR),
-        .\IR_reg[0] (DEBUG[5]),
-        .\IR_reg[0]_0 (\IR[31]_i_2_n_0 ),
-        .\IR_reg[0]_1 (DEBUG[6]),
-        .Q(DEBUG[38:9]),
+        .\DEBUG[80]_INST_0_i_1 (D[16]),
+        .\DEBUG[81]_INST_0_i_1 (D[17]),
+        .\DEBUG[82]_INST_0_i_1 (D[18]),
+        .\DEBUG[83]_INST_0_i_1 (D[19]),
+        .\DEBUG[84]_INST_0_i_1 (D[20]),
+        .\DEBUG[85]_INST_0_i_1 (D[21]),
+        .\DEBUG[86]_INST_0_i_1 (D[22]),
+        .\DEBUG[87]_INST_0_i_1 (D[23]),
+        .\DEBUG[88]_INST_0_i_1 (D[24]),
+        .\DEBUG[89]_INST_0_i_1 (D[25]),
+        .\DEBUG[90]_INST_0_i_1 (D[26]),
+        .\DEBUG[91]_INST_0_i_1 (D[27]),
+        .\DEBUG[92]_INST_0_i_1 (D[28]),
+        .\DEBUG[93]_INST_0_i_1 (D[29]),
+        .\DEBUG[94]_INST_0_i_1 (D[30]),
+        .\DEBUG[95]_INST_0_i_1 (D[31]),
+        .E(IR),
+        .\FSM_onehot_phase_reg[0] (rom_n_36),
+        .\FSM_onehot_phase_reg[0]_0 (rom_n_37),
+        .\FSM_onehot_phase_reg[0]_1 ({RES,IRES_reg[6]}),
+        .\FSM_onehot_phase_reg[0]_2 (\IRES[7]_i_2_n_0 ),
+        .\FSM_onehot_phase_reg[0]_3 (\FSM_onehot_phase[0]_i_3_n_0 ),
+        .\FSM_onehot_phase_reg[1] (rom_n_33),
+        .\FSM_onehot_phase_reg[1]_0 (rom_n_34),
+        .\FSM_onehot_phase_reg[2] (\FSM_onehot_phase[2]_i_3_n_0 ),
+        .\IR_reg[15] (DEBUG[6]),
+        .\IR_reg[15]_0 (DEBUG[4]),
+        .\IR_reg[15]_1 (DEBUG[3]),
+        .Q(Q[31:2]),
+        .RE_reg(D[15]),
         .XCLK(XCLK),
         .data_reg_reg_0({\OCROM\.DATA [31:16],\OCROM\.DATA [14:0]}),
-        .\phase_reg[0] (\FSM_sequential_phase[1]_i_4_n_0 ),
-        .\phase_reg[0]_0 ({\phase_reg_n_0_[1] ,\phase_reg_n_0_[0] }),
-        .\phase_reg[0]_1 (phase__0),
-        .\phase_reg[0]_2 (\FSM_sequential_phase[1]_i_3_n_0 ),
-        .\phase_reg[0]_3 ({IRES_reg[5],IRES_reg[3]}));
+        .phase__0(phase__0),
+        .phase_reg(phase_reg));
 endmodule
 
 (* ORIG_REF_NAME = "soc" *) 
 module design_1_soc_0_0_soc
-   (DEBUG,
+   (\DEBUG[1] ,
+    Q,
+    RE_reg,
+    \FSM_onehot_phase_reg[0] ,
+    RE_reg_0,
+    RE_reg_1,
+    RE_reg_2,
+    RE_reg_3,
+    RE_reg_4,
+    RE_reg_5,
+    RE_reg_6,
+    RE_reg_7,
+    RE_reg_8,
+    RE_reg_9,
+    RE_reg_10,
+    RE_reg_11,
+    RE_reg_12,
+    RE_reg_13,
+    RE_reg_14,
+    RE_reg_15,
+    RE_reg_16,
+    RE_reg_17,
+    RE_reg_18,
+    RE_reg_19,
+    RE_reg_20,
+    RE_reg_21,
+    RE_reg_22,
+    RE_reg_23,
+    RE_reg_24,
+    RE_reg_25,
+    RE_reg_26,
+    RE_reg_27,
+    RE_reg_28,
+    RE_reg_29,
+    RE_reg_30,
+    DEBUG,
     XCLK,
     XRES);
-  output [102:0]DEBUG;
+  output [31:0]\DEBUG[1] ;
+  output [31:0]Q;
+  output RE_reg;
+  output \FSM_onehot_phase_reg[0] ;
+  output RE_reg_0;
+  output RE_reg_1;
+  output RE_reg_2;
+  output RE_reg_3;
+  output RE_reg_4;
+  output RE_reg_5;
+  output RE_reg_6;
+  output RE_reg_7;
+  output RE_reg_8;
+  output RE_reg_9;
+  output RE_reg_10;
+  output RE_reg_11;
+  output RE_reg_12;
+  output RE_reg_13;
+  output RE_reg_14;
+  output RE_reg_15;
+  output RE_reg_16;
+  output RE_reg_17;
+  output RE_reg_18;
+  output RE_reg_19;
+  output RE_reg_20;
+  output RE_reg_21;
+  output RE_reg_22;
+  output RE_reg_23;
+  output RE_reg_24;
+  output RE_reg_25;
+  output RE_reg_26;
+  output RE_reg_27;
+  output RE_reg_28;
+  output RE_reg_29;
+  output RE_reg_30;
+  output [6:0]DEBUG;
   input XCLK;
   input XRES;
 
-  wire [102:0]DEBUG;
+  wire [6:0]DEBUG;
+  wire [31:0]\DEBUG[1] ;
+  wire \FSM_onehot_phase_reg[0] ;
+  wire [31:0]Q;
+  wire RE_reg;
+  wire RE_reg_0;
+  wire RE_reg_1;
+  wire RE_reg_10;
+  wire RE_reg_11;
+  wire RE_reg_12;
+  wire RE_reg_13;
+  wire RE_reg_14;
+  wire RE_reg_15;
+  wire RE_reg_16;
+  wire RE_reg_17;
+  wire RE_reg_18;
+  wire RE_reg_19;
+  wire RE_reg_2;
+  wire RE_reg_20;
+  wire RE_reg_21;
+  wire RE_reg_22;
+  wire RE_reg_23;
+  wire RE_reg_24;
+  wire RE_reg_25;
+  wire RE_reg_26;
+  wire RE_reg_27;
+  wire RE_reg_28;
+  wire RE_reg_29;
+  wire RE_reg_3;
+  wire RE_reg_30;
+  wire RE_reg_4;
+  wire RE_reg_5;
+  wire RE_reg_6;
+  wire RE_reg_7;
+  wire RE_reg_8;
+  wire RE_reg_9;
   wire XCLK;
   wire XRES;
 
   design_1_soc_0_0_darksocv internal_soc
-       (.DEBUG(DEBUG),
+       (.D({RE_reg_30,RE_reg_29,RE_reg_28,RE_reg_27,RE_reg_26,RE_reg_25,RE_reg_24,RE_reg_23,RE_reg_22,RE_reg_21,RE_reg_20,RE_reg_19,RE_reg_18,RE_reg_17,RE_reg_16,RE_reg_15,RE_reg_14,RE_reg_13,RE_reg_12,RE_reg_11,RE_reg_10,RE_reg_9,RE_reg_8,RE_reg_7,RE_reg_6,RE_reg_5,RE_reg_4,RE_reg_3,RE_reg_2,RE_reg_1,RE_reg_0,RE_reg}),
+        .DEBUG(DEBUG),
+        .\DEBUG[3] (Q),
+        .\FSM_onehot_phase_reg[0]_0 (\FSM_onehot_phase_reg[0] ),
+        .Q(\DEBUG[1] ),
         .XCLK(XCLK),
         .XRES(XRES));
 endmodule

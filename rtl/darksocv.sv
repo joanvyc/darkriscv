@@ -135,12 +135,9 @@ module darksocv
     reg [31:0] ROMFF; // Delays the intruction one cicle (IR)
 
     wire IHIT = 1;
-
-    const logic [1:0] PHASE_I=2'b00; // Fetch instruction
-    const logic [1:0] PHASE_L=2'b01; // Fetch data if needed
-    const logic [1:0] PHASE_E=2'b10; // Execute instruction
-    reg [1:0] phase = 2'b0;  
-    reg test = 1'b0;
+    
+    typedef enum {PHASE_I, PHASE_L, PHASE_E} core_state;
+    core_state phase;
     
     logic [31:0] IR; // Instruction register
     logic [31:0] DR; // Data register 
@@ -174,7 +171,7 @@ module darksocv
         if (IRES) phase = PHASE_I;
     end
     
-    always @(phase)
+    always_comb
     begin
         case (phase)
            PHASE_I:
@@ -197,7 +194,10 @@ module darksocv
                 CORE_MEM.RE = 0;
                 CORE_MEM.EN = 1;
             end
-           default: CORE_MEM.ADDR = IADDR; 
+           default: 
+			begin
+				CORE_MEM.EN = 0;
+			end				
         endcase
     end
     
