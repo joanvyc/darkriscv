@@ -28,47 +28,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-module darkocrom
-(
-  input         XCLK,
-  input         XRES,
+interface device_bus ();
 
-  device_bus.cons BUS
-);
+    logic        EN;
+    
+    logic        RE;
+    logic        RACK;
+    
+    logic        WE;
+    logic        WACK;
+    
+    logic [31:0] ADDR;
+    logic [31:0] DATA;
+        
+    modport prov ( // Provider
+        output EN, RE, WE,
+        input  RACK, WACK,
+        
+        input  ADDR,
+        inout  DATA    
+    );
+    
+    modport cons ( // Consumer
+        output EN, RE, WE,
+        input  RACK, WACK,
+        
+        input  ADDR,
+        inout  DATA
+    );
 
-  (* ram_style = "block" *) reg [31:0] ROM [0:511]; // ro memory
-
-  // Firmware initializatin (done at synthesis/implementation)
-  initial
-  begin
-    integer i;
-    for (i=0; i != 512; i=i+1)
-    begin
-      ROM[i] = 32'h0000_0013; // addi x0, x0, 0 (NOP)
-
-      //$readmemh("firmware.mem", ROM);
-      $readmemh("hexblink2.mem", ROM);
-    end
-  end
-
-  integer eff_addr;
-
-  always @(BUS.ADDR)
-  begin
-    eff_addr = BUS.ADDR[31:2];
-  end
-
-  logic [31:0] data_reg;
-  assign BUS.DATA = (BUS.EN & BUS.RE) ? data_reg : 32'bZ;
-  
-  always @(posedge XCLK)
-  begin
-    if (!BUS.EN || eff_addr > 511)
-      data_reg <= 32'h0000_0013; // addi x0, x0, 0 (NOP)
-    else
-      data_reg <= ROM[eff_addr];
-    BUS.RACK = BUS.EN & BUS.RE;
-    BUS.WACK = BUS.EN & BUS.WE;
-  end
-
-endmodule
+endinterface

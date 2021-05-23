@@ -44,8 +44,8 @@ module darksocv
     darkaxi.Master flash,
     `endif  
 
-    output [3:0] LED,       // on-board leds
-    output [3:0] DEBUG      // osciloscope
+    output [3:0]       LED,       // on-board leds
+    output [3:0][31:0] DEBUG      // osciloscope
 );
 
     // internal/external reset logic
@@ -58,62 +58,31 @@ module darksocv
     wire RES = IRES[7];    
 
     // ro/rw memories
-
+    (* ram_style = "block" *) reg [31:0] MEM [0:511];
+    
     // On Chip ROM connections
-    wire        enable_mm_ocrom;
-    wire        rd_mm_ocrom;
-    wire        enable_rd_ocrom;
-    wire [31:0] addr_mm_ocrom;
-    wire [31:0] data_ocrom_mm;
-
-    assign enable_rd_ocrom = enable_mm_ocrom & rd_mm_ocrom;
+    device_bus  OCROM();
 
     // Flash connections
-    wire        enable_mm_flash;
-    wire        rd_mm_flash;
-    wire        enable_rd_flash;
-    wire [31:0] addr_mm_flash;
-    wire [31:0] data_flash_mm;
-
-    assign enable_rd_flash = enable_mm_flash & rd_mm_flash;
+    device_bus  FLASH();
 
     // External Dynamic RAM
-    wire        enable_mm_edram;
-    wire        rd_mm_edram;
-    wire        wr_mm_edram;
-    wire [31:0] addr_mm_edram;
-    wire [31:0] data_mm_edram;
-    wire [31:0] data_edram_mm;
+    device_bus  EDRAM();
+    
+    // Data port wires
+    device_bus  CORE_MEM();
+
 
     darkmm memory_map
     (
       .XCLK(XCLK),
       .XRES(IRES),
-
-      .enable(),
-      .RD(RD),
-      .WE(WR),
-
-      .addr(),
-      .data_i_main(),
-      .data_o_main(),
-
-      .enable_ocrom(enable_mm_ocrom),
-      .RD_ocrom(rd_mm_ocrom),
-      .addr_ocrom(addr_mm_ocrom),
-      .data_i_ocrom(data_ocrom_mm),
-
-      .enable_flash(enable_mm_flash),
-      .RD_flash(rd_mm_flash),
-      .addr_flash(addr_mm_flash),
-      .data_i_flash(data_flash_mm),
-
-      .enable_edram(enable_mm_edram),
-      .RD_edram(rd_mm_edram),
-      .WR_edram(wr_mm_edram),
-      .addr_edram(addr_mm_edram),
-      .data_i_edram(data_edram_mm),
-      .data_o_edram(data_mm_edram)
+        
+      .CORE(CORE_MEM),
+      
+      .OCROM(OCROM),
+      .FLASH(FLASH),
+      .EDRAM(EDRAM)
     );
 
     darkocrom rom
@@ -121,9 +90,7 @@ module darksocv
       .XCLK(XCLK),
       .XRES(XRES),
 
-      .enable(enable_rd_ocrom),
-      .addr(addr_mm_ocrom),
-      .data(data_ocrom_mm),
+      .BUS(OCROM)
     );
 
     darkflash flash
@@ -131,87 +98,133 @@ module darksocv
       .XCLK(XCLK),
       .XRES(XRES),
 
-      .enable(enable_rd_flash),
-      .addr(addr_mm_flash),
-      .data(data_flash_mm),
+      .BUS(FLASH)
     );
 
     darkedram ram
     (
-
-
+      .XCLK(XCLK),
+      .XRES(XRES),
+      
+      .BE(BE),
+      
+      .BUS(EDRAM)
     );
 
+    // -------------------------------------------
+    // Nota: eliminar tot el IO que te ell muntat.
+    // -------------------------------------------
+    
     // darkriscv bus interface
-    wire [31:0] IADDR;
-    wire [31:0] DADDR;
-    wire [31:0] IDATA;    
-    wire [31:0] DATAO;        
-    wire [31:0] DATAI;
-    wire        WR,RD;
-    wire [3:0]  BE;
+    wire [31:0] IADDR; // Instruction addres (PC)
+    wire [31:0] DADDR; // Data addres
+    wire [31:0] IDATA; // Instruction data
+    wire [31:0] DATAO; // Data data
+    wire [31:0] DATAI; // Data to the core
+    wire        WR,RD; // Write enable, and Read enable
+    wire [3:0]  BE;    // Byte enable (mask)
 
 
-    wire [31:0] IOMUX [0:3];
+    wire [31:0] IOMUX [0:3]; // Select IO bus 
 
     reg  [15:0] GPIOFF = 0;
     reg  [15:0] LEDFF  = 0;
     
-    wire HLT;
+    logic HLT; // Halts the core
     
-    reg [31:0] ROMFF;
+    reg [31:0] ROMFF; // Delays the intruction one cicle (IR)
 
     wire IHIT = 1;
+
+    const logic [1:0] PHASE_I=2'b00; // Fetch instruction
+    const logic [1:0] PHASE_L=2'b01; // Fetch data if needed
+    const logic [1:0] PHASE_E=2'b10; // Execute instruction
+    reg [1:0] phase = 2'b0;  
+    reg test = 1'b0;
     
-
-    reg [31:0] ROMFF2 = 0;
-    reg        HLT2   = 0;
-
-    always@(posedge CLK) // stage #0.5    
-    begin
-        if(HLT)
-        begin
-            ROMFF2 <= ROMFF;
-        end
+    logic [31:0] IR; // Instruction register
+    logic [31:0] DR; // Data register 
+    
+    assign IDATA = IR;
         
-        HLT2 <= HLT;
+    always @(posedge CLK)
+    begin
+        case (phase)
+           PHASE_I:
+            begin
+                if (CORE_MEM.RACK) begin
+                    case (CORE_MEM.DATA[6:0])
+                        7'b00000_11:phase <= PHASE_L;
+                        default:    phase <= PHASE_E;
+                    endcase
+                    IR = CORE_MEM.DATA;
+                end                
+            end
+           PHASE_L:
+            begin
+                if (CORE_MEM.RACK) begin
+                    phase <= PHASE_E;
+                    DR = CORE_MEM.DATA;
+                end                
+            end
+           PHASE_E:
+                phase <= PHASE_I;
+           default: phase <= PHASE_I; 
+        endcase
+        if (IRES) phase = PHASE_I;
     end
     
-    assign IDATA = HLT2 ? ROMFF2 : ROMFF;
-
-
-    always@(posedge CLK) // stage #0.5    
+    always @(phase)
     begin
-        ROMFF <= MEM[IADDR[12:2]];
+        case (phase)
+           PHASE_I:
+            begin
+                HLT = 1;
+                CORE_MEM.EN = 1;
+                CORE_MEM.RE = 1;
+                CORE_MEM.ADDR = IADDR;
+            end
+           PHASE_L:
+            begin
+                HLT = 1;
+                CORE_MEM.EN = 1;
+                CORE_MEM.RE = 1;
+                CORE_MEM.ADDR = DADDR;
+            end
+           PHASE_E:
+            begin
+                HLT = 1;
+                CORE_MEM.RE = 0;
+                CORE_MEM.EN = 1;
+            end
+           default: CORE_MEM.ADDR = IADDR; 
+        endcase
     end
+    
+    assign CORE_MEM.WE = WR;
 
-    reg [31:0] RAMFF;
+    //reg [31:0] ROMFF2 = 0; // Keeps instruction while the core is halted
+    //reg        HLT2   = 0; // Remembers the halt for a cicle
+
+//    always@(posedge CLK) // stage #0.5    
+//    begin
+//        if(HLT)
+//        begin
+//            ROMFF2 <= ROMFF;
+//        end
+        
+//        HLT2 <= HLT;
+//    end
+    
+//    assign IDATA = HLT2 ? ROMFF2 : ROMFF;
+
 
     // for single phase clock: 1 wait state in read op always required!
 
     reg [1:0] DACK = 0;
     
     wire WHIT = 1;
-    wire DHIT = !((RD) && DACK!=1); // the WR operatio does not need ws. in this config.
-    
-    always@(posedge CLK) // stage #1.0
-    begin
-        DACK <= RES ? 0 : DACK ? DACK-1 : (RD
-            `ifdef __RMW_CYCLE__
-                    ||WR		// 2nd worst code ever!
-            `endif
-                    ) ? 1 : 0; // wait-states
-    end
-    
-    always@(posedge CLK) // stage #1.5
-    begin
-        RAMFF <= MEM[DADDR[12:2]];
-    end
-
-    //assign DATAI = DADDR[31] ? IOMUX  : RAM[DADDR[11:2]];
-    
-    reg [31:0] IOMUXFF = 0;
-    reg [31:0] XADDR   = 0;
+    wire DHIT = (RD && CORE_MEM.RACK);
 
     //individual byte/word/long selection, thanks to HYF!
     
@@ -224,13 +237,11 @@ module darksocv
         if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[1]) MEM[DADDR[12:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
         if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[0]) MEM[DADDR[12:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
 
-        XADDR <= DADDR; // 1 clock delayed
-        IOMUXFF <= IOMUX[DADDR[3:2]]; // read w/ 2 wait-states
     end    
 
     //assign DATAI = DADDR[31] ? IOMUX[DADDR[3:2]]  : RAMFF;
     //assign DATAI = DADDR[31] ? IOMUXFF : RAMFF;
-    assign DATAI = XADDR[31] ? IOMUX[XADDR[3:2]] : RAMFF;
+    assign DATAI = CORE_MEM.DATA;
 
     // io for debug
 
@@ -311,7 +322,7 @@ module darksocv
 
     assign BOARD_IRQ = IREQ^IACK;
 
-    assign HLT = !IHIT||!DHIT||!WHIT;
+    //assign HLT = !IHIT||!DHIT||!WHIT;
 
     // darkuart
   
@@ -351,6 +362,7 @@ module darksocv
         .CLK(CLK),
         .RES(RES),
         .HLT(HLT),
+        .PHS(phase),
         .IDATA(IDATA),
         .IADDR(IADDR),
         .DADDR(DADDR),
@@ -365,6 +377,12 @@ module darksocv
 
     assign LED   = LEDFF[3:0];
     
-    assign DEBUG = { GPIOFF[0], XTIMER, WR, RD }; // UDEBUG;
-
+    assign DEBUG[0] = {phase, IRES, 17'b0,
+         OCROM.EN, OCROM.RE, OCROM.RACK, OCROM.WE, OCROM.WACK,
+         FLASH.EN, FLASH.RE, FLASH.RACK, FLASH.WE, FLASH.WACK,
+         EDRAM.EN, EDRAM.RE, EDRAM.RACK, EDRAM.WE, EDRAM.WACK,
+         CORE_MEM.EN, CORE_MEM.RE, CORE_MEM.RACK, CORE_MEM.WE, CORE_MEM.WACK};
+    assign DEBUG[1] = CORE_MEM.ADDR;
+    assign DEBUG[2] = CORE_MEM.DATA;
+    assign DEBUG[3] = IR;
 endmodule

@@ -28,22 +28,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-module darkocrom
+module darkedram
 (
   input           XCLK,
   input           XRES,
 
-  input           EN,
-  input           RD,
-  input           WR,
-
-  input  [3:0]    BE,
-
-  output          ACK,
-
-  input  [31:0]   addr,
-  inout  [31:0]   data
-
+  device_bus.cons BUS,
+  
+  input  [3:0]    BE
 `ifdef _EXTERNAL_RAM_
   ,darkaxi.Master  ram
 `endif
@@ -57,23 +49,22 @@ module darkocrom
 
   (* ram_style = "block" *) reg [31:0] MEM [0:511];
 
-  assign data = (EN && RD) ? MEM[addr[31:2]] : 32'bz;
+  assign BUS.DATA = (BUS.EN && BUS.RE) ? MEM[BUS.ADDR[31:2]] : 32'bz;
+  assign BUS.WACK = BUS.EN & BUS.WE;
+  assign BUS.RACK = BUS.EN & BUS.RE;
 
   always @(posedge XCLK)
   begin
-    if (EN && WE)
+    if (BUS.EN && BUS.WE)
     begin
-      if (BE)
-      begin
-        integer i;
-        for (i=0; i!=4; i=i+1)
-        begin
-          if (BE[i]) MEM[addr[31:2]][i * 8 + 7: i * 8] = data[i * 8 + 7: i * 8];
-        end
+      if (BE) begin
+        if (BE[0]) MEM[BUS.ADDR[31:2]][0 * 8 + 7: 0 * 8] = BUS.DATA[0 * 8 + 7: 0 * 8];
+        if (BE[1]) MEM[BUS.ADDR[31:2]][1 * 8 + 7: 1 * 8] = BUS.DATA[1 * 8 + 7: 1 * 8];
+        if (BE[2]) MEM[BUS.ADDR[31:2]][2 * 8 + 7: 2 * 8] = BUS.DATA[2 * 8 + 7: 2 * 8];
+        if (BE[3]) MEM[BUS.ADDR[31:2]][3 * 8 + 7: 3 * 8] = BUS.DATA[3 * 8 + 7: 3 * 8];
       end
-
       else
-        MEM[addr[31:2]] = data;
+        MEM[BUS.ADDR[31:2]] = BUS.DATA;
     end
   end
 

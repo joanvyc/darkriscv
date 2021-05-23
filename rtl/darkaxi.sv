@@ -22,7 +22,6 @@
   *
   */
 
-import axi_pkg::*;
 
 // An AXI Interface
 interface AXI_BUS #(
