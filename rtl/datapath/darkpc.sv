@@ -54,31 +54,33 @@
 
 module darkpc
 #(
-    parameter [31:0] RESET_PC = 0,
+    parameter [31:0] reset_pc = 0,
 //    parameter [31:0] RESET_SP = 4096
 ) 
 (
-    input             CLK,   // clock
-    input             RES,   // reset
+    input             clk,   // clock
+    input             res,   // reset
 	
-	output	   [31:0] PC,    // Program Counter
+	output	   [31:0] pc,    // Program Counter
 	
-	input             EN,
-	input      [31:0] NXPC
+	input             en,
+	input      [31:0] nxpc
 );
 
-	logic [31:0] PCFF;
-	assign PC =  PCFF;
+	logic [31:0] pcff;
+	assign pc =  pcff;
 
-    always @(posedge CLK)
+    always @(posedge clk)
 	begin
-		if (EN)  begin
-			PCFF <= NXPC;
+		if (res) begin
+			pcff <= reset_pc;
+		end else begin
+			if (en)  begin
+				pcff <= nxpc;
+			end
 		end
 	
-		if (RES) begin
-			PCFF <= RESET_PC;
-		end
+
 	end
 
 endmodule
