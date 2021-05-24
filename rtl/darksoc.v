@@ -24,6 +24,7 @@ module soc(
         input XCLK,
         input XRES,
         
+        output [1:0]       PHS,
         output [3:0]       LED,
         output [3:0][31:0] DEBUG
     );
@@ -33,6 +34,7 @@ module soc(
         .XCLK(XCLK),
         .XRES(XRES),
         
+        .PHS(PHS),
         .LED(LED),
         .DEBUG(DEBUG)
     );

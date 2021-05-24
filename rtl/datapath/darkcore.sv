@@ -61,7 +61,7 @@ module darkriscv
     input             CLK,   // clock
     input             RES,   // reset
     input             HLT,   // halt
-    input      [2:0]  PHS,   // phase
+    input             PHS,   // phase
     
 `ifdef __THREADS__    
     output [`__THREADS__-1:0] TPTR,  // thread pointer
@@ -129,7 +129,7 @@ module darkriscv
 
         // signal extended immediate, according to the instruction type:
         
-        XSIMM  <= XRES ? 0 : PHS==0 ? XSIMM :
+        XSIMM  <= XRES ? 0 : PHS ? XSIMM :
                  IDATA[6:0]==`SCC ? { IDATA[31] ? ALL1[31:12]:ALL0[31:12], IDATA[31:25],IDATA[11:7] } : // s-type
                  IDATA[6:0]==`BCC ? { IDATA[31] ? ALL1[31:13]:ALL0[31:13], IDATA[31],IDATA[7],IDATA[30:25],IDATA[11:8],ALL0[0] } : // b-type
                  IDATA[6:0]==`JAL ? { IDATA[31] ? ALL1[31:21]:ALL0[31:21], IDATA[31], IDATA[19:12], IDATA[20], IDATA[30:21], ALL0[0] } : // j-type
@@ -138,7 +138,7 @@ module darkriscv
                                       { IDATA[31] ? ALL1[31:12]:ALL0[31:12], IDATA[31:20] }; // i-type
         // non-signal extended immediate, according to the instruction type:
 
-        XUIMM  <= XRES ? 0: PHS==0 ? XUIMM :
+        XUIMM  <= XRES ? 0: PHS ? XUIMM :
                  IDATA[6:0]==`SCC ? { ALL0[31:12], IDATA[31:25],IDATA[11:7] } : // s-type
                  IDATA[6:0]==`BCC ? { ALL0[31:13], IDATA[31],IDATA[7],IDATA[30:25],IDATA[11:8],ALL0[0] } : // b-type
                  IDATA[6:0]==`JAL ? { ALL0[31:21], IDATA[31], IDATA[19:12], IDATA[20], IDATA[30:21], ALL0[0] } : // j-type

@@ -28,56 +28,45 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-module darkmm
+module darkedram
 (
-  input         XCLK,
-  input         XRES,
+  input           XCLK,
+  input           XRES,
 
-  device_bus.cons CORE,
+  device_bus.cons BUS
+  
+`ifdef _EXTERNAL_RAM_
+  ,darkaxi.Master  ram
+`endif
 
-  device_bus.prov OCROM,
-  device_bus.prov FLASH,
-  device_bus.prov EDRAM
 );
 
-  assign OCROM.RE = CORE.RE;
-  assign FLASH.RE = CORE.RE;
-  assign EDRAM.RE = CORE.RE;
-                
-  assign OCROM.WE = CORE.WE;
-  assign FLASH.WE = CORE.WE;
-  assign EDRAM.WE = CORE.WE;
-  
-  assign  OCROM.EN = CORE.EN && CORE.ADDR >= 32'h0000_0000 && 32'h2000_0000 > CORE.ADDR;
-  assign  FLASH.EN = CORE.EN && CORE.ADDR >= 32'h2000_0000 && 32'h4000_0000 > CORE.ADDR;
-  assign  EDRAM.EN = CORE.EN && CORE.ADDR >= 32'h4000_0000 && 32'hFFFF_FFFF >= CORE.ADDR;
-   
-  assign  OCROM.ADDR = CORE.ADDR;
-  assign  FLASH.ADDR = CORE.ADDR - 32'h2000_0000;
-  assign  EDRAM.ADDR = CORE.ADDR - 32'h4000_0000;
+`ifdef _EXTERNAL_RAM_
 
-  logic [31:0] CORE_DATA;
-  
-  assign CORE.DATA = CORE.RE ? CORE_DATA : 32'bZ;
-                                
-  assign CORE_DATA = OCROM.EN ? OCROM.DATA :
-                     FLASH.EN ? FLASH.DATA :
-                     EDRAM.EN ? EDRAM.DATA :
-                                32'b0;
-                                  
-  assign CORE.RACK = OCROM.EN ? OCROM.RACK :
-                     FLASH.EN ? FLASH.RACK :
-                     EDRAM.EN ? EDRAM.RACK :
-                                0;
-                                
-  assign CORE.WACK = OCROM.EN ? OCROM.WACK :
-                     FLASH.EN ? FLASH.WACK :
-                     EDRAM.EN ? EDRAM.WACK :
-                                0;
 
-  
-  assign OCROM.DATA = OCROM.RE ? 32'bZ : CORE.DATA;
-  assign FLASH.DATA = FLASH.RE ? 32'bZ : CORE.DATA;
-  assign EDRAM.DATA = EDRAM.RE ? 32'bZ : CORE.DATA;
+`else
+
+  (* ram_style = "block" *) reg [31:0] MEM [0:511];
+
+  assign BUS.DATA = (BUS.EN && BUS.RE) ? MEM[BUS.ADDR[31:2]] : 32'bz;
+  assign BUS.WACK = BUS.EN & BUS.WE;
+  assign BUS.RACK = BUS.EN & BUS.RE;
+
+  always @(posedge XCLK)
+  begin
+    if (BUS.EN && BUS.WE)
+    begin
+      if (BUS.BE) begin
+        if (BUS.BE[0]) MEM[BUS.ADDR[31:2]][0 * 8 + 7: 0 * 8] = BUS.DATA[0 * 8 + 7: 0 * 8];
+        if (BUS.BE[1]) MEM[BUS.ADDR[31:2]][1 * 8 + 7: 1 * 8] = BUS.DATA[1 * 8 + 7: 1 * 8];
+        if (BUS.BE[2]) MEM[BUS.ADDR[31:2]][2 * 8 + 7: 2 * 8] = BUS.DATA[2 * 8 + 7: 2 * 8];
+        if (BUS.BE[3]) MEM[BUS.ADDR[31:2]][3 * 8 + 7: 3 * 8] = BUS.DATA[3 * 8 + 7: 3 * 8];
+      end
+      else
+        MEM[BUS.ADDR[31:2]] = BUS.DATA;
+    end
+  end
+
+`endif
 
 endmodule

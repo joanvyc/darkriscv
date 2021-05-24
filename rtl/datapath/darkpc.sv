@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Joan Vinyals Ylla-Catala
+ * Copyright (c) 2018, Marcelo Samsoniuk
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,33 +28,57 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-interface device_bus ();
+`timescale 1ns / 1ps
 
-    logic        EN;
-    
-    logic        RE;
-    logic        RACK;
-    
-    logic        WE;
-    logic        WACK;
-    
-    logic [31:0] ADDR;
-    logic [31:0] DATA;
-        
-    modport prov ( // Provider
-        output EN, RE, WE,
-        input  RACK, WACK,
-        
-        input  ADDR,
-        inout  DATA    
-    );
-    
-    modport cons ( // Consumer
-        output EN, RE, WE,
-        input  RACK, WACK,
-        
-        input  ADDR,
-        inout  DATA
-    );
+// implemented opcodes:
 
-endinterface
+`define LUI     7'b01101_11      // lui   rd,imm[31:12]
+`define AUIPC   7'b00101_11      // auipc rd,imm[31:12]
+`define JAL     7'b11011_11      // jal   rd,imm[xxxxx]
+`define JALR    7'b11001_11      // jalr  rd,rs1,imm[11:0] 
+`define BCC     7'b11000_11      // bcc   rs1,rs2,imm[12:1]
+`define LCC     7'b00000_11      // lxx   rd,rs1,imm[11:0]
+`define SCC     7'b01000_11      // sxx   rs1,rs2,imm[11:0]
+`define MCC     7'b00100_11      // xxxi  rd,rs1,imm[11:0]
+`define RCC     7'b01100_11      // xxx   rd,rs1,rs2 
+`define MAC     7'b11111_11      // mac   rd,rs1,rs2
+
+// not implemented opcodes:
+
+`define FCC     7'b00011_11      // fencex
+`define CCC     7'b11100_11      // exx, csrxx
+
+// configuration file
+
+`include "../rtl/config.vh"
+
+module darkpc
+#(
+    parameter [31:0] RESET_PC = 0,
+//    parameter [31:0] RESET_SP = 4096
+) 
+(
+    input             CLK,   // clock
+    input             RES,   // reset
+	
+	output	   [31:0] PC,    // Program Counter
+	
+	input             EN,
+	input      [31:0] NXPC
+);
+
+	logic [31:0] PCFF;
+	assign PC =  PCFF;
+
+    always @(posedge CLK)
+	begin
+		if (EN)  begin
+			PCFF <= NXPC;
+		end
+	
+		if (RES) begin
+			PCFF <= RESET_PC;
+		end
+	end
+
+endmodule
