@@ -284,6 +284,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net reset_1 [get_bd_ports reset] [get_bd_pins clk_wiz_0/reset]
   connect_bd_net -net soc_0_DEBUG [get_bd_pins soc_0/DEBUG] [get_bd_pins xlslice_0/Din] [get_bd_pins xlslice_1/Din] [get_bd_pins xlslice_2/Din] [get_bd_pins xlslice_3/Din]
   connect_bd_net -net soc_0_LED [get_bd_pins soc_0/LED] [get_bd_pins xlslice_4/Din] [get_bd_pins xlslice_5/Din] [get_bd_pins xlslice_6/Din] [get_bd_pins xlslice_7/Din]
+  connect_bd_net -net soc_0_PHS [get_bd_pins ila_0/probe29] [get_bd_pins soc_0/PHS]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins ila_0/probe5] [get_bd_pins xlslice_0/Dout]
   connect_bd_net -net xlslice_1_Dout [get_bd_pins ila_0/probe1] [get_bd_pins xlslice_1/Dout]
   connect_bd_net -net xlslice_2_Dout [get_bd_pins ila_0/probe10] [get_bd_pins xlslice_2/Dout]

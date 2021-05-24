@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-//Date        : Sun May 23 21:43:52 2021
+//Date        : Mon May 24 18:38:38 2021
 //Host        : DESKTOP-6SV72UJ running 64-bit major release  (build 9200)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -36,6 +36,7 @@ module design_1
   wire reset_1;
   wire [127:0]soc_0_DEBUG;
   wire [3:0]soc_0_LED;
+  wire [1:0]soc_0_PHS;
   wire sys_diff_clock_1_CLK_N;
   wire sys_diff_clock_1_CLK_P;
   wire [31:0]xlslice_0_Dout;
@@ -86,7 +87,7 @@ module design_1
         .probe26(1'b0),
         .probe27({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .probe28({1'b0,1'b1,1'b0}),
-        .probe29({1'b0,1'b1}),
+        .probe29(soc_0_PHS),
         .probe3(1'b0),
         .probe30(1'b0),
         .probe31({1'b0,1'b0,1'b1,1'b1}),
@@ -111,6 +112,7 @@ module design_1
   design_1_soc_0_0 soc_0
        (.DEBUG(soc_0_DEBUG),
         .LED(soc_0_LED),
+        .PHS(soc_0_PHS),
         .XCLK(clk_wiz_0_clk_out1),
         .XRES(XRES_1));
   design_1_xlslice_0_0 xlslice_0

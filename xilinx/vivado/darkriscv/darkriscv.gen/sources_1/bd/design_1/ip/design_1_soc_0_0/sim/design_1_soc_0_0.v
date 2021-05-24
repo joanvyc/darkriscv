@@ -57,18 +57,21 @@
 module design_1_soc_0_0 (
   XCLK,
   XRES,
+  PHS,
   LED,
   DEBUG
 );
 
 input wire XCLK;
 input wire XRES;
+output wire [1 : 0] PHS;
 output wire [3 : 0] LED;
 output wire [127 : 0] DEBUG;
 
   soc inst (
     .XCLK(XCLK),
     .XRES(XRES),
+    .PHS(PHS),
     .LED(LED),
     .DEBUG(DEBUG)
   );

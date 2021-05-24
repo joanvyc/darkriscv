@@ -127,7 +127,7 @@ set rc [catch {
   create_msg_db init_design.pb
   set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 2
-  set_param synth.incrementalSynthesisCache C:/Users/User/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-1328-DESKTOP-6SV72UJ/incrSyn
+  set_param synth.incrementalSynthesisCache C:/Users/User/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-14248-DESKTOP-6SV72UJ/incrSyn
   set_param xicom.use_bs_reader 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7s100fgga676-2

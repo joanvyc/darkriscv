@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 23 21:43:52 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 24 18:38:38 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="spartan7" BOARD="xilinx.com:sp701:part0:1.0" DEVICE="7s100" NAME="design_1" PACKAGE="fgga676" SPEEDGRADE="-2"/>
 
@@ -34,6 +34,11 @@
         <CONNECTION INSTANCE="clk_wiz_0" PORT="locked"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" NAME="XRES" POLARITY="ACTIVE_HIGH" SIGIS="undef" SIGNAME="External_Ports_XRES">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="soc_0" PORT="XRES"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="sys_diff_clock_clk_n" SIGIS="clk" SIGNAME="clk_wiz_0_clk_in1_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_in1_n"/>
@@ -42,11 +47,6 @@
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="sys_diff_clock_clk_p" SIGIS="clk" SIGNAME="clk_wiz_0_clk_in1_p">
       <CONNECTIONS>
         <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_in1_p"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="I" NAME="XRES" POLARITY="ACTIVE_HIGH" SIGIS="undef" SIGNAME="External_Ports_XRES">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="soc_0" PORT="XRES"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -3840,7 +3840,7 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="0" NAME="probe6" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="0" NAME="probe7" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="0" NAME="probe7" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="probe8" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="probe9" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="31" NAME="probe10" RIGHT="0" SIGIS="undef" SIGNAME="xlslice_2_Dout">
@@ -3870,7 +3870,11 @@
         <PORT DIR="I" LEFT="0" NAME="probe26" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="7" NAME="probe27" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="2" NAME="probe28" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="1" NAME="probe29" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="1" NAME="probe29" RIGHT="0" SIGIS="undef" SIGNAME="soc_0_PHS">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="soc_0" PORT="PHS"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="0" NAME="probe30" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="3" NAME="probe31" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="3" NAME="probe32" RIGHT="0" SIGIS="undef"/>
@@ -3983,6 +3987,11 @@
         <PORT DIR="I" NAME="XRES" POLARITY="ACTIVE_HIGH" SIGIS="undef" SIGNAME="External_Ports_XRES">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="XRES"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="PHS" RIGHT="0" SIGIS="undef" SIGNAME="soc_0_PHS">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ila_0" PORT="probe29"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="LED" RIGHT="0" SIGIS="undef" SIGNAME="soc_0_LED">

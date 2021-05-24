@@ -11,50 +11,37 @@
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
       <ZoomEndTime time="1025fs"></ZoomEndTime>
-      <Cursor1Time time="2fs"></Cursor1Time>
+      <Cursor1Time time="517fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+      <ValueColumnWidth column_width="122"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="13" />
+   <WVObjectSize size="11" />
    <wave_markers>
    </wave_markers>
-   <wvobject fp_name="vbus52" type="vbus">
-      <obj_property name="label">IRES</obj_property>
+   <wvobject fp_name="VirtualBus" type="vbus">
+      <obj_property name="label">IRES_BO</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[29]" type="logic">
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Reversed">false</obj_property>
+      <obj_property name="ElementShortName">VirtualBus[]</obj_property>
+      <obj_property name="ObjectShortName">VirtualBus[]</obj_property>
+      <wvobject fp_name="design_1_i/xlslice_0_Dout[29]" type="logic">
          <obj_property name="ElementShortName">[29]</obj_property>
          <obj_property name="ObjectShortName">[29]</obj_property>
       </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[28]" type="logic">
+      <wvobject fp_name="design_1_i/xlslice_0_Dout[28]" type="logic">
          <obj_property name="ElementShortName">[28]</obj_property>
          <obj_property name="ObjectShortName">[28]</obj_property>
       </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[27]" type="logic">
+      <wvobject fp_name="design_1_i/xlslice_0_Dout[27]" type="logic">
          <obj_property name="ElementShortName">[27]</obj_property>
          <obj_property name="ObjectShortName">[27]</obj_property>
       </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[26]" type="logic">
+      <wvobject fp_name="design_1_i/xlslice_0_Dout[26]" type="logic">
          <obj_property name="ElementShortName">[26]</obj_property>
          <obj_property name="ObjectShortName">[26]</obj_property>
-      </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[25]" type="logic">
-         <obj_property name="ElementShortName">[25]</obj_property>
-         <obj_property name="ObjectShortName">[25]</obj_property>
-      </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[24]" type="logic">
-         <obj_property name="ElementShortName">[24]</obj_property>
-         <obj_property name="ObjectShortName">[24]</obj_property>
-      </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[23]" type="logic">
-         <obj_property name="ElementShortName">[23]</obj_property>
-         <obj_property name="ObjectShortName">[23]</obj_property>
-      </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_3_Dout[22]" type="logic">
-         <obj_property name="ElementShortName">[22]</obj_property>
-         <obj_property name="ObjectShortName">[22]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="vbus90" type="vbus">
@@ -65,17 +52,13 @@
          <obj_property name="ObjectShortName">[21]</obj_property>
       </wvobject>
    </wvobject>
-   <wvobject fp_name="vbus264" type="vbus">
-      <obj_property name="label">PHASE</obj_property>
-      <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="design_1_i/xlslice_0_Dout[31]" type="logic">
-         <obj_property name="ElementShortName">[31]</obj_property>
-         <obj_property name="ObjectShortName">[31]</obj_property>
-      </wvobject>
-      <wvobject fp_name="design_1_i/xlslice_0_Dout[30]" type="logic">
-         <obj_property name="ElementShortName">[30]</obj_property>
-         <obj_property name="ObjectShortName">[30]</obj_property>
-      </wvobject>
+   <wvobject fp_name="design_1_i/soc_0_PHS" type="array">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/soc_0_PHS[1:0]</obj_property>
+      <obj_property name="ObjectShortName">soc_0_PHS[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
    <wvobject fp_name="vbus137" type="vbus">
       <obj_property name="label">EN</obj_property>
@@ -120,11 +103,12 @@
    <wvobject fp_name="vbus95" type="vbus">
       <obj_property name="label">ADDR</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       <wvobject fp_name="design_1_i/xlslice_1_Dout" type="array">
          <obj_property name="DisplayName">FullPathName</obj_property>
          <obj_property name="ElementShortName">design_1_i/xlslice_1_Dout[31:0]</obj_property>
          <obj_property name="ObjectShortName">xlslice_1_Dout[31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          <obj_property name="LABELRADIX">true</obj_property>
          <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
       </wvobject>
@@ -142,27 +126,16 @@
          <obj_property name="isExpanded"></obj_property>
       </wvobject>
    </wvobject>
-   <wvobject fp_name="design_1_i/xlslice_3_Dout" type="array">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/xlslice_3_Dout[31:0]</obj_property>
-      <obj_property name="ObjectShortName">xlslice_3_Dout[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject fp_name="design_1_i/xlslice_0_Dout" type="array">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/xlslice_0_Dout[31:0]</obj_property>
-      <obj_property name="ObjectShortName">xlslice_0_Dout[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject fp_name="design_1_i/&lt;const0&gt;_7" type="logic">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">design_1_i/&lt;const0&gt;_7</obj_property>
-      <obj_property name="ObjectShortName">&lt;const0&gt;_7</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   <wvobject fp_name="vbus65" type="vbus">
+      <obj_property name="label">IR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="design_1_i/xlslice_3_Dout" type="array">
+         <obj_property name="DisplayName">FullPathName</obj_property>
+         <obj_property name="ElementShortName">design_1_i/xlslice_3_Dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">xlslice_3_Dout[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="LABELRADIX">true</obj_property>
+         <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

@@ -303,6 +303,11 @@
               }
             }
           },
+          "PHS": {
+            "direction": "O",
+            "left": "1",
+            "right": "0"
+          },
           "LED": {
             "direction": "O",
             "left": "3",
@@ -414,6 +419,12 @@
         "ports": [
           "XRES",
           "soc_0/XRES"
+        ]
+      },
+      "soc_0_PHS": {
+        "ports": [
+          "soc_0/PHS",
+          "ila_0/probe29"
         ]
       }
     }
