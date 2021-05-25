@@ -50,7 +50,11 @@
 
 // configuration file
 
+<<<<<<< HEAD
+`include "config.vh"
+=======
 `include "../rtl/config.vh"
+>>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 
 module darkmem
 //#(
@@ -58,6 +62,81 @@ module darkmem
 //    parameter [31:0] RESET_SP = 4096
 //) 
 (
+<<<<<<< HEAD
+	input clk,
+	input res, 
+	
+	input en,
+	input valid,
+	
+	darkbus.prov bus,
+	
+	input  [31:0] inst,
+	
+	input  [31:0] addr,
+	input  [31:0] data_i,
+	output [31:0] data_o
+);
+
+	typedef enum logic [1:0] {IDLE, BUSY} state_t;
+	 
+	state_t curr_st, next_st;
+	logic [31:0] curr_data_o, next_data_o;
+	
+	logic lcc, scc, fct3;
+	assign lcc = inst[6:0] == `LCC;
+	assign scc = inst[6:0] == `SCC;
+	assign fct3 = inst[14:12];
+	
+	logic wr, rd, be;
+	assign rd = lcc;
+    assign wr = scc;
+    assign be = fct3==0||fct3==4 ? ( addr[1:0]==3 ?  4'b1000 :   // sb/lb
+                                     addr[1:0]==2 ?  4'b0100 : 
+                                     addr[1:0]==1 ?  4'b0010 :
+                                                     4'b0001 ) :
+                fct3==1||fct3==5 ? ( addr[1]  ==1 ?  4'b1100 :   // sh/lh
+                                                     4'b0011 ) :
+                                                     4'b1111;    // sw/lw
+	 
+	 
+	 assign bus.en = en && (wr || rd);
+	 assign bus.rw = en && wr;
+	 
+	 assign bus.be   = be;
+	 assign bus.addr = addr;
+	 assign bus.data = bus.en && bus.rw ? data_i : 32'bZ;
+	 
+	 assign valid  = bus.valid;
+	 assign data_o = curr_data_o;
+	 
+	 always_comb
+	 begin
+		next_st = curr_st;
+		next_data_o = curr_data_o;
+		if (res)
+			next_st = IDLE;
+		else if (en)
+			case (curr_st)
+				IDLE: begin
+					if (rd || wr) next_st = BUSY; 
+				end
+				BUSY: 
+					if (bus.valid) begin
+						next_st = IDLE;
+						if (rd)	next_data_o = bus.data;
+					end
+				default: next_st = curr_st;
+			endcase
+	 end	
+	 
+	 always @(posedge clk)
+	 begin 
+		curr_st     <= next_st;
+		curr_data_o <= next_data_o;	 
+	 end
+	 
+=======
     input             CLK,   // clock
     input             RES,   // reset
     input             HLT,   // halt
@@ -461,4 +540,5 @@ module darkmem
 
     assign DEBUG = { XRES, |FLUSH, SCC, LCC };
 
+>>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 endmodule

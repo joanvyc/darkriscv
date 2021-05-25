@@ -50,11 +50,19 @@
 
 // configuration file
 
+<<<<<<< HEAD
+`include "config.vh"
+
+module darkpc
+#(
+    parameter [31:0] reset_pc = 0
+=======
 `include "../rtl/config.vh"
 
 module darkpc
 #(
     parameter [31:0] reset_pc = 0,
+>>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 //    parameter [31:0] RESET_SP = 4096
 ) 
 (
@@ -64,6 +72,56 @@ module darkpc
 	output	   [31:0] pc,    // Program Counter
 	
 	input             en,
+<<<<<<< HEAD
+	output			  valid,
+	
+	input      [31:0] nxpc
+);
+
+	typedef enum logic [1:0] {IDLE, EXEC} pc_state;
+
+	logic        curr_v,  next_v;
+	logic [31:0] curr_pc, next_pc;
+	pc_state	 curr_st, next_st;
+	
+	assign pc =  curr_pc;
+	assign valid = curr_v;
+	
+	always_comb
+	begin
+		if (res) begin
+			next_st = IDLE;
+			next_pc = reset_pc;
+		end else begin
+			case (curr_st)
+				IDLE:
+					begin
+						if (en) begin
+							next_st = EXEC;
+							next_pc = nxpc;
+							next_v  = 1;
+						end else begin
+							next_st = curr_st;
+							next_pc = curr_pc;
+							next_v  = curr_v;
+						end
+					end
+				default:
+					begin
+						next_st = IDLE;
+						next_pc = curr_pc;
+						next_v  = 0;
+					end		
+			endcase
+		end
+	end
+	
+	always @(posedge clk)
+	begin
+		curr_st <= next_st;
+		curr_pc <= next_pc;
+		curr_v  <= next_v;
+=======
 	input      [31:0] nxpc
 );
 
@@ -81,6 +139,7 @@ module darkpc
 		end
 	
 
+>>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 	end
 
 endmodule

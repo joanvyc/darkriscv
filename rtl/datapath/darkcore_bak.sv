@@ -50,114 +50,42 @@
 
 // configuration file
 
-<<<<<<< HEAD
-`include "config.vh"
-=======
 `include "../rtl/config.vh"
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 
-module darkfetch
+module darkriscv
 //#(
 //    parameter [31:0] RESET_PC = 0,
 //    parameter [31:0] RESET_SP = 4096
 //) 
 (
-<<<<<<< HEAD
-    input             clk,   // clock
-    input             res,   // reset
-
-	input             en,
-	output			  valid,
-	
-	darkbus.prov	  bus,
-	
-	// Instruction data (in)
-	input 			  pc,
-	
-	// Instruction data (out)
-	output			  pc_o,
-	output 		      inst
-);
-
-	typedef enum logic [1:0] {IDLE, EXEC} fetch_state;
-	
-	fetch_state  curr_st, next_st;
-
-	logic [31:0] curr_pc, next_pc;
-	logic [31:0] curr_inst, next_inst;	
-	
-	assign bus.data = 32'bZ;
-	
-	assign pc_o = curr_pc;
-	assign inst = curr_inst;
-	
-	always_comb
-	begin
-		case (curr_st) 
-			IDLE:
-				begin
-					if (en) begin
-						next_pc = pc;
-						next_st = EXEC;
-						next_inst = curr_inst;
-					end	else begin
-						next_pc = curr_pc;
-						next_st = curr_st;
-						next_inst = curr_inst;
-					end
-                end
-			default: 
-				begin
-					if (bus.valid) begin
-						next_pc = curr_pc;
-						next_st = IDLE;
-						next_inst = bus.data;
-					end else begin
-						next_pc = curr_pc;
-						next_st = curr_st;
-						next_inst = curr_inst;
-					end
-				end
-		endcase
-	end
-	
-	always @(posedge clk)
-	begin
-		curr_pc <= next_pc;
-		curr_st <= next_st;
-		curr_inst <= next_inst;
-	end
-	
-	always_comb
-	begin
-		case (curr_st)
-			IDLE:
-				begin
-					bus.en = 0;
-					bus.rw = 0;
-				end
-			default:
-				begin
-					bus.en = 1;
-					bus.rw = 0;
-					bus.addr = curr_pc;
-				end
-		endcase
-	end
-	
-	
-=======
     input             CLK,   // clock
     input             RES,   // reset
+    input             HLT,   // halt
+    input             PHS,   // phase
+    
+`ifdef __THREADS__    
+    output [`__THREADS__-1:0] TPTR,  // thread pointer
+`endif    
 
-	input             EN,
-	
-	// Instruction data (in)
-	input 			  PC,
-	
-	// Instruction data (out)
-	output			  PC_o,
-	output 		      INST
+    input      [31:0] IDATA, // instruction data bus
+    output     [31:0] IADDR, // instruction addr bus
+    
+    input      [31:0] DATAI, // data bus (input)
+    output     [31:0] DATAO, // data bus (output)
+    output     [31:0] DADDR, // addr bus
+
+`ifdef __FLEXBUZZ__
+    output     [ 2:0] DLEN, // data length
+    output            RW,   // data read/write
+`else    
+    output     [ 3:0] BE,   // byte enable
+    output            WR,    // write enable
+    output            RD,    // read enable 
+`endif    
+
+    output            IDLE,   // idle output
+    
+    output [3:0]  DEBUG       // old-school osciloscope based debug! :)
 );
 
     // dummy 32-bit words w/ all-0s and all-1s: 
@@ -532,6 +460,5 @@ module darkfetch
     assign IDLE = |FLUSH;
 
     assign DEBUG = { XRES, |FLUSH, SCC, LCC };
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 
 endmodule
