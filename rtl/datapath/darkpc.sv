@@ -50,19 +50,11 @@
 
 // configuration file
 
-<<<<<<< HEAD
 `include "config.vh"
 
 module darkpc
 #(
     parameter [31:0] reset_pc = 0
-=======
-`include "../rtl/config.vh"
-
-module darkpc
-#(
-    parameter [31:0] reset_pc = 0,
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 //    parameter [31:0] RESET_SP = 4096
 ) 
 (
@@ -72,7 +64,6 @@ module darkpc
 	output	   [31:0] pc,    // Program Counter
 	
 	input             en,
-<<<<<<< HEAD
 	output			  valid,
 	
 	input      [31:0] nxpc
@@ -121,25 +112,6 @@ module darkpc
 		curr_st <= next_st;
 		curr_pc <= next_pc;
 		curr_v  <= next_v;
-=======
-	input      [31:0] nxpc
-);
-
-	logic [31:0] pcff;
-	assign pc =  pcff;
-
-    always @(posedge clk)
-	begin
-		if (res) begin
-			pcff <= reset_pc;
-		end else begin
-			if (en)  begin
-				pcff <= nxpc;
-			end
-		end
-	
-
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 	end
 
 endmodule

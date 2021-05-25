@@ -33,11 +33,7 @@ module darkedram
   input           XCLK,
   input           XRES,
 
-<<<<<<< HEAD
   darkbus.cons BUS
-=======
-  device_bus.cons BUS
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
   
 `ifdef _EXTERNAL_RAM_
   ,darkaxi.Master  ram
@@ -52,7 +48,6 @@ module darkedram
 
   (* ram_style = "block" *) reg [31:0] MEM [0:511];
 
-<<<<<<< HEAD
   assign BUS.data = BUS.rw ? 32'bZ : MEM[BUS.addr[31:2]];
   assign BUS.valid = BUS.en;
 
@@ -68,24 +63,6 @@ module darkedram
       end
       else
         MEM[BUS.addr[31:2]] = BUS.data;
-=======
-  assign BUS.DATA = (BUS.EN && BUS.RE) ? MEM[BUS.ADDR[31:2]] : 32'bz;
-  assign BUS.WACK = BUS.EN & BUS.WE;
-  assign BUS.RACK = BUS.EN & BUS.RE;
-
-  always @(posedge XCLK)
-  begin
-    if (BUS.EN && BUS.WE)
-    begin
-      if (BUS.BE) begin
-        if (BUS.BE[0]) MEM[BUS.ADDR[31:2]][0 * 8 + 7: 0 * 8] = BUS.DATA[0 * 8 + 7: 0 * 8];
-        if (BUS.BE[1]) MEM[BUS.ADDR[31:2]][1 * 8 + 7: 1 * 8] = BUS.DATA[1 * 8 + 7: 1 * 8];
-        if (BUS.BE[2]) MEM[BUS.ADDR[31:2]][2 * 8 + 7: 2 * 8] = BUS.DATA[2 * 8 + 7: 2 * 8];
-        if (BUS.BE[3]) MEM[BUS.ADDR[31:2]][3 * 8 + 7: 3 * 8] = BUS.DATA[3 * 8 + 7: 3 * 8];
-      end
-      else
-        MEM[BUS.ADDR[31:2]] = BUS.DATA;
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
     end
   end
 

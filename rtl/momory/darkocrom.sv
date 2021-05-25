@@ -33,11 +33,7 @@ module darkocrom
   input         XCLK,
   input         XRES,
 
-<<<<<<< HEAD
   darkbus.cons BUS
-=======
-  device_bus.cons BUS
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
 );
 
   (* ram_style = "block" *) reg [31:0] ROM [0:511]; // ro memory
@@ -59,7 +55,6 @@ module darkocrom
 
   always_comb
   begin
-<<<<<<< HEAD
     eff_addr = BUS.addr[31:2];
   end
 
@@ -73,22 +68,6 @@ module darkocrom
     else
       data_reg <= ROM[eff_addr];
     BUS.valid = BUS.en;
-=======
-    eff_addr = BUS.ADDR[31:2];
-  end
-
-  logic [31:0] data_reg;
-  assign BUS.DATA = (BUS.EN & BUS.RE) ? data_reg : 32'bZ;
-  
-  always @(posedge XCLK)
-  begin
-    if (!BUS.EN || eff_addr > 511)
-      data_reg <= 32'h0000_0013; // addi x0, x0, 0 (NOP)
-    else
-      data_reg <= ROM[eff_addr];
-    BUS.RACK = BUS.EN & BUS.RE;
-    BUS.WACK = BUS.EN & BUS.WE;
->>>>>>> c7450703ed3031be14740be13b547775cf4d2f2d
   end
 
 endmodule
