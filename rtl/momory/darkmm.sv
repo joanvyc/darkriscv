@@ -30,91 +30,85 @@
 
 module darkmm
 (
-  input         XCLK,
-  input         XRES,
+  input         clk,
+  input         res,
 
-  device_bus.cons CORE
+  darkbus.cons core
   
   `ifdef _EXTERNAL_RAM_
-    ,darkaxi.Master  EDRAM
+    ,darkaxi.Master  edram_o
   `endif
-  `ifdef _EXTERNAL_FLASH_
-    ,darkaxi.Master  FLASH
+  `ifdef _EXTERNAL_flash_
+    ,darkaxi.Master  flash_o
   `endif 
 
 );
 
-  device_bus OCROM();
-  device_bus FLASH();
-  device_bus EDRAM();
+  darkbus ocrom();
+//  darkbus flash();
+  darkbus edram();
 
-  assign OCROM.RE = CORE.RE;
-  assign FLASH.RE = CORE.RE;
-  assign EDRAM.RE = CORE.RE;
+  assign ocrom.en = core.en;
+//  assign flash.en = core.en;
+  assign edram.en = core.en;
                 
-  assign OCROM.WE = CORE.WE;
-  assign FLASH.WE = CORE.WE;
-  assign EDRAM.WE = CORE.WE;
+  assign ocrom.rw = core.rw;
+//  assign flash.rw = core.rw;
+  assign edram.rw = core.rw;
   
-  assign OCROM.BE = CORE.BE;
-  assign FLASH.BE = CORE.BE;
-  assign EDRAM.BE = CORE.BE;
+  assign ocrom.be = core.be;
+//  assign flash.be = core.be;
+  assign edram.be = core.be;
   
-  assign  OCROM.EN = CORE.EN && CORE.ADDR >= 32'h0000_0000 && 32'h2000_0000 > CORE.ADDR;
-  assign  FLASH.EN = CORE.EN && CORE.ADDR >= 32'h2000_0000 && 32'h4000_0000 > CORE.ADDR;
-  assign  EDRAM.EN = CORE.EN && CORE.ADDR >= 32'h4000_0000 && 32'hFFFF_FFFF >= CORE.ADDR;
+  assign  ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
+//  assign  flash.en = core.en && core.addr >= 32'h2000_0000 && 32'h4000_0000 >  core.addr;
+  assign  edram.en = core.en && core.addr >= 32'h4000_0000 && 32'hFFFF_FFFF >= core.addr;
    
-  assign  OCROM.ADDR = CORE.ADDR;
-  assign  FLASH.ADDR = CORE.ADDR - 32'h2000_0000;
-  assign  EDRAM.ADDR = CORE.ADDR - 32'h4000_0000;
+  assign  ocrom.addr = core.addr;
+//  assign  flash.addr = core.addr - 32'h2000_0000;
+  assign  edram.addr = core.addr - 32'h4000_0000;
 
-  logic [31:0] CORE_DATA;
+  logic [31:0] core_DATA;
   
-  assign CORE.DATA = CORE.RE ? CORE_DATA : 32'bZ;
+  assign core.data = core.rw ? 32'bZ : core_DATA;
                                 
-  assign CORE_DATA = OCROM.EN ? OCROM.DATA :
-                     FLASH.EN ? FLASH.DATA :
-                     EDRAM.EN ? EDRAM.DATA :
+  assign core_DATA = ocrom.en ? ocrom.data :
+//                     flash.en ? flash.data :
+                     edram.en ? edram.data :
                                 32'b0;
                                   
-  assign CORE.RACK = OCROM.EN ? OCROM.RACK :
-                     FLASH.EN ? FLASH.RACK :
-                     EDRAM.EN ? EDRAM.RACK :
+  assign core.valid = ocrom.en ? ocrom.valid :
+//                     flash.en ? flash.valid :
+                     edram.en ? edram.valid :
                                 0;
-                                
-  assign CORE.WACK = OCROM.EN ? OCROM.WACK :
-                     FLASH.EN ? FLASH.WACK :
-                     EDRAM.EN ? EDRAM.WACK :
-                                0;
-
-  
-  assign OCROM.DATA = OCROM.RE ? 32'bZ : CORE.DATA;
-  assign FLASH.DATA = FLASH.RE ? 32'bZ : CORE.DATA;
-  assign EDRAM.DATA = EDRAM.RE ? 32'bZ : CORE.DATA;
+     
+  assign ocrom.data = ocrom.rw ? core.data : 32'bZ;
+//  assign flash.data = flash.rw ? core.data : 32'bZ;
+  assign edram.data = edram.rw ? core.data : 32'bZ;
   
   
-    darkocrom rom
+    darkocrom rom0
     (
-      .XCLK(XCLK),
-      .XRES(XRES),
+      .XCLK(clk),
+      .XRES(res),
 
-      .BUS(OCROM)
+      .BUS(ocrom)
     );
 
-    darkflash flash
-    (
-      .XCLK(XCLK),
-      .XRES(XRES),
+//    darkflash flash0
+//    (
+//      .XCLK(clk),
+//      .XRES(res),
 
-      .BUS(FLASH)
-    );
+//      .BUS(flash)
+//    );
 
-    darkedram ram
+    darkedram ram0
     (
-      .XCLK(XCLK),
-      .XRES(XRES),
+      .XCLK(clk),
+      .XRES(res),
       
-      .BUS(EDRAM)
+      .BUS(edram)
     );
 
 endmodule

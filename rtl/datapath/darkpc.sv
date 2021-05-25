@@ -50,11 +50,11 @@
 
 // configuration file
 
-`include "../rtl/config.vh"
+`include "config.vh"
 
 module darkpc
 #(
-    parameter [31:0] reset_pc = 0,
+    parameter [31:0] reset_pc = 0
 //    parameter [31:0] RESET_SP = 4096
 ) 
 (
@@ -64,23 +64,54 @@ module darkpc
 	output	   [31:0] pc,    // Program Counter
 	
 	input             en,
+	output			  valid,
+	
 	input      [31:0] nxpc
 );
 
-	logic [31:0] pcff;
-	assign pc =  pcff;
+	typedef enum logic [1:0] {IDLE, EXEC} pc_state;
 
-    always @(posedge clk)
+	logic        curr_v,  next_v;
+	logic [31:0] curr_pc, next_pc;
+	pc_state	 curr_st, next_st;
+	
+	assign pc =  curr_pc;
+	assign valid = curr_v;
+	
+	always_comb
 	begin
 		if (res) begin
-			pcff <= reset_pc;
+			next_st = IDLE;
+			next_pc = reset_pc;
 		end else begin
-			if (en)  begin
-				pcff <= nxpc;
-			end
+			case (curr_st)
+				IDLE:
+					begin
+						if (en) begin
+							next_st = EXEC;
+							next_pc = nxpc;
+							next_v  = 1;
+						end else begin
+							next_st = curr_st;
+							next_pc = curr_pc;
+							next_v  = curr_v;
+						end
+					end
+				default:
+					begin
+						next_st = IDLE;
+						next_pc = curr_pc;
+						next_v  = 0;
+					end		
+			endcase
 		end
+	end
 	
-
+	always @(posedge clk)
+	begin
+		curr_st <= next_st;
+		curr_pc <= next_pc;
+		curr_v  <= next_v;
 	end
 
 endmodule

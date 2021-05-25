@@ -33,7 +33,7 @@ module darkflash
   input           XCLK,
   input           XRES,
 
-  device_bus.cons BUS,
+  darkbus.cons BUS,
   
   input  [3:0]    BE
 `ifdef _EXTERNAL_RAM_
@@ -49,7 +49,7 @@ module darkflash
 
   (* ram_style = "block" *) reg [31:0] MEM [0:511];
 
-  assign BUS.DATA = (BUS.EN && BUS.RE) ? MEM[BUS.ADDR[31:2]] : 32'bz;
+  assign BUS.data = BUS.rw ? 32'bz : MEM[BUS.addr[31:2]];
 
 `endif
 

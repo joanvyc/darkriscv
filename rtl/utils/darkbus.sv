@@ -30,32 +30,29 @@
 
 interface darkbus ();
 
-    logic        EN;
+    logic        en;
+	logic        rw;
+    logic        valid;
     
-    logic        RE;
-    logic        RACK;
+    logic  [3:0] be;
     
-    logic        WE;
-    logic  [3:0] BE;
-    logic        WACK;
-    
-    logic [31:0] ADDR;
-    logic [31:0] DATA;
+    logic [31:0] addr;
+    logic [31:0] data;
         
     modport prov ( // Provider
-        output EN, RE, WE, BE,
-        input  RACK, WACK,
-        
-        output ADDR,
-        inout  DATA    
+		output en, rw, be,
+		input  valid, 
+		
+		output addr,
+		inout  data    
     );
     
     modport cons ( // Consumer
-        input  EN, RE, WE, BE,
-        output RACK, WACK,
-        
-        input  ADDR,
-        inout  DATA
+		input  en, rw, be,
+		output valid, 
+		
+		input  addr,
+		inout  data
     );
 
 endinterface
