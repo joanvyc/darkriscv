@@ -75,38 +75,48 @@ module darkcore
 	
 	input  [31:0] data_wb,
 	
-	output nxpc
+	output [31:0] nxpc
 );
+
+    logic curr_valid_al, curr_valid_wb;
+    assign valid_al = curr_valid_al;
+    assign valid_wb = curr_valid_wb;
+
+    always @(posedge clk)
+    begin
+        curr_valid_al <= en_al;
+        curr_valid_wb <= en_wb;
+    end
 
 	// Register File
 	logic [31:0] regfile [0:31];
 	
-	logic [4:0] ra1 = inst[19:15];
-	logic [4:0] ra2 = inst[24:20];
+	logic [4:0] ra1; assign ra1 = inst[19:15];
+	logic [4:0] ra2; assign ra2 = inst[24:20];
 	
-	logic [4:0] rd  = inst[11:7];
+	logic [4:0] rd;  assign rd  = inst[11:7];
 	
-	logic 		 [31:0] sr1 = regfile[ra1];
-	logic        [31:0] sr2 = regfile[ra1];
-	logic signed [31:0] ur1 = sr1;
-	logic signed [31:0] ur2 = sr2;
+	logic 		 [31:0] ur1; assign ur1 = regfile[ra1];
+	logic        [31:0] ur2; assign ur2 = regfile[ra2];
+	logic signed [31:0] sr1; assign sr1 = ur1;
+	logic signed [31:0] sr2; assign sr2 = ur2;
 	
 	// Decode        
-    logic lui   = inst[6:0]==`LUI;
-    logic auipc = inst[6:0]==`AUIPC;
-    logic jal   = inst[6:0]==`JAL;
-    logic jalr  = inst[6:0]==`JALR;        
-
-    logic bcc   = inst[6:0]==`BCC;
-    logic lcc   = inst[6:0]==`LCC;
-    logic scc   = inst[6:0]==`SCC;
-    logic mcc   = inst[6:0]==`MCC;
-
-    logic rcc   = inst[6:0]==`RCC;
-    logic mac   = inst[6:0]==`MAC;
+    logic lui   ; assign lui = inst[6:0]==`LUI;
+    logic auipc ; assign auipc = inst[6:0]==`AUIPC;
+    logic jal   ; assign jal = inst[6:0]==`JAL;
+    logic jalr  ; assign jalr = inst[6:0]==`JALR;        
+                    
+    logic bcc   ; assign bcc = inst[6:0]==`BCC;
+    logic lcc   ; assign lcc = inst[6:0]==`LCC;
+    logic scc   ; assign scc = inst[6:0]==`SCC;
+    logic mcc   ; assign mcc = inst[6:0]==`MCC;
+                    
+    logic rcc   ; assign rcc = inst[6:0]==`RCC;
+    logic mac   ; assign mac = inst[6:0]==`MAC;
 	
-	logic [2:0] fct3 = inst[14:12];
-	logic [6:0] fct7 = inst[31:25];
+	logic [2:0] fct3 ; assign fct3 = inst[14:12];
+	logic [6:0] fct7 ; assign fct7 = inst[31:25];
 	
 	logic [31:0] simm;
 	logic [31:0] uimm;
@@ -128,8 +138,10 @@ module darkcore
 
 	
 	// S - Group of instructions
-	logic [31:0] saddr = ur1 + simm;
-	logic [31:0] sdata = fct3==0 ? ( saddr[1:0]==3 ? {        ur2[7:0], 24'b0} :
+	logic [31:0] saddr; assign saddr = ur1 + simm;
+	logic [31:0] sdata; assign sdata = 
+	                     fct3==0 ? 
+	                               ( saddr[1:0]==3 ? {        ur2[7:0], 24'b0} :
 								     saddr[1:0]==2 ? {  8'b0, ur2[7:0], 16'b0} :
 									 saddr[1:0]==1 ? { 16'b0, ur2[7:0],  8'b0} :
 								  /* saddr[1:0]==0 */{ 24'b0, ur2[7:0]      } ) :
@@ -140,9 +152,10 @@ module darkcore
 					  /* fct3==2 */ ur2;
 					  
 	// L - Group of instructions
-	logic [31:0] laddr = saddr;
-	logic [31:0] lrawd = data_wb;
-	logic [31:0] ldata =  fct3==0||fct3==4 ? ( 
+	logic [31:0] laddr; assign laddr = saddr;
+	logic [31:0] lrawd; assign lrawd = data_wb;
+	logic [31:0] ldata; assign ldata =  
+	               fct3==0||fct3==4 ? ( 
 										laddr[1:0]==3 ? {{24{fct3==0&&lrawd[31]}}, lrawd[31:24]} :
 										laddr[1:0]==2 ? {{24{lrawd[23]&&fct3==0}}, lrawd[23:16]} :
 										laddr[1:0]==1 ? {{24{lrawd[15]&&fct3==0}}, lrawd[15: 8]} :
@@ -156,13 +169,15 @@ module darkcore
 	
 					  
 	// C - Group of instructions
-	logic cdata = 0;
+	logic cdata;
+	assign cdata = 1'b0;
 	
 	// RM - Group of instructions
-	logic signed [31:0] rmsr2 = mcc ? simm : sr2;
-	logic        [31:0] rmur2 = mcc ? uimm : ur2;
+	logic signed [31:0] rmsr2; assign rmsr2 = mcc ? simm : sr2;
+	logic        [31:0] rmur2; assign rmur2 = mcc ? uimm : ur2;
 	
-	logic  [31:0] rmdata = fct3==7 ? ur1&rmsr2 :
+	logic  [31:0] rmdata;
+	assign rmdata =        fct3==7 ? ur1&rmsr2 :
 						   fct3==6 ? ur1|rmsr2 :
 						   fct3==4 ? ur1^rmsr2 :
 						   fct3==3 ? ur1<rmur2?1:0 : // unsigned
@@ -176,27 +191,29 @@ module darkcore
 									 /*	fct7[5] */ $signed(sr1>>>rmur2[4:0]) ) ;
 									 
 	// JB - Group of instructions
-	logic jbsr2 = rmsr2;
-	logic jbur2 = rmur2;
-	logic bmux = bcc==1 && (
+	logic [31:0] jbsr2; assign jbsr2 = rmsr2;
+	logic [31:0] jbur2; assign jbrs2 = rmur2;
+	logic bmux;  assign bmux = bcc==1 && (
 								fct3==4 ? sr1< jbsr2 : // blt
 								fct3==5 ? sr1>=jbsr2 : // bge
 								fct3==6 ? ur1< jbur2 : // bltu
 								fct3==7 ? ur1>=jbur2 : // bgtu
 								fct3==0 ? !(ur1^jbsr2) :   // beq
 							 /* fct3==1*/  (ur1^jbsr2) ) ; // bne
-							 
-	logic [31:0] alu_out = auipc       ? pcsimm :
+		
+    logic [31:0] pcsimm; assign pcsimm = pc+simm;					 
+	logic [31:0] alu_out;
+	assign alu_out =       auipc       ? pcsimm :
 						   jal || jalr ? nxpc   :
                            mcc || rcc  ? rmdata :
 					    /* lui  */       simm   ;
 
 
-	logic rden = auipc || jal || jalr || lui || mcc || rcc;
+	logic rden; assign rden = auipc || jal || jalr || lui || mcc || rcc;
 	
 	logic bre;
-	logic [31:0] pcsimm = pc+simm;
-	logic [31:0] bval   = jalr ? ur1+simm : pcsimm;
+	
+	logic [31:0] bval; assign bval = jalr ? ur1+simm : pcsimm;
 	assign bre = (jal||jalr||bmux);
 	assign nxpc = //hlt ? pc   :
 				  bre ? bval :
@@ -206,11 +223,13 @@ module darkcore
 	state_t curr_st, next_st;
 	logic curr_v_al, next_v_al;
 	logic curr_v_wb, next_v_wb;
-	logic curr_addr, next_addr;
-	logic curr_alu,  next_alu;
-	logic curr_nxpc, next_nxpc;
+	logic [31:0] curr_addr, next_addr;
+	logic [31:0] curr_alu,  next_alu;
+	logic [31:0] curr_nxpc, next_nxpc;
 	logic [31:0] curr_data, next_data;
 	logic [31:0] next_regfile [0:31];
+	
+	integer raddr;
 	
 	always_comb
 	begin
@@ -225,6 +244,10 @@ module darkcore
 		
 		if (res) begin
 			next_st = IDLE;
+			
+			for (raddr=0; raddr < 32; raddr = raddr + 1) begin
+			    next_regfile[raddr] <= 32'b0; 
+            end
 		end else begin
 			case (curr_st)
 				IDLE:

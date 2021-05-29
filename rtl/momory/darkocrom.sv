@@ -45,10 +45,9 @@ module darkocrom
     for (i=0; i != 512; i=i+1)
     begin
       ROM[i] = 32'h0000_0013; // addi x0, x0, 0 (NOP)
-
-      //$readmemh("firmware.mem", ROM);
-      $readmemh("hexblink2.mem", ROM);
     end
+    //$readmemh("firmware.mem", ROM);
+     $readmemh("hexblink2.mem", ROM);
   end
 
   integer eff_addr;
@@ -57,9 +56,11 @@ module darkocrom
   begin
     eff_addr = BUS.addr[31:2];
   end
-
+  
+  
   logic [31:0] data_reg;
-  assign BUS.data = BUS.rw ? 32'bZ : data_reg;
+  assign BUS.data = data_reg;
+  logic [31:0] datai = BUS.data;
   
   always @(posedge XCLK)
   begin
@@ -67,7 +68,7 @@ module darkocrom
       data_reg <= 32'h0000_0013; // addi x0, x0, 0 (NOP)
     else
       data_reg <= ROM[eff_addr];
-    BUS.valid = BUS.en;
+      BUS.valid = BUS.en;
   end
 
 endmodule

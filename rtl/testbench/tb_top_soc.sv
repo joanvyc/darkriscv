@@ -27,11 +27,10 @@ always @(posedge clk) begin
 
 end
 
-soc soc_0 (
+ darkdpgroup dp_0 (
     .XCLK(clk),
     .XRES(reset),
-
-    .LED(led),
+    
     .DEBUG(debug)
 );
 

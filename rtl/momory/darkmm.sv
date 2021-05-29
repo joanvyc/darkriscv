@@ -47,15 +47,7 @@ module darkmm
   darkbus ocrom();
 //  darkbus flash();
   darkbus edram();
-
-  assign ocrom.en = core.en;
-//  assign flash.en = core.en;
-  assign edram.en = core.en;
-                
-  assign ocrom.rw = core.rw;
-//  assign flash.rw = core.rw;
-  assign edram.rw = core.rw;
-  
+                  
   assign ocrom.be = core.be;
 //  assign flash.be = core.be;
   assign edram.be = core.be;
@@ -63,29 +55,23 @@ module darkmm
   assign  ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
 //  assign  flash.en = core.en && core.addr >= 32'h2000_0000 && 32'h4000_0000 >  core.addr;
   assign  edram.en = core.en && core.addr >= 32'h4000_0000 && 32'hFFFF_FFFF >= core.addr;
-   
+  
+  assign ocrom.rw = core.rw & ocrom.en;
+//  assign flash.rw = core.rw & flash.en;
+  assign edram.rw = core.rw & edram.en;
+  
   assign  ocrom.addr = core.addr;
 //  assign  flash.addr = core.addr - 32'h2000_0000;
   assign  edram.addr = core.addr - 32'h4000_0000;
-
-  logic [31:0] core_DATA;
-  
-  assign core.data = core.rw ? 32'bZ : core_DATA;
-                                
-  assign core_DATA = ocrom.en ? ocrom.data :
-//                     flash.en ? flash.data :
-                     edram.en ? edram.data :
-                                32'b0;
                                   
-  assign core.valid = ocrom.en ? ocrom.valid :
-//                     flash.en ? flash.valid :
-                     edram.en ? edram.valid :
-                                0;
-     
-  assign ocrom.data = ocrom.rw ? core.data : 32'bZ;
-//  assign flash.data = flash.rw ? core.data : 32'bZ;
-  assign edram.data = edram.rw ? core.data : 32'bZ;
-  
+  assign core.valid = ocrom.valid || edram.valid ;
+ 
+  assign core.data = core.rw ? 32'bZ :
+                        (   ocrom.en ? ocrom.data :
+                            edram.en ? edram.data :
+                                            32'b0); 
+  assign ocrom.data = core.rw ? (ocrom.en ? ocrom.data : 32'bZ) : 32'bZ;
+  assign edram.data = core.rw ? (edram.en ? edram.data : 32'bZ) : 32'bZ;
   
     darkocrom rom0
     (

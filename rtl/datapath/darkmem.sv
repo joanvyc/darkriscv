@@ -58,11 +58,11 @@ module darkmem
 //    parameter [31:0] RESET_SP = 4096
 //) 
 (
-	input clk,
-	input res, 
+	input  clk,
+	input  res, 
 	
-	input en,
-	input valid,
+	input  en,
+	output valid,
 	
 	darkbus.prov bus,
 	
@@ -102,24 +102,34 @@ module darkmem
 	 assign bus.addr = addr;
 	 assign bus.data = bus.en && bus.rw ? data_i : 32'bZ;
 	 
-	 assign valid  = bus.valid;
+	
+	 logic  curr_v, next_v;
+	 assign valid  = curr_v;
+	 
 	 assign data_o = curr_data_o;
 	 
 	 always_comb
 	 begin
 		next_st = curr_st;
+		next_v  = 0;
 		next_data_o = curr_data_o;
 		if (res)
 			next_st = IDLE;
-		else if (en)
+		else
 			case (curr_st)
 				IDLE: begin
-					if (rd || wr) next_st = BUSY; 
+				    if (en) begin
+					   if (rd || wr) next_st = BUSY; 
+					   else          next_v  = 1;
+                   end
 				end
 				BUSY: 
-					if (bus.valid) begin
-						next_st = IDLE;
-						if (rd)	next_data_o = bus.data;
+				    begin
+                        if (bus.valid) begin
+                            next_st = IDLE;
+                            if (rd)	next_data_o = bus.data;
+                            next_v = 1;
+                        end                        
 					end
 				default: next_st = curr_st;
 			endcase
@@ -128,6 +138,7 @@ module darkmem
 	 always @(posedge clk)
 	 begin 
 		curr_st     <= next_st;
+		curr_v      <= next_v;
 		curr_data_o <= next_data_o;	 
 	 end
 	 

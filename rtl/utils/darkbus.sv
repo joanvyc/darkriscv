@@ -36,8 +36,8 @@ interface darkbus ();
     
     logic  [3:0] be;
     
-    logic [31:0] addr;
-    logic [31:0] data;
+    logic      [31:0] addr;
+    wire logic [31:0] data;
         
     modport prov ( // Provider
 		output en, rw, be,

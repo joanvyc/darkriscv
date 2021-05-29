@@ -44,9 +44,13 @@ module darkdatapath
     output [3:0][31:0] DEBUG      // osciloscope
 );
 
+    logic clk, res;
+    
+    assign clk = XCLK;
+    assign res = XRES;
+
 	// State Registers
 	// ----------------------
-	logic [31:0] ir; // Instruction register
 
 	// ----------------------
 	//          PC
@@ -57,6 +61,7 @@ module darkdatapath
 	logic [31:0] pc, nxpc;
 	logic en_pc;
 	logic valid_pc;	
+	logic [31:0] ir;
 	
 	// Instantiation
 	// ----------------------
@@ -83,10 +88,10 @@ module darkdatapath
 		
 	// Signals
 	// ----------------------
-	logic en_fetch;
+	logic en_fe;
 	logic valid_fetch;
 	darkbus bus_fetch();
-	logic [31:0] inst;
+	logic [31:0] inst_fe;
 	
 	// Instantiation
 	// ----------------------
@@ -95,13 +100,13 @@ module darkdatapath
 		.clk(clk),
 		.res(res),
 		
-		.en(en_fetch),
+		.en(en_fe),
 		.valid(valid_fetch),
 		
 		.bus(bus_fetch),
 		
 		.pc(pc),		
-		.inst(isnt)
+		.inst(ir)
 	);
 	
 	// ----------------------
@@ -114,34 +119,12 @@ module darkdatapath
 	logic valid_al;
 	logic en_wb;
 	logic valid_wb;
+	logic [31:0] addr_al;
 	logic [31:0] data_al;
 
 	// Instantiation
 	// ----------------------
-//    darkcore
-////    #(
-////        .RESET_PC(32'h00000000),
-////        .RESET_SP(32'h00002000)
-////    ) 
-//    core1
-//    (
-//        .CLK(CLK),
-//        .RES(RES),
-//        .HLT(HLT),
-//        .PHS(fetch),
-//        .IDATA(IDATA),
-//        .IADDR(IADDR),
-//        .DADDR(DADDR),
-//        .DATAI(DATAI),
-//        .DATAO(DATAO),
-//        .BE(BE),
-//        .WR(WR),
-//        .RD(RD),
-//        .IDLE(IDLE),
-//        .DEBUG(KDEBUG)
-//    );
-	
-	darkcore core0
+    darkcore core0
 	(
 		.clk(clk), 
 		.res(res),
@@ -150,7 +133,7 @@ module darkdatapath
 		.valid_al(valid_al),
 		
 		.pc(pc),
-		.inst(inst),
+		.inst(ir),
 		
 		.addr_al(addr_al),
 		.data_al(data_al),
@@ -171,6 +154,7 @@ module darkdatapath
 	// Signals
 	// ----------------------
 	darkbus bus_mem();
+	logic en_me, valid_mem;
 	
 	// Instantiation
 	// ----------------------
@@ -179,12 +163,12 @@ module darkdatapath
 		.clk(clk),
 		.res(res),
 		
-		.en(en_mem),
+		.en(en_me),
 		.valid(valid_mem),
 		
 		.bus(bus_mem),
 
-		.inst(inst),
+		.inst(ir),
 		
 		.addr(addr_al),
 		.data_i(data_al),
@@ -252,6 +236,7 @@ module darkdatapath
 	// Type definition
 	// ----------------------
 	typedef enum logic [2:0] {
+	    BOOT,
 		STAGE_PC,
 		STAGE_FE,
 		STAGE_AL,
@@ -261,12 +246,21 @@ module darkdatapath
 	
 	// Signals
 	// ----------------------
-	stage_t curr_sg, next_sg;
+	stage_t curr_sg = BOOT;
+	stage_t next_sg;
+	logic [3:0] curr_boot_cnt = 0;
+	logic [3:0] next_boot_cnt;
 	logic   curr_en_pc, next_en_pc;
 	logic   curr_en_fe, next_en_fe;
 	logic   curr_en_al, next_en_al;
 	logic   curr_en_me, next_en_me;
 	logic   curr_en_wb, next_en_wb;
+	
+	assign en_pc = curr_en_pc;
+	assign en_fe = curr_en_fe;
+	assign en_al = curr_en_al;
+	assign en_me = curr_en_me;
+	assign en_wb = curr_en_wb;
 	
 	// Implementation
 	// ----------------------
@@ -279,6 +273,15 @@ module darkdatapath
 		next_en_me = 0;
 		next_en_wb = 0;
 		case (curr_sg)
+		    BOOT:
+		        begin
+		            if (curr_boot_cnt == 1) begin
+		              next_sg = STAGE_PC;
+		              next_en_pc = 1;
+		            end
+		            if (curr_boot_cnt != 0)
+                        next_boot_cnt = curr_boot_cnt-1;
+ 		        end
 			STAGE_PC:
 				begin
 					if (valid_pc) begin
@@ -319,16 +322,22 @@ module darkdatapath
 					next_sg = STAGE_PC;
 				end
 		endcase
+		if (res) begin
+		  next_sg = BOOT;
+		  next_boot_cnt = -1;
+		end
 	end
 	
 	always @(posedge clk)
 	begin
 		curr_sg <= next_sg;
-		next_en_pc <= next_en_pc;
-		next_en_fe <= next_en_fe;
-		next_en_al <= next_en_al;
-		next_en_me <= next_en_me;
-		next_en_wb <= next_en_wb;
+		curr_en_pc <= next_en_pc;
+		curr_en_fe <= next_en_fe;
+		curr_en_al <= next_en_al;
+		curr_en_me <= next_en_me;
+		curr_en_wb <= next_en_wb;
+		
+		curr_boot_cnt <= next_boot_cnt;
 	end
 	
 	// ----------------------
@@ -341,40 +350,51 @@ module darkdatapath
 	
 	// Implementation
 	// ----------------------
+	typedef enum logic [1:0] {IDLE, FE, ME} data_bus_mux_sel; // FE: Fetch, ME: medium
+	data_bus_mux_sel sel_bus;
+	
 	always_comb
 	begin
 		case (curr_sg)
-			STAGE_FE:
-				begin
-					bus.en = bus_fetch.en;
-					bus.rw = bus_fetch.rw;
-					bus_fetch.valid = bus.valid;
-					bus.be = bus_fetch.be;
-					bus.addr = bus_fetch.addr;
-					bus.data = bus.en && bus.rw ? bus_fetch.data : 32'bZ; // TODO: check condition
-					bus_fetch.data = bus.en && bus.rw ? 32'bZ : bus.data; // TODO: check condition
-				end
-			STAGE_ME:
-				begin
-					bus.en = bus_mem.en;
-					bus.rw = bus_mem.rw;
-					bus_mem.valid = bus.valid;
-					bus.be = bus_mem.be;
-					bus.addr = bus_mem.addr;
-					bus.data = bus.en && bus.rw ? bus_mem.data : 32'bZ; // TODO: check condition
-					bus_mem.data = bus.en && bus.rw ? 32'bZ : bus.data; // TODO: check condition
-				end
-			default:
-				begin
-					bus.en = 0;
-					bus.rw = 0; 
-					bus_mem.valid = 0;
-					bus.be = 0;
-					bus.addr = 0;
-					bus.data     = 32'bZ;
-					bus_mem.data = 32'bZ;
-				end
+			STAGE_FE: sel_bus = FE;
+			STAGE_ME: sel_bus = ME;
+			default:  sel_bus = IDLE;
 		endcase
 	end
+	
+	assign bus.data = bus.rw ? (sel_bus == FE ? bus_fetch.data :
+	                            sel_bus == ME ? bus_mem.data   :
+	                                                     32'bZ): 32'bZ;
+	assign bus_fetch.data = bus.rw ? 32'bZ : (sel_bus == FE ? bus.data : 32'bZ);
+	assign bus_mem.data   = bus.rw ? 32'bZ : (sel_bus == ME ? bus.data : 32'bZ);
+	
+	assign bus.en = sel_bus == FE ? bus_fetch.en :
+	                sel_bus == ME ?   bus_mem.en :
+	                                           0 ;
+	                                           
+	assign bus.rw = sel_bus == FE ? bus_fetch.rw :
+	                sel_bus == ME ?   bus_mem.rw :
+	                                           0 ; 
+	                                           
+	assign bus.be = sel_bus == FE ? bus_fetch.be :
+	                sel_bus == ME ?   bus_mem.be :
+	                                           0 ;    
+	                                           
+	assign bus_fetch.valid = sel_bus == FE ? bus.valid : 0;
+	assign bus_mem.valid   = sel_bus == ME ? bus.valid : 0;       
+	
+	assign bus.addr = sel_bus == FE ? bus_fetch.addr :
+	                  sel_bus == ME ?   bus_mem.addr :
+	                                           32'b0 ;                                                                                                                      
+	
+
+	// ----------------------
+	//	       Debug
+	// ----------------------
+	
+//    assign DEBUG[0] = pc;
+//    assign DEBUG[1] = isnt_fe;
+//    assign DEBUG[2] = { 29'b0, curr_sg };
+//    assign DEBUG[3] = 32'b0;
 
 endmodule

@@ -69,7 +69,7 @@ module darkpc
 	input      [31:0] nxpc
 );
 
-	typedef enum logic [1:0] {IDLE, EXEC} pc_state;
+	typedef enum logic [1:0] {IDLE, BOOT, EXEC} pc_state;
 
 	logic        curr_v,  next_v;
 	logic [31:0] curr_pc, next_pc;
@@ -80,31 +80,34 @@ module darkpc
 	
 	always_comb
 	begin
-		if (res) begin
-			next_st = IDLE;
-			next_pc = reset_pc;
-		end else begin
-			case (curr_st)
-				IDLE:
-					begin
-						if (en) begin
-							next_st = EXEC;
-							next_pc = nxpc;
-							next_v  = 1;
-						end else begin
-							next_st = curr_st;
-							next_pc = curr_pc;
-							next_v  = curr_v;
-						end
-					end
-				default:
-					begin
-						next_st = IDLE;
-						next_pc = curr_pc;
-						next_v  = 0;
-					end		
-			endcase
-		end
+	   next_st = curr_st;
+	   next_pc = curr_pc;
+	   next_v  = 0;
+        case (curr_st)
+            BOOT:
+                begin
+                    if (en) begin
+                        next_st = EXEC;
+                        next_pc = reset_pc;
+                        next_v  = 1;
+                    end			        
+                end
+            IDLE:
+                begin
+                    if (en) begin
+                        next_st = EXEC;
+                        next_pc = nxpc;
+                        next_v  = 1;
+                    end 
+                end
+            default:
+                begin
+                    next_st = IDLE;
+                    next_v  = 0;
+                end		
+        endcase
+
+		if (res) next_st = BOOT;
 	end
 	
 	always @(posedge clk)

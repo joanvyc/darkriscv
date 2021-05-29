@@ -67,59 +67,53 @@ module darkfetch
 	darkbus.prov	  bus,
 	
 	// Instruction data (in)
-	input 			  pc,
+	input   [31:0]	  pc,
 	
 	// Instruction data (out)
-	output			  pc_o,
-	output 		      inst
+	output  [31:0]    inst
 );
 
 	typedef enum logic [1:0] {IDLE, EXEC} fetch_state;
 	
 	fetch_state  curr_st, next_st;
-
-	logic [31:0] curr_pc, next_pc;
 	logic [31:0] curr_inst, next_inst;	
+	logic curr_v, next_v;
 	
 	assign bus.data = 32'bZ;
-	
-	assign pc_o = curr_pc;
 	assign inst = curr_inst;
+	assign valid = curr_v;
 	
 	always_comb
 	begin
+        next_st = curr_st;
+        next_inst = curr_inst;
+        next_v = 0;
 		case (curr_st) 
 			IDLE:
 				begin
-					if (en) begin
-						next_pc = pc;
-						next_st = EXEC;
-						next_inst = curr_inst;
-					end	else begin
-						next_pc = curr_pc;
-						next_st = curr_st;
-						next_inst = curr_inst;
-					end
+					if (en) 
+						next_st = EXEC;	
                 end
 			default: 
 				begin
 					if (bus.valid) begin
-						next_pc = curr_pc;
 						next_st = IDLE;
 						next_inst = bus.data;
-					end else begin
-						next_pc = curr_pc;
-						next_st = curr_st;
-						next_inst = curr_inst;
+						next_v    = 1;
 					end
 				end
 		endcase
+		
+		if (res) begin 
+		  next_st = IDLE;
+		  next_v  = 0;
+        end
 	end
 	
 	always @(posedge clk)
 	begin
-		curr_pc <= next_pc;
 		curr_st <= next_st;
+		curr_v  <= next_v;
 		curr_inst <= next_inst;
 	end
 	
@@ -135,7 +129,7 @@ module darkfetch
 				begin
 					bus.en = 1;
 					bus.rw = 0;
-					bus.addr = curr_pc;
+					bus.addr = pc;
 				end
 		endcase
 	end

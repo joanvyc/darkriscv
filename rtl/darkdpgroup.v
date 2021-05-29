@@ -20,22 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module soc(
+module darkdpgroup(
         input XCLK,
         input XRES,
         
-        output [1:0]       PHS,
-        output [3:0]       LED,
         output [3:0][31:0] DEBUG
     );
     
-    darksocv internal_soc
+    darkdatapath dp0
     (
         .XCLK(XCLK),
         .XRES(XRES),
-        
-        .PHS(PHS),
-        .LED(LED),
+
         .DEBUG(DEBUG)
     );
     
