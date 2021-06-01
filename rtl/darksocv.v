@@ -31,169 +31,49 @@
 `timescale 1ns / 1ps
 `include "../rtl/config.vh"
 
-module darksocv
+module darksocv #(parameter NCORES = 2)
 (
     input        XCLK,      // external clock
     input        XRES,      // external reset
     
     input        UART_RXD,  // UART receive line
     output       UART_TXD,  // UART transmit line
+    
+        //pablo debug
+    output O_MEM_READY,
+    output [(NCORES*32)-1:0] O_PAB_ADDR,
+    output O_PAB_RD,
+    output O_MEM_VALID,
+    output [31:0] O_MEM_DATA,
+    output O_PAB_WR,
+    output O_PAB_VALID,
+    output [31:0] O_PAB_DATA,
+    output [NCORES-1:0] O_HLT,
+
 
     output [3:0] LED,       // on-board leds
     output [3:0] DEBUG      // osciloscope
+       
+ 
 );
 
     // internal/external reset logic
 
-    reg [7:0] IRES = -1;
+    reg [7:0] IRES = 0; //PABLO: this was -1
 
 `ifdef INVRES
-    always@(posedge XCLK) IRES <= XRES==0 ? -1 : IRES[7] ? IRES-1 : 0; // reset low
+    always@(posedge XCLK) IRES <= XRES==0 ? -1 : IRES[7] ? IRES-1 : 0; // reset low  
 `else
-    always@(posedge XCLK) IRES <= XRES==1 ? -1 : IRES[7] ? IRES-1 : 0; // reset high
+    always@(posedge XCLK) IRES <= XRES==1 ? 0 : IRES[7] ? IRES-1 : 0; // reset high     //PABLO, was -1 0
 `endif
 
     // clock generator logic
     
 `ifdef BOARD_CK_REF
 
-    //`define BOARD_CK (`BOARD_CK_REF * `BOARD_CK_MUL / `BOARD_CK_DIV)
-
-    wire LOCKED, CLKFB, CLK;
-    
-    // useful script to calculate MUL/DIV values:
-    // 
-    // awk 'BEGIN { 
-    //   ref=66.6; target=97.4; 
-    //   for(m=2;m<=32;m++) for(d=1;d<=32;d++) { 
-    //     mul=ref*m; delta=target-(mul/d); 
-    //     if(mul>=600&&mul<=1600) print (delta<0?-delta:delta),mul/d,mul,m,d;
-    //   } 
-    // }' | sort -nr
-    // 
-    // example: reference w/ 66MHz, m=19, d=13 and fx=97.4MHz; 
-    // not so useful after I discovered that my evaluation board already has an external clock generator :D
-    // 
-    // important remark: the xilinx-7 pll requires a ref*mul bandwidth between 0.6 and 1.6GHz!
-
-    `ifdef XILINX7CLK
-    
-       MMCME2_BASE #(
-       .BANDWIDTH("OPTIMIZED"),   // Jitter programming (OPTIMIZED, HIGH, LOW)
-       .CLKFBOUT_MULT_F(`BOARD_CK_MUL),     // Multiply value for all CLKOUT (2.000-64.000).
-       .CLKFBOUT_PHASE(0.0),      // Phase offset in degrees of CLKFB (-360.000-360.000).
-       .CLKIN1_PERIOD((1e9/`BOARD_CK_REF)),       // Input clock period in ns to ps resolution (i.e. 33.333 is 30 MHz).
-       // CLKOUT0_DIVIDE - CLKOUT6_DIVIDE: Divide amount for each CLKOUT (1-128)
-       .CLKOUT0_DIVIDE_F(`BOARD_CK_DIV),    // Divide amount for CLKOUT0 (1.000-128.000).
-       .CLKOUT1_DIVIDE(`BOARD_CK_DIV),
-       .CLKOUT2_DIVIDE(`BOARD_CK_DIV),
-       .CLKOUT3_DIVIDE(`BOARD_CK_DIV),
-       .CLKOUT4_DIVIDE(`BOARD_CK_DIV),
-       .CLKOUT5_DIVIDE(`BOARD_CK_DIV),
-       .CLKOUT6_DIVIDE(`BOARD_CK_DIV),
-       // CLKOUT0_DUTY_CYCLE - CLKOUT6_DUTY_CYCLE: Duty cycle for each CLKOUT (0.01-0.99).
-       .CLKOUT0_DUTY_CYCLE(0.5),
-       .CLKOUT1_DUTY_CYCLE(0.5),
-       .CLKOUT2_DUTY_CYCLE(0.5),
-       .CLKOUT3_DUTY_CYCLE(0.5),
-       .CLKOUT4_DUTY_CYCLE(0.5),
-       .CLKOUT5_DUTY_CYCLE(0.5),
-       .CLKOUT6_DUTY_CYCLE(0.5),
-       // CLKOUT0_PHASE - CLKOUT6_PHASE: Phase offset for each CLKOUT (-360.000-360.000).
-       .CLKOUT0_PHASE(0.0),
-       .CLKOUT1_PHASE(0.0),
-       .CLKOUT2_PHASE(0.0),
-       .CLKOUT3_PHASE(0.0),
-       .CLKOUT4_PHASE(0.0),
-       .CLKOUT5_PHASE(0.0),
-       .CLKOUT6_PHASE(0.0),
-       .CLKOUT4_CASCADE("FALSE"), // Cascade CLKOUT4 counter with CLKOUT6 (FALSE, TRUE)
-       .DIVCLK_DIVIDE(1),         // Master division value (1-106)
-       .REF_JITTER1(0.0),         // Reference input jitter in UI (0.000-0.999).
-       .STARTUP_WAIT("TRUE")     // Delays DONE until MMCM is locked (FALSE, TRUE)
-    )
-       MMCME2_BASE_inst (
-           // Clock Outputs: 1-bit (each) output: User configurable clock outputs
-           .CLKOUT0(CLK),     // 1-bit output: CLKOUT0
-           //.CLKOUT0B(CLKOUT0B),   // 1-bit output: Inverted CLKOUT0
-           //.CLKOUT1(CLKPWM),     // 1-bit output: CLKOUT1
-           //.CLKOUT1B(CLKOUT1B),   // 1-bit output: Inverted CLKOUT1
-           //.CLKOUT2(CLKOUT2),     // 1-bit output: CLKOUT2
-           //.CLKOUT2B(CLKOUT2B),   // 1-bit output: Inverted CLKOUT2
-           //.CLKOUT3(CLKOUT3),     // 1-bit output: CLKOUT3
-           //.CLKOUT3B(CLKOUT3B),   // 1-bit output: Inverted CLKOUT3
-           //.CLKOUT4(CLKOUT4),     // 1-bit output: CLKOUT4
-           //.CLKOUT5(CLKOUT5),     // 1-bit output: CLKOUT5
-           //.CLKOUT6(CLKOUT6),     // 1-bit output: CLKOUT6
-           // Feedback Clocks: 1-bit (each) output: Clock feedback ports
-           .CLKFBOUT(CLKFB),   // 1-bit output: Feedback clock
-           //.CLKFBOUTB(CLKFBOUTB), // 1-bit output: Inverted CLKFBOUT
-           // Status Ports: 1-bit (each) output: MMCM status ports
-           .LOCKED(LOCKED),       // 1-bit output: LOCK
-           // Clock Inputs: 1-bit (each) input: Clock input
-           .CLKIN1(XCLK),       // 1-bit input: Clock
-           // Control Ports: 1-bit (each) input: MMCM control ports
-           .PWRDWN(1'b0),       // 1-bit input: Power-down
-           .RST(IRES[7]),             // 1-bit input: Reset
-           // Feedback Clocks: 1-bit (each) input: Clock feedback ports
-           .CLKFBIN(CLKFB)      // 1-bit input: Feedback clock
-        );
-    
-    `else
-    
-       DCM_SP #(
-          .CLKDV_DIVIDE(2.0),                   // CLKDV divide value
-                                                // (1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,9,10,11,12,13,14,15,16).
-          .CLKFX_DIVIDE(`BOARD_CK_DIV),                     // Divide value on CLKFX outputs - D - (1-32)
-          .CLKFX_MULTIPLY(`BOARD_CK_MUL),                   // Multiply value on CLKFX outputs - M - (2-32)
-          .CLKIN_DIVIDE_BY_2("FALSE"),          // CLKIN divide by two (TRUE/FALSE)
-          .CLKIN_PERIOD((1e9/`BOARD_CK_REF)),                  // Input clock period specified in nS
-          .CLKOUT_PHASE_SHIFT("NONE"),          // Output phase shift (NONE, FIXED, VARIABLE)
-          .CLK_FEEDBACK("1X"),                  // Feedback source (NONE, 1X, 2X)
-          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), // SYSTEM_SYNCHRNOUS or SOURCE_SYNCHRONOUS
-          .DFS_FREQUENCY_MODE("LOW"),           // Unsupported - Do not change value
-          .DLL_FREQUENCY_MODE("LOW"),           // Unsupported - Do not change value
-          .DSS_MODE("NONE"),                    // Unsupported - Do not change value
-          .DUTY_CYCLE_CORRECTION("TRUE"),       // Unsupported - Do not change value
-          .FACTORY_JF(16'hc080),                // Unsupported - Do not change value
-          .PHASE_SHIFT(0),                      // Amount of fixed phase shift (-255 to 255)
-          .STARTUP_WAIT("FALSE")                // Delay config DONE until DCM_SP LOCKED (TRUE/FALSE)
-       )
-       DCM_SP_inst (
-          //.CLK0(CLK0),         // 1-bit output: 0 degree clock output
-          //.CLK180(CLK180),     // 1-bit output: 180 degree clock output
-          //.CLK270(CLK270),     // 1-bit output: 270 degree clock output
-          //.CLK2X(CLK2X),       // 1-bit output: 2X clock frequency clock output
-          //.CLK2X180(CLK2X180), // 1-bit output: 2X clock frequency, 180 degree clock output
-          //.CLK90(CLK90),       // 1-bit output: 90 degree clock output
-          //.CLKDV(CLKDV),       // 1-bit output: Divided clock output
-          .CLKFX(CLK),       // 1-bit output: Digital Frequency Synthesizer output (DFS)
-          //.CLKFX180(CLKFX180), // 1-bit output: 180 degree CLKFX output
-          .LOCKED(LOCKED),     // 1-bit output: DCM_SP Lock Output
-          //.PSDONE(PSDONE),     // 1-bit output: Phase shift done output
-          //.STATUS(STATUS),     // 8-bit output: DCM_SP status output
-          //.CLKFB(CLKFB),       // 1-bit input: Clock feedback input
-          .CLKIN(XCLK),       // 1-bit input: Clock input
-          //.DSSEN(DSSEN),       // 1-bit input: Unsupported, specify to GND.
-          //.PSCLK(PSCLK),       // 1-bit input: Phase shift clock input
-          .PSEN(1'b0),         // 1-bit input: Phase shift enable
-          //.PSINCDEC(PSINCDEC), // 1-bit input: Phase shift increment/decrement input
-          .RST(IRES[7])            // 1-bit input: Active high reset input
-       );
-
-    `endif
-
-    reg [7:0] DRES = -1;
-    
-    always@(posedge CLK)
-    begin    
-        DRES <= LOCKED==0 ? -1 : DRES ? DRES-1 : 0;
-    end
-
-    wire RES = DRES[7];
+   
 
 `else    
-
     // when there is no need for a clock generator:
 
     wire CLK = XCLK;
@@ -203,41 +83,15 @@ module darksocv
 
 `ifdef __HARVARD__
 
-    reg [31:0] ROM [0:1023]; // ro memory
-    reg [31:0] RAM [0:1023]; // rw memory
+`else
+    genvar j;   
+    reg [31:0] MEM [0:128]; // ro memory
 
-    // memory initialization
 
     integer i;
     initial
     begin
-        for(i=0;i!=1024;i=i+1)
-        begin        
-            ROM[i] = 32'd0;
-            RAM[i] = 32'd0;
-        end
-
-        // workaround for vivado: no path in simulation and .mem extension
-        
-`ifdef XILINX_SIMULATOR
-        $readmemh("darksocv.rom.mem",ROM);        
-        $readmemh("darksocv.ram.mem",RAM);
-`else
-        $readmemh("../src/darksocv.rom.mem",ROM);        
-        $readmemh("../src/darksocv.ram.mem",RAM);
-`endif        
-    end
-
-`else
-
-    reg [31:0] MEM [0:2047]; // ro memory
-
-    // memory initialization
-
-    integer i;
-    initial
-    begin
-        for(i=0;i!=2048;i=i+1)
+        for(i=0;i!=128;i=i+1)
         begin
             MEM[i] = 32'd0;
         end
@@ -245,9 +99,11 @@ module darksocv
         // workaround for vivado: no path in simulation and .mem extension
         
 `ifdef XILINX_SIMULATOR
-        $readmemh("darksocv.mem",MEM);
+        $readmemh("hexcore0.mem",MEM,0);
+        $readmemh("hexcore1.mem",MEM,64);
 `else
-        $readmemh("../src/darksocv.mem",MEM);
+        $readmemh("hexcore0.mem",MEM,0);
+        $readmemh("hexcore1.mem",MEM,64);
 `endif        
     end
 
@@ -255,271 +111,94 @@ module darksocv
 
     // darkriscv bus interface
 
-    wire [31:0] IADDR;
-    wire [31:0] DADDR;
-    wire [31:0] IDATA;    
-    wire [31:0] DATAO;        
+    wire [(NCORES*32)-1:0] IADDR;
+    wire [(NCORES*32)-1:0] DADDR ;
+    wire [(NCORES*32)-1:0] IDATA;    
+    wire [(NCORES*32)-1:0] DATAO ;      
+    //wire [(NCORES*32)-1:0] DATAI ;
     wire [31:0] DATAI;
-    wire        WR,RD;
-    wire [3:0]  BE;
-
-`ifdef __FLEXBUZZ__
-    wire [31:0] XATAO;        
-    wire [31:0] XATAI;
-    wire [ 2:0] DLEN;
-    wire        RW;
-`endif
+    wire [NCORES-1:0]      WR,RD ;
+    wire [(NCORES*4)-1:0]  BE;
 
     wire [31:0] IOMUX [0:3];
 
     reg  [15:0] GPIOFF = 0;
     reg  [15:0] LEDFF  = 0;
     
-    wire HLT;
+    wire [NCORES-1:0] HLT;
     
 `ifdef __ICACHE__
-
-    // instruction cache
-
-    reg  [55:0] ICACHE [0:63]; // instruction cache
-    reg  [63:0] ITAG = 0;      // instruction cache tag
-    
-    wire [5:0]  IPTR    = IADDR[7:2];
-    wire [55:0] ICACHEO = ICACHE[IPTR];
-    wire [31:0] ICACHED = ICACHEO[31: 0]; // data
-    wire [31:8] ICACHEA = ICACHEO[55:32]; // address
-    
-    wire IHIT = ITAG[IPTR] && ICACHEA==IADDR[31:8];
-
-    reg  IFFX = 0;
-    reg IFFX2 = 0;
-    
-    reg [31:0] ROMFF;
-
-    always@(posedge CLK)
-    begin
-    `ifdef __HARVARD__
-        ROMFF <= ROM[IADDR[11:2]];
-    `else
-        ROMFF <= MEM[IADDR[12:2]];
-    `endif
-        if(IFFX2)
-        begin
-            IFFX2 <= 0;
-            IFFX  <= 0;
-        end
-        else    
-        if(!IHIT)
-        begin
-            ICACHE[IPTR] <= { IADDR[31:8], ROMFF };
-            ITAG[IPTR]    <= IFFX; // cached!
-            IFFX          <= 1;
-            IFFX2         <= IFFX;
-        end
-    end
-
-    assign IDATA = ICACHED;
-
 `else
 
-    reg [31:0] ROMFF;
+    reg [(NCORES*32)-1:0] ROMFF;
 
 `ifdef __WAITSTATES__
-    
-    reg [1:0] IHITACK = 0;
-    
-    wire IHIT = !(IHITACK!=1);
-    
-    always@(posedge CLK) // stage #1.0
-    begin
-        IHITACK <= RES ? 1 : IHITACK ? IHITACK-1 : 1; // wait-states
-    end    
-`else
 
-    wire IHIT = 1;
-    
+`else
+    wire IHIT = 1;  
 `endif
 
 
 `ifdef __3STAGE__    
 
-    reg [31:0] ROMFF2 = 0;
-    reg        HLT2   = 0;
-
+    reg [(NCORES*32)-1:0] ROMFF2 = 0; 
+    reg [(NCORES*32)-1:0] HLT2 = 0; //from 1 bit to 32
+    
+    reg [(NCORES*32)-1:0] R_IDATA = 0;
+        
     always@(posedge CLK) // stage #0.5    
     begin
-        if(HLT)
-        begin
-            ROMFF2 <= ROMFF;
+        //multicore  
+        for (i=0; i<NCORES; i=i+1) begin
+            if (HLT[i]) begin
+                ROMFF2[32*i +: 32] <= ROMFF [32*i +: 32]; //this is like a "oh shit go back?"
+            end
+            HLT2[32*i +: 32] <= HLT[i]?-1:0;
         end
-        
-        HLT2 <= HLT;
+        //single core
+        //if(HLT)
+        //begin
+        //    ROMFF2 <= ROMFF;
+        //end
+        //HLT2 <= HLT;
     end
+    //multicore
+    assign IDATA = (HLT2 & ROMFF2) | (~HLT2 & ROMFF); 
+    //singlecore
+    //assign IDATA = HLT2 ? ROMFF2 : ROMFF;
+ 
     
-    assign IDATA = HLT2 ? ROMFF2 : ROMFF;
 `else    
-    assign IDATA = ROMFF;
 `endif
 
     always@(posedge CLK) // stage #0.5    
     begin
 `ifdef __HARVARD__
-        ROMFF <= ROM[IADDR[11:2]];
 `else
-        ROMFF <= MEM[IADDR[12:2]];
+        //multicore
+        for (i=0; i<NCORES; i=i+1) begin
+            ROMFF[32*i +: 32] <= MEM[IADDR[((32*i)+2) +: 11]];
+        end
+        //singlecore
+        //ROMFF <= MEM[IADDR[12:2]];
 `endif
     end
-
-    //assign IDATA = ROM[IADDR[11:2]];
-
-//    always@(posedge CLK)
-//    begin   
-//        // weird bug appears to be related to the "sw ra,12(sp)" instruction.
-//        if(WR&&DADDR[31]==0&&DADDR[12]==0)
-//        begin
-//            ROMBUG <= IADDR;
-//        end
-//    end
-    
-//    assign IDATA = ROMFF;
-
 `endif
 
 `ifdef __DCACHE__
 
-    // data cache
-
-    reg  [55:0] DCACHE [0:63]; // data cache
-    reg  [63:0] DTAG = 0;      // data cache tag
-
-    wire [5:0]  DPTR    = DADDR[7:2];
-    wire [55:0] DCACHEO = DCACHE[DPTR];
-    wire [31:0] DCACHED = DCACHEO[31: 0]; // data
-    wire [31:8] DCACHEA = DCACHEO[55:32]; // address
-
-    wire DHIT = RD&&!DADDR[31]/*&&DADDR[12]*/ ? DTAG[DPTR] && DCACHEA==DADDR[31:8] : 1;
-
-    reg   FFX = 0;
-    reg  FFX2 = 0;
-    
-    reg [31:0] RAMFF;    
-
-    reg        WTAG    = 0;
-    reg [31:0] WCACHEA = 0;
-    
-    wire WHIT = WR&&!DADDR[31]/*&&DADDR[12]*/ ? WTAG&&WCACHEA==DADDR : 1;
-
-    always@(posedge CLK)
-    begin
-    `ifdef __HARVARD__
-        RAMFF <= RAM[DADDR[11:2]];
-    `else
-        RAMFF <= MEM[DADDR[12:2]];
-    `endif
-
-        if(FFX2)
-        begin
-            FFX2 <= 0;
-            FFX  <= 0;
-            WCACHEA <= 0;
-            WTAG <= 0;
-        end
-        else
-        if(!WHIT)
-        begin
-            //individual byte/word/long selection, thanks to HYF!
-        `ifdef __HARVARD__
-            if(BE[0]) RAM[DADDR[11:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
-            if(BE[1]) RAM[DADDR[11:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
-            if(BE[2]) RAM[DADDR[11:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
-            if(BE[3]) RAM[DADDR[11:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];        
-        `else
-            if(BE[0]) MEM[DADDR[12:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
-            if(BE[1]) MEM[DADDR[12:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
-            if(BE[2]) MEM[DADDR[12:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
-            if(BE[3]) MEM[DADDR[12:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];                
-        `endif
-            DCACHE[DPTR][0 * 8 + 7: 0 * 8] <= BE[0] ? DATAO[0 * 8 + 7: 0 * 8] : RAMFF[0 * 8 + 7: 0 * 8];
-            DCACHE[DPTR][1 * 8 + 7: 1 * 8] <= BE[1] ? DATAO[1 * 8 + 7: 1 * 8] : RAMFF[1 * 8 + 7: 1 * 8];
-            DCACHE[DPTR][2 * 8 + 7: 2 * 8] <= BE[2] ? DATAO[2 * 8 + 7: 2 * 8] : RAMFF[2 * 8 + 7: 2 * 8];
-            DCACHE[DPTR][3 * 8 + 7: 3 * 8] <= BE[3] ? DATAO[3 * 8 + 7: 3 * 8] : RAMFF[3 * 8 + 7: 3 * 8];
-
-            DCACHE[DPTR][55:32] <= DADDR[31:8];
-
-            DTAG[DPTR]   <= FFX; // cached!
-            WTAG         <= FFX;
-
-            WCACHEA      <= DADDR;
-
-            FFX          <= 1;
-            FFX2         <= FFX;
-        end
-        else
-        if(!DHIT)
-        begin
-            DCACHE[DPTR] <= { DADDR[31:8], RAMFF };
-            DTAG[DPTR]   <= FFX; // cached!
-            FFX          <= 1;
-            FFX2         <= FFX;
-        end        
-    end
-    
-    assign DATAI = DADDR[31] ? IOMUX[DADDR[3:2]] : DCACHED;
-
 `else
-
-    // no cache!
-
-    `ifdef __FLEXBUZZ__
-    
-    // must work just exactly as the default interface, since we have no
-    // flexbuzz devices available yet (i.e., all devices are 32-bit now)
-                                            
-    assign XATAI = DLEN[0] ? ( DADDR[1:0]==3 ? DATAI[31:24] :
-                               DADDR[1:0]==2 ? DATAI[23:16] :
-                               DADDR[1:0]==1 ? DATAI[15: 8] :
-                                               DATAI[ 7: 0] ):
-                   DLEN[1] ? ( DADDR[1]==1   ? DATAI[31:16] : 
-                                               DATAI[15: 0] ):
-                                               DATAI;
-   
-    assign DATAO = DLEN[0] ? ( DADDR[1:0]==3 ? {        XATAO[ 7: 0], 24'hx } :
-                               DADDR[1:0]==2 ? {  8'hx, XATAO[ 7: 0], 16'hx } :
-                               DADDR[1:0]==1 ? { 16'hx, XATAO[ 7: 0],  8'hx } :
-                                               { 24'hx, XATAO[ 7: 0]        } ):
-                   DLEN[1] ? ( DADDR[1]==1   ? { XATAO[15: 0], 16'hx } :
-                                               { 16'hx, XATAO[15: 0] } ):
-                                                 XATAO;
-
-    assign RD = DLEN&&RW==1;
-    assign WR = DLEN&&RW==0;
-    
-    assign BE =    DLEN[0] ? ( DADDR[1:0]==3 ? 4'b1000 : // 8-bit
-                               DADDR[1:0]==2 ? 4'b0100 : 
-                               DADDR[1:0]==1 ? 4'b0010 : 
-                                               4'b0001 ) :
-                   DLEN[1] ? ( DADDR[1]==1   ? 4'b1100 : // 16-bit
-                                               4'b0011 ) :
-                                               4'b1111;  // 32-bit
-
-    `endif
-
+/*
     reg [31:0] RAMFF;
+    
+    
 `ifdef __WAITSTATES__
     
-    reg [1:0] DACK = 0;
-    
-    wire WHIT = 1;
-    wire DHIT = !((WR||RD) && DACK!=1);
-    
-    always@(posedge CLK) // stage #1.0
-    begin
-        DACK <= RES ? 0 : DACK ? DACK-1 : (RD||WR) ? 1 : 0; // wait-states
-    end
 
 `elsif __3STAGE__
 
     // for single phase clock: 1 wait state in read op always required!
+
 
     reg [1:0] DACK = 0;
     
@@ -539,6 +218,7 @@ module darksocv
                     ) ? 1 : 0; // wait-states
     end
 
+
 `else
 
     // for dual phase clock: 0 wait state
@@ -551,7 +231,6 @@ module darksocv
     always@(posedge CLK) // stage #1.5
     begin
 `ifdef __HARVARD__
-        RAMFF <= RAM[DADDR[11:2]];
 `else
         RAMFF <= MEM[DADDR[12:2]];
 `endif
@@ -571,7 +250,7 @@ module darksocv
 
         // read-modify-write operation w/ 1 wait-state:
 
-        if(!HLT&&WR&&DADDR[31]==0/*&&DADDR[12]==1*/)
+        if(!HLT&&WR&&DADDR[31]==0)
         begin
     `ifdef __HARVARD__
             RAM[DADDR[11:2]] <=
@@ -589,18 +268,13 @@ module darksocv
 `else
         // write-only operation w/ 0 wait-states:
     `ifdef __HARVARD__
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[3]) RAM[DADDR[11:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[2]) RAM[DADDR[11:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[1]) RAM[DADDR[11:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[0]) RAM[DADDR[11:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
     `else
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[3]) MEM[DADDR[12:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[2]) MEM[DADDR[12:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[1]) MEM[DADDR[12:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
-        if(!HLT&&WR&&DADDR[31]==0&&/*DADDR[12]==1&&*/BE[0]) MEM[DADDR[12:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
+        if(!HLT&&WR&&DADDR[31]==0&&BE[3]) MEM[DADDR[12:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];
+        if(!HLT&&WR&&DADDR[31]==0&&BE[2]) MEM[DADDR[12:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
+        if(!HLT&&WR&&DADDR[31]==0&&BE[1]) MEM[DADDR[12:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
+        if(!HLT&&WR&&DADDR[31]==0&&BE[0]) MEM[DADDR[12:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
     `endif
 `endif
-
         XADDR <= DADDR; // 1 clock delayed
         IOMUXFF <= IOMUX[DADDR[3:2]]; // read w/ 2 wait-states
     end    
@@ -609,8 +283,11 @@ module darksocv
     //assign DATAI = DADDR[31] ? IOMUXFF : RAMFF;
     assign DATAI = XADDR[31] ? IOMUX[XADDR[3:2]] : RAMFF;
 
+*/
 `endif
 
+
+/*
     // io for debug
 
     reg [7:0] IREQ = 0;
@@ -689,13 +366,16 @@ module darksocv
     end
 
     assign BOARD_IRQ = IREQ^IACK;
+*/
 
-    assign HLT = !IHIT||!DHIT||!WHIT;
+
+ //   assign HLT = !IHIT||!DHIT||!WHIT; //Pablo
 
     // darkuart
   
     wire [3:0] UDEBUG;
 
+/*
     darkuart
 //    #( 
 //      .BAUD((`BOARD_CK/115200))
@@ -717,60 +397,142 @@ module darksocv
 `endif            
       .DEBUG(UDEBUG)
     );
+*/
+
+
+    // pablo
+
+        reg MEM_READY = 1;
+        wire [31:0] PAB_ADDR;
+        wire PAB_RD;
+        reg MEM_VALID = 0;
+        wire [31:0] MEM_DATA;
+        wire PAB_WR;
+        wire PAB_VALID;
+        wire [31:0] PAB_DATA;
+        wire [3:0] PAB_BE;
+
+        assign O_MEM_READY = MEM_READY;
+        assign O_PAB_ADDR = PAB_ADDR;
+        assign O_PAB_RD = PAB_RD;
+        assign O_MEM_VALID = MEM_VALID;
+        assign O_MEM_DATA = MEM_DATA;
+        assign O_PAB_WR = PAB_WR;
+        assign O_PAB_VALID = PAB_VALID;
+        assign O_PAB_DATA = PAB_DATA;
+        assign O_HLT = HLT;
+
+        reg [31:0] FAKE_MEM [0:63]; // fake memory :)
+        initial
+        begin
+            for(i=0;i<64;i=i+1)
+            begin
+                FAKE_MEM[i] = 32'd0;
+            end     
+        end
+        
+        reg [1:0] FAKE_COUNTER = 2'b00;
+        reg [31:0] R_MEM_DATA;
+        always@(posedge CLK) begin
+        
+                MEM_VALID <= 1'b0;
+                
+                if (FAKE_COUNTER == 2'b11) begin //Time ended, write
+                        //read
+                        if(PAB_RD) R_MEM_DATA <= FAKE_MEM[PAB_ADDR[12:2]];
+                
+                        //write
+                        if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[3]) FAKE_MEM[PAB_ADDR[12:2]][3 * 8 + 7: 3 * 8] <= PAB_DATA[3 * 8 + 7: 3 * 8]; 
+                        if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[2]) FAKE_MEM[PAB_ADDR[12:2]][2 * 8 + 7: 2 * 8] <= PAB_DATA[2 * 8 + 7: 2 * 8]; 
+                        if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[1]) FAKE_MEM[PAB_ADDR[12:2]][1 * 8 + 7: 1 * 8] <= PAB_DATA[1 * 8 + 7: 1 * 8]; 
+                        if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[0]) FAKE_MEM[PAB_ADDR[12:2]][0 * 8 + 7: 0 * 8] <= PAB_DATA[0 * 8 + 7: 0 * 8]; 
+                        MEM_VALID <= 1'b1;
+                        MEM_READY <= 1'b1;
+                        
+                        if (!PAB_VALID) begin
+                            FAKE_COUNTER = 2'b00;
+                        end
+                end
+                else
+                if (MEM_READY && PAB_VALID) //ready and petition: get to work!
+                begin
+                        MEM_READY <= 1'b0;
+                        MEM_VALID <= 1'b0;
+                end
+                else
+                if (!MEM_READY)
+                begin
+                        FAKE_COUNTER <= FAKE_COUNTER + 1;
+                end
+        end
+        assign MEM_DATA = R_MEM_DATA;
+        
+        
+        
+        darkpablomem pablomem
+        (
+                .CLK(CLK),
+                .DADDR(DADDR),
+                .DATAO(DATAO),
+                .WR(WR),
+                .RD(RD),
+                .BE(BE),
+
+                .DATAI(DATAI),
+                .HLT(HLT),
+        
+                .MEM_READY(MEM_READY),
+                .PAB_ADDR(PAB_ADDR),
+        
+                .PAB_RD(PAB_RD),
+                .MEM_VALID(MEM_VALID),
+                .MEM_DATA(MEM_DATA),
+        
+                .PAB_WR(PAB_WR),
+                .PAB_VALID(PAB_VALID),
+                .PAB_DATA(PAB_DATA),
+                .PAB_BE(PAB_BE)
+        );
+
+    //Fake core 1
+    /*
+    assign DADDR[63:32] = 0;
+    assign WR[1] = 0;
+    assign RD[1] = 0;
+    assign BE[7:4] = 0;
+    assign DATAO[63:32] = 0;
+    assign IADDR[63:32] = 0;
+    */
+
+
 
     // darkriscv
 
-    wire [3:0] KDEBUG;
 
-`ifdef __THREADS__
-    wire [`__THREADS__-1:0] TPTR;
-`endif    
 
-    darkriscv
-//    #(
-//        .RESET_PC(32'h00000000),
-//        .RESET_SP(32'h00002000)
-//    ) 
-    core0 
-    (
-`ifdef __3STAGE__
-        .CLK(CLK),
-`elsif  __WAITSTATES__
-        .CLK(CLK),
-`else
-        .CLK(!CLK),
-`endif
-        .RES(RES),
-        .HLT(HLT),
-`ifdef __THREADS__        
-        .TPTR(TPTR),
-`endif        
-        .IDATA(IDATA),
-        .IADDR(IADDR),
-        .DADDR(DADDR),
-
-`ifdef __FLEXBUZZ__
-        .DATAI(XATAI),
-        .DATAO(XATAO),
-        .DLEN(DLEN),
-        .RW(RW),
-`else
-        .DATAI(DATAI),
-        .DATAO(DATAO),
-        .BE(BE),
-        .WR(WR),
-        .RD(RD),
-`endif
-
-        .IDLE(IDLE),
-
-        .DEBUG(KDEBUG)
-    );
+    generate
+        for (j=0; j<NCORES; j=j+1) begin: generatecores       
+        darkriscv #(.RESET_PC(j*64*4)) core /*#(.RESET_PC(32'h00000000), .RESET_SP(32'h00002000) )*/
+        (
+            .CLK(CLK),
+            .RES(RES),
+            .HLT(HLT[j]),    
+            .IDATA(IDATA[32*j +: 32]),
+            .IADDR(IADDR[32*j +: 32]),
+            .DADDR(DADDR[32*j +: 32]),
+            .DATAI(DATAI),
+            .DATAO(DATAO[32*j +: 32]),
+            .BE(BE[4*j +: 4]),
+            .WR(WR[j]),
+            .RD(RD[j])
+        );  
+        end  
+    endgenerate
 
     assign LED   = LEDFF[3:0];
     
-    assign DEBUG = { GPIOFF[0], XTIMER, WR, RD }; // UDEBUG;
-
+   // assign DEBUG = { GPIOFF[0], XTIMER, WR, RD }; // UDEBUG;
+/*
 `ifdef SIMULATION
 
     `ifdef __PERFMETER__
@@ -853,5 +615,5 @@ module darksocv
     `endif
 
 `endif
-
+*/
 endmodule

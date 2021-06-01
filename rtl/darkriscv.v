@@ -52,7 +52,7 @@
 
 `include "../rtl/config.vh"
 
-module darkriscv
+module darkriscv #(parameter RESET_PC=0)
 //#(
 //    parameter [31:0] RESET_PC = 0,
 //    parameter [31:0] RESET_SP = 4096
@@ -394,21 +394,11 @@ module darkriscv
 
     `ifdef __THREADS__
 
-        NXPC <= /*XRES ? `__RESETPC__ :*/ HLT ? NXPC : NXPC2[XMODE];
-
-        NXPC2[XRES ? RESMODE[`__THREADS__-1:0] : XMODE] <=  XRES ? `__RESETPC__ : HLT ? NXPC2[XMODE] :   // reset and halt
-                                      JREQ ? JVAL :                            // jmp/bra
-	                                         NXPC2[XMODE]+4;                   // normal flow
-
-        XMODE <= XRES ? 0 : HLT ? XMODE :        // reset and halt
-                            JAL ? XMODE+1 : XMODE;
-	             //XMODE==0/*&& IREQ*/&&(JAL||JALR||BMUX) ? 1 :         // wait pipeflush to switch to irq
-                 //XMODE==1/*&&!IREQ*/&&(JAL||JALR||BMUX) ? 0 : XMODE;  // wait pipeflush to return from irq
-
     `else
         NXPC <= /*XRES ? `__RESETPC__ :*/ HLT ? NXPC : NXPC2;
 	
-	    NXPC2 <=  XRES ? `__RESETPC__ : HLT ? NXPC2 :   // reset and halt
+	    //NXPC2 <=  XRES ? `__RESETPC__ : HLT ? NXPC2 :   // reset and halt
+	    NXPC2 <=  XRES ? RESET_PC : HLT ? NXPC/*no 2 Pablo */ :   // reset and halt
 	                 JREQ ? JVAL :                    // jmp/bra
 	                        NXPC2+4;                   // normal flow
 
@@ -450,7 +440,8 @@ module darkriscv
     `ifdef __THREADS__
         assign IADDR = NXPC2[XMODE];
     `else
-        assign IADDR = NXPC2;
+        assign IADDR = HLT? PC : NXPC2; //pablo
+        //assign IADDR = NXPC2; //old
     `endif    
 `else
     assign IADDR = NXPC;
