@@ -77,6 +77,9 @@ module darkmem
 	 
 	state_t curr_st, next_st;
 	logic [31:0] curr_data_o, next_data_o;
+	logic  curr_v, next_v;
+	logic  curr_bus_en, next_bus_en;
+	logic  curr_bus_rw, next_bus_rw;
 	
 	logic lcc, scc, fct3;
 	assign lcc = inst[6:0] == `LCC;
@@ -95,38 +98,48 @@ module darkmem
                                                      4'b1111;    // sw/lw
 	 
 	 
-	 assign bus.en = en && (wr || rd);
-	 assign bus.rw = en && wr;
+	 assign bus.en = curr_bus_en; // en && (wr || rd);
+	 assign bus.rw = curr_bus_rw; // en && wr;
 	 
 	 assign bus.be   = be;
 	 assign bus.addr = addr;
 	 assign bus.data = bus.en && bus.rw ? data_i : 32'bZ;
 	 
 	
-	 logic  curr_v, next_v;
+
 	 assign valid  = curr_v;
 	 
 	 assign data_o = curr_data_o;
 	 
+ 
 	 always_comb
 	 begin
 		next_st = curr_st;
 		next_v  = 0;
 		next_data_o = curr_data_o;
-		if (res)
+		next_bus_en = curr_bus_en;
+		next_bus_rw = curr_bus_rw;
+		if (res) begin
 			next_st = IDLE;
-		else
+			next_bus_en = 0;
+		    next_bus_rw = 0;
+		end else
 			case (curr_st)
 				IDLE: begin
 				    if (en) begin
-					   if (rd || wr) next_st = BUSY; 
-					   else          next_v  = 1;
+					   if (rd || wr) begin 
+                           next_st = BUSY;
+                           next_bus_en = 1;
+                           next_bus_rw = wr; 
+					   end else next_v  = 1;
                    end
 				end
 				BUSY: 
 				    begin
                         if (bus.valid) begin
                             next_st = IDLE;
+                            next_bus_en = 0;
+                            next_bus_rw = 0; 
                             if (rd)	next_data_o = bus.data;
                             next_v = 1;
                         end                        
@@ -139,7 +152,10 @@ module darkmem
 	 begin 
 		curr_st     <= next_st;
 		curr_v      <= next_v;
-		curr_data_o <= next_data_o;	 
+		curr_data_o <= next_data_o;	
+		
+		curr_bus_en <= next_bus_en;
+		curr_bus_rw <= next_bus_rw; 
 	 end
 	 
 endmodule

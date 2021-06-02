@@ -33,68 +33,70 @@ module darkmm
   input         clk,
   input         res,
 
-  darkbus.cons core
+  // From datapath
+  darkbus.cons  core,
   
-  `ifdef _EXTERNAL_RAM_
-    ,darkaxi.Master  edram_o
-  `endif
-  `ifdef _EXTERNAL_flash_
-    ,darkaxi.Master  flash_o
-  `endif 
-
+  // To pablomem
+  output [31:0] daddr,
+  output [31:0] datao,
+  output        wr,
+  output        rd,
+  output  [3:0] be,
+  
+  input  [31:0] datai,
+  input         hlt   
 );
 
+  // ----------------------
+  //     Inst. Memory
+  // ----------------------
+  // Signals
   darkbus ocrom();
-//  darkbus flash();
-  darkbus edram();
-                  
-  assign ocrom.be = core.be;
-//  assign flash.be = core.be;
-  assign edram.be = core.be;
   
-  assign  ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
-//  assign  flash.en = core.en && core.addr >= 32'h2000_0000 && 32'h4000_0000 >  core.addr;
-  assign  edram.en = core.en && core.addr >= 32'h4000_0000 && 32'hFFFF_FFFF >= core.addr;
-  
-  assign ocrom.rw = core.rw & ocrom.en;
-//  assign flash.rw = core.rw & flash.en;
-  assign edram.rw = core.rw & edram.en;
-  
-  assign  ocrom.addr = core.addr;
-//  assign  flash.addr = core.addr - 32'h2000_0000;
-  assign  edram.addr = core.addr - 32'h4000_0000;
-                                  
-  assign core.valid = ocrom.valid || edram.valid ;
- 
-  assign core.data = core.rw ? 32'bZ :
-                        (   ocrom.en ? ocrom.data :
-                            edram.en ? edram.data :
-                                            32'b0); 
-  assign ocrom.data = core.rw ? (ocrom.en ? ocrom.data : 32'bZ) : 32'bZ;
-  assign edram.data = core.rw ? (edram.en ? edram.data : 32'bZ) : 32'bZ;
-  
-    darkocrom rom0
+  // Instantiation  
+  darkocrom rom0
     (
       .XCLK(clk),
       .XRES(res),
 
       .BUS(ocrom)
     );
-
-//    darkflash flash0
-//    (
-//      .XCLK(clk),
-//      .XRES(res),
-
-//      .BUS(flash)
-//    );
-
-    darkedram ram0
-    (
-      .XCLK(clk),
-      .XRES(res),
-      
-      .BUS(edram)
-    );
+	
+  // Implementation
+  assign ocrom.be = core.be;
+  assign ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
+  assign ocrom.rw = core.rw & ocrom.en;
+  assign ocrom.addr = core.addr;  
+  assign ocrom.data = core.rw ? (ocrom.en ? ocrom.data : 32'bZ) : 32'bZ;
+  
+  // ----------------------
+  //   Interface 2 Pablo
+  // ----------------------
+  // Signals
+  wire memd_en;  
+  reg  hold_memd_en;
+  wire ram_range;
+  
+  // Implementation 
+  assign ram_range = core.addr >= 32'h4000_0000 && 32'hFFFF_FFFF >= core.addr;
+  assign memd_en = core.en & ram_range;
+  assign wr = memd_en & ( core.rw);
+  assign rd = memd_en & (~core.rw);
+  assign be = core.be;
+  assign daddr = core.addr - 32'h4000_0000;
+  assign datao = core.data;
+   
+  
+  // ----------------------
+  //     Data 2 Core
+  // ----------------------
+  // Signals
+  
+  // Implementation
+  assign core.valid = ocrom.valid | (memd_en & (~hlt));
+  assign core.data  = core.rw ? 32'bZ :
+                        (   ocrom.en ? ocrom.data :
+                            memd_en  ? datai      :
+                                            32'b0); 
 
 endmodule

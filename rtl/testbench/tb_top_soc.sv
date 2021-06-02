@@ -27,7 +27,7 @@ always @(posedge clk) begin
 
 end
 
- darkdpgroup dp_0 (
+ darksoc soc (
     .XCLK(clk),
     .XRES(reset),
     

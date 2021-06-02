@@ -53,10 +53,9 @@
 `include "config.vh"
 
 module darkcore
-//#(
-//    parameter [31:0] RESET_PC = 0,
-//    parameter [31:0] RESET_SP = 4096
-//) 
+#(
+    parameter [31:0] CORE_ID = 0
+)
 (
 	input         clk,
 	input         res,
@@ -123,14 +122,14 @@ module darkcore
 	
 	assign simm = scc ? { {20{inst[31]}}, inst[31:25], inst[11:7] } : // s-type
 				  bcc ? { {19{inst[31]}}, inst[31], inst[7],   inst[30:25], inst[11:8], 1'b0} :	// b-type
-				  jal ? { {11{inst[31]}}, inst[31], inst[19:12], inst[20], inst[30:12], 1'b0} : // j-type
+				  jal ? { {11{inst[31]}}, inst[31], inst[19:12], inst[20], inst[30:21], 1'b0} : // j-type
 				  auipc || 
 				  lui ? { inst[31:12], 12'b0 } : // u-type
 						{ {20{inst[31]}}, inst[31:20] }; // i-type
 	
 	assign uimm = scc ? { 20'b0, inst[31:25], inst[11:7] } : // s-type
 				  bcc ? { 19'b0, inst[31], inst[7],   inst[30:25], inst[11:8], 1'b0} :	// b-type
-				  jal ? { 11'b0, inst[31], inst[19:12], inst[20], inst[30:12], 1'b0} : // j-type
+				  jal ? { 11'b0, inst[31], inst[19:12], inst[20], inst[30:21], 1'b0} : // j-type
 				  auipc || 
 				  lui ? { inst[31:12], 12'b0 } : // u-type
 						{ 20'b0, inst[31:20] }; // i-type
@@ -204,7 +203,7 @@ module darkcore
     logic [31:0] pcsimm; assign pcsimm = pc+simm;					 
 	logic [31:0] alu_out;
 	assign alu_out =       auipc       ? pcsimm :
-						   jal || jalr ? nxpc   :
+						   jal || jalr ? pc+4   :
                            mcc || rcc  ? rmdata :
 					    /* lui  */       simm   ;
 
@@ -215,8 +214,7 @@ module darkcore
 	
 	logic [31:0] bval; assign bval = jalr ? ur1+simm : pcsimm;
 	assign bre = (jal||jalr||bmux);
-	assign nxpc = //hlt ? pc   :
-				  bre ? bval :
+	assign nxpc = bre ? bval :
 				  pc+4;
 
 	typedef enum logic [2:0] {IDLE, ALU, WRB} state_t;
@@ -294,6 +292,7 @@ module darkcore
 					end				
 			endcase		
 		end
+		next_regfile[4] = CORE_ID;
 	end
 	
 	always @(posedge clk)

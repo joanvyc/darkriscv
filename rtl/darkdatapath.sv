@@ -29,9 +29,14 @@
  */
 
 module darkdatapath
+#(
+    parameter [31:0] CORE_ID = 0
+)
 (
     input        XCLK,      // external clock
     input        XRES,      // external reset
+    
+    darkbus.prov bus,
 
     `ifdef _EXTERNAL_RAM_
     darkaxi.Master axi2edram,
@@ -121,10 +126,11 @@ module darkdatapath
 	logic valid_wb;
 	logic [31:0] addr_al;
 	logic [31:0] data_al;
+	wire  [31:0] data_wb;
 
 	// Instantiation
 	// ----------------------
-    darkcore core0
+    darkcore #(.CORE_ID(CORE_ID)) core0
 	(
 		.clk(clk), 
 		.res(res),
@@ -181,25 +187,25 @@ module darkdatapath
 	
 	// Signals
 	// ----------------------
-	darkbus bus();
+//	darkbus bus();
 
-	// Instantiation
-	// ----------------------
-	darkmm mm0
-	(
-		.clk(clk),
-		.res(res),
+//	// Instantiation
+//	// ----------------------
+//	darkmm mm0
+//	(
+//		.clk(clk),
+//		.res(res),
 		
-		.core(bus)
+//		.core(bus)
 		
-		`ifdef _EXTERNAL_RAM_
-		,.edram(axi2edram)
-		`endif
+//		`ifdef _EXTERNAL_RAM_
+//		,.edram(axi2edram)
+//		`endif
 		
-		`ifdef _EXTERNAL_RAM_
-		,.flash(axi2flash)
-		`endif
-	);
+//		`ifdef _EXTERNAL_RAM_
+//		,.flash(axi2flash)
+//		`endif
+//	);
 
 /*	
 	// ----------------------

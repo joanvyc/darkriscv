@@ -56,19 +56,27 @@ module darkocrom
   begin
     eff_addr = BUS.addr[31:2];
   end
-  
-  
-  logic [31:0] data_reg;
-  assign BUS.data = data_reg;
-  logic [31:0] datai = BUS.data;
-  
-  always @(posedge XCLK)
-  begin
-    if (!BUS.en || eff_addr > 511)
-      data_reg <= 32'h0000_0013; // addi x0, x0, 0 (NOP)
-    else
-      data_reg <= ROM[eff_addr];
-      BUS.valid = BUS.en;
-  end
 
+  logic [31:0] data_curr;
+  logic [31:0] data_next;
+  
+  logic curr_v, next_v;
+  
+  assign BUS.data = data_curr;
+  assign BUS.valid = curr_v;
+  
+  always_comb
+  begin
+    if (!BUS.en || eff_addr > 511) begin
+      data_next = 32'h0000_0013; // addi x0, x0, 0 (NOP)
+    end else begin
+      data_next = ROM[eff_addr];
+    end
+    next_v = BUS.en;
+  end
+  
+  always @(posedge XCLK) begin
+    data_curr  <= data_next;
+    curr_v <= next_v;
+  end
 endmodule
