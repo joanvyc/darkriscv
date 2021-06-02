@@ -30,7 +30,8 @@
 
 module darkdatapath
 #(
-    parameter [31:0] CORE_ID = 0
+    parameter [31:0] CORE_ID = 0,
+    parameter [31:0] NCORES = 0
 )
 (
     input        XCLK,      // external clock
@@ -130,7 +131,7 @@ module darkdatapath
 
 	// Instantiation
 	// ----------------------
-    darkcore #(.CORE_ID(CORE_ID)) core0
+    darkcore #(.CORE_ID(CORE_ID), .NCORES(NCORES)) core0
 	(
 		.clk(clk), 
 		.res(res),

@@ -29,14 +29,15 @@ module darkpablomem #(parameter NCORES = 2)
 	output [31:0] PAB_DATA,
 	output [3:0] PAB_BE
 );
-
+/*
     localparam [1:0]
         IDLE = 2'b00,
         WAITING = 2'b01,
         WAITING2 = 2'b10,
         WAITING3 = 2'b11;
-        
-    reg [1:0] curr_state = IDLE;
+        */
+    typedef enum reg [1:0] {IDLE, WAITING, RELEASE_CORE} state_t;
+    state_t curr_state = IDLE;
     reg [31:0] R_PAB_ADDR;
     reg R_PAB_RD=0;
     reg R_PAB_WR=0;
@@ -52,6 +53,9 @@ module darkpablomem #(parameter NCORES = 2)
     
     integer i = 0;
     integer selected = 0;
+    integer selected2 = 0;
+    integer turn = 0;
+    reg found = 0;
 
 	always@(posedge CLK)
 	begin
@@ -63,10 +67,23 @@ module darkpablomem #(parameter NCORES = 2)
 
                     //Only serve one
                     for(i=0; i<NCORES; i=i+1) begin
-                        if (SEIZE[i]) begin
-                             selected=i;
+                        if (SEIZE[i]) begin //core i wants to access
+                        //JUST TO DEMO HOW BAD IT IS WITHOUT TURNS:
+                        //    selected2 = i;
+                        
+                            if (turn == i) begin //select it if it is his turn
+                                selected=i;
+                                found = 1'b1;
+                            end
+                            else begin //leave it as a second option if it is not his turn
+                                selected2=i;
+                            end
+                        
                         end
                     end
+                    selected = found?selected:selected2;
+                    found <= 1'b0;
+                    turn <= turn==NCORES-1?0:turn+1;
 
                     //SERVING[selected] <= 1'b1;
                     REL[selected] <= 1'b0;
@@ -79,31 +96,30 @@ module darkpablomem #(parameter NCORES = 2)
             end
             WAITING: begin
                 if (MEM_VALID) begin
-                    //if (!REL[0]) begin
-                    //if (SERVING[selected]) begin
                         REL[selected] <= 1'b1;
-                        //SERVING[selected] <= 1'b0;
                         R_DATAI <= MEM_DATA;
-                        curr_state <= WAITING2;
+                        curr_state <= RELEASE_CORE;
                         R_PAB_RD <= 0;
                         R_PAB_WR <= 0;
-                        R_PAB_VALID <= 0;
-                    //end           
+                        R_PAB_VALID <= 0;         
                 end
             end
-            WAITING2: begin
-                curr_state <= WAITING3;
+            RELEASE_CORE: begin
+                curr_state <= IDLE;
+                REL[selected] <= 1'b0;
+                //curr_state <= WAITING3;
             end
+            /*
             WAITING3: begin
                 curr_state <= IDLE;
                 REL[selected] <= 1'b0;
             end
+            */
             
         endcase
     end
     
     assign HLT = (~REL) & SEIZE;
-
     assign PAB_ADDR = R_PAB_ADDR;
     assign PAB_WR = R_PAB_WR;
     assign PAB_RD = R_PAB_RD;

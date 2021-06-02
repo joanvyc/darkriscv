@@ -32,6 +32,7 @@
 
 // implemented opcodes:
 
+`define LI      7'b00100_11      // li   rd,imm[31:12]
 `define LUI     7'b01101_11      // lui   rd,imm[31:12]
 `define AUIPC   7'b00101_11      // auipc rd,imm[31:12]
 `define JAL     7'b11011_11      // jal   rd,imm[xxxxx]
@@ -54,7 +55,8 @@
 
 module darkcore
 #(
-    parameter [31:0] CORE_ID = 0
+    parameter [31:0] CORE_ID = 0,
+    parameter [31:0] NCORES = 0
 )
 (
 	input         clk,
@@ -190,9 +192,10 @@ module darkcore
 									 /*	fct7[5] */ $signed(sr1>>>rmur2[4:0]) ) ;
 									 
 	// JB - Group of instructions
-	logic [31:0] jbsr2; assign jbsr2 = rmsr2;
+	logic signed [31:0] jbsr2; assign jbsr2 = rmsr2;
 	logic [31:0] jbur2; assign jbrs2 = rmur2;
-	logic bmux;  assign bmux = bcc==1 && (
+	logic bmux; 
+	assign bmux = bcc==1 && (
 								fct3==4 ? sr1< jbsr2 : // blt
 								fct3==5 ? sr1>=jbsr2 : // bge
 								fct3==6 ? ur1< jbur2 : // bltu
@@ -293,6 +296,7 @@ module darkcore
 			endcase		
 		end
 		next_regfile[4] = CORE_ID;
+		next_regfile[3] = NCORES;
 	end
 	
 	always @(posedge clk)

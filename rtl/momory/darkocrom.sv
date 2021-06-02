@@ -47,7 +47,8 @@ module darkocrom
       ROM[i] = 32'h0000_0013; // addi x0, x0, 0 (NOP)
     end
     //$readmemh("firmware.mem", ROM);
-     $readmemh("hexblink2.mem", ROM);
+     $readmemh("m_axpy2.mem", ROM);
+    // $readmemh("hexled4flag.mem", ROM);
   end
 
   integer eff_addr;

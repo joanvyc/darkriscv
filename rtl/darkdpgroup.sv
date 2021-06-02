@@ -22,7 +22,7 @@
 
 module darkdpgroup
 	#(
-		parameter NCORES = 2
+		parameter NCORES = 4
 	)
 	(
         input XCLK,
@@ -70,7 +70,7 @@ module darkdpgroup
 				.hlt(hlt[j]) 
 			);
 			
-			darkdatapath #(.CORE_ID(j)) dp
+			darkdatapath #(.CORE_ID(j), .NCORES(NCORES)) dp
 			(
 				.XCLK(XCLK),
 				.XRES(XRES),
@@ -108,22 +108,22 @@ module darkdpgroup
     
     integer i;
 	// Implenentation
-    reg [31:0] FAKE_MEM [0:63]; // fake memory :)
+    reg [31:0] FAKE_MEM [0:1024-1]; // fake memory :)
     initial
     begin
-        for(i=0;i<64;i=i+1)
+        for(i=0;i<1024;i=i+1)
         begin
             FAKE_MEM[i] = 32'd0;
         end     
     end
     
-    reg [1:0] FAKE_COUNTER = 2'b00;
+    reg [3:0] FAKE_COUNTER = 0;
     reg [31:0] R_MEM_DATA;
     always@(posedge XCLK) begin
     
             MEM_VALID <= 1'b0;
             
-            if (FAKE_COUNTER == 2'b11) begin //Time ended, write
+            if (FAKE_COUNTER == 4'b1111) begin //Time ended, write
                     //read
                     if(PAB_RD) R_MEM_DATA <= FAKE_MEM[PAB_ADDR[12:2]];
             
@@ -136,7 +136,7 @@ module darkdpgroup
                     MEM_READY <= 1'b1;
                     
                     if (!PAB_VALID) begin
-                        FAKE_COUNTER = 2'b00;
+                        FAKE_COUNTER = 0;
                     end
             end
             else

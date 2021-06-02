@@ -81,19 +81,21 @@ module darkmem
 	logic  curr_bus_en, next_bus_en;
 	logic  curr_bus_rw, next_bus_rw;
 	
-	logic lcc, scc, fct3;
+	logic lcc, scc; 
+	logic [2:0] fct3;
 	assign lcc = inst[6:0] == `LCC;
 	assign scc = inst[6:0] == `SCC;
 	assign fct3 = inst[14:12];
 	
-	logic wr, rd, be;
+	logic wr, rd;
+	logic [3:0] be;
 	assign rd = lcc;
     assign wr = scc;
-    assign be = fct3==0||fct3==4 ? ( addr[1:0]==3 ?  4'b1000 :   // sb/lb
+    assign be = (fct3==0||fct3==4) ? ( addr[1:0]==3 ?  4'b1000 :   // sb/lb
                                      addr[1:0]==2 ?  4'b0100 : 
                                      addr[1:0]==1 ?  4'b0010 :
                                                      4'b0001 ) :
-                fct3==1||fct3==5 ? ( addr[1]  ==1 ?  4'b1100 :   // sh/lh
+                (fct3==1||fct3==5) ? ( addr[1]  ==1 ?  4'b1100 :   // sh/lh
                                                      4'b0011 ) :
                                                      4'b1111;    // sw/lw
 	 
