@@ -48,6 +48,7 @@ module darkocrom
     end
     //$readmemh("firmware.mem", ROM);
      $readmemh("m_axpy2.mem", ROM);
+    // $readmemh("hexledflag.mem", ROM);
     // $readmemh("hexled4flag.mem", ROM);
   end
 

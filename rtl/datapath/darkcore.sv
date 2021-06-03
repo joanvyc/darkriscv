@@ -56,7 +56,7 @@
 module darkcore
 #(
     parameter [31:0] CORE_ID = 0,
-    parameter [31:0] NCORES = 0
+    parameter [31:0] NCORES = 1
 )
 (
 	input         clk,
