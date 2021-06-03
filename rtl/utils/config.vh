@@ -30,3 +30,4 @@
 
 // `define _EXTERNAL_FLASH_
 // `define _EXTERNAL_EDRAM_
+`define _EXTERNAL_gpio_

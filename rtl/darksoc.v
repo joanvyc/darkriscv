@@ -20,18 +20,37 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+
 module darksoc(
         input XCLK,
         input XRES,
         
-        output [3:0][31:0] DEBUG
+                
+        output led0,
+        output led1,
+        output led2,
+        output led3
+        //output [3:0][31:0] DEBUG
     );
 
+    reg [17:0] freqdiv = 18'b0;
+    reg clk = 0;
+    
+    always @(posedge XCLK)
+    begin
+        if (freqdiv == 0) clk <= ~clk;
+        freqdiv <= freqdiv + 1;
+    end
+    
     darkdpgroup dpg (
-        .XCLK(XCLK),
+        .XCLK(clk),
         .XRES(XRES),
         
-        .DEBUG(DEBUG)
+        .led0(led0),
+        .led1(led1),
+        .led2(led2),
+        .led3(led3)
+        //.DEBUG(DEBUG)
 	);
     
 endmodule

@@ -36,19 +36,19 @@ module darkocrom
   darkbus.cons BUS
 );
 
-  (* ram_style = "block" *) reg [31:0] ROM [0:511]; // ro memory
+  (* ram_style = "block" *) reg [31:0] ROM [0:169]; // ro memory
 
   // Firmware initializatin (done at synthesis/implementation)
   initial
   begin
     integer i;
-    for (i=0; i != 512; i=i+1)
+    for (i=0; i != 170; i=i+1)
     begin
       ROM[i] = 32'h0000_0013; // addi x0, x0, 0 (NOP)
     end
     //$readmemh("firmware.mem", ROM);
-     $readmemh("m_axpy2.mem", ROM);
-    // $readmemh("hexledflag.mem", ROM);
+    //$readmemh("m_axpy2.mem", ROM);
+    $readmemh("hexledflag.mem", ROM);
     // $readmemh("hexled4flag.mem", ROM);
   end
 
@@ -64,12 +64,12 @@ module darkocrom
   
   logic curr_v, next_v;
   
-  assign BUS.data = data_curr;
+  assign BUS.data =  (~BUS.rw) & BUS.en ? data_curr : 32'bZ;
   assign BUS.valid = curr_v;
   
   always_comb
   begin
-    if (!BUS.en || eff_addr > 511) begin
+    if (!BUS.en || eff_addr > 169) begin
       data_next = 32'h0000_0013; // addi x0, x0, 0 (NOP)
     end else begin
       data_next = ROM[eff_addr];

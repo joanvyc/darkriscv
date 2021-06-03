@@ -37,17 +37,17 @@ module darkdatapath
     input        XCLK,      // external clock
     input        XRES,      // external reset
     
-    darkbus.prov bus,
+    darkbus.prov bus
 
     `ifdef _EXTERNAL_RAM_
-    darkaxi.Master axi2edram,
+    ,darkaxi.Master axi2edram
     `endif
 
     `ifdef _EXTERNAL_FLASH_
-    darkaxi.Master axi2flash,
+    ,darkaxi.Master axi2flash
     `endif  
 
-    output [3:0][31:0] DEBUG      // osciloscope
+    //output [3:0][31:0] DEBUG      // osciloscope
 );
 
     logic clk, res;

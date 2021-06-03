@@ -22,13 +22,17 @@
 
 module darkdpgroup
 	#(
-		parameter NCORES = 4
+		parameter NCORES = 2
 	)
 	(
         input XCLK,
         input XRES,
         
-        output [3:0][31:0] DEBUG
+        output led0,
+        output led1,
+        output led2,
+        output led3
+        //output [3:0][31:0] DEBUG
     );
 
 
@@ -75,9 +79,9 @@ module darkdpgroup
 				.XCLK(XCLK),
 				.XRES(XRES),
 				
-				.bus(bus_dp),
+				.bus(bus_dp)
 
-				.DEBUG(DEBUG)
+				//.DEBUG(DEBUG)
 			);
 			
 			// Bus connection dp/mm (grup 0)
@@ -108,10 +112,10 @@ module darkdpgroup
     
     integer i;
 	// Implenentation
-    reg [31:0] FAKE_MEM [0:1024-1]; // fake memory :)
+    reg [31:0] FAKE_MEM [0:16-1]; // fake memory :)
     initial
     begin
-        for(i=0;i<1024;i=i+1)
+        for(i=0;i<16;i=i+1)
         begin
             FAKE_MEM[i] = 32'd0;
         end     
@@ -183,5 +187,13 @@ module darkdpgroup
         .PAB_DATA(PAB_DATA),
         .PAB_BE(PAB_BE)
     );
+    
+    // ---------------
+    //      LEDS
+    // ---------------
+    assign led0 = FAKE_MEM[0][0];
+    assign led1 = FAKE_MEM[0][1];
+    assign led2 = FAKE_MEM[0][2];
+    assign led3 = FAKE_MEM[0][3];
     
 endmodule

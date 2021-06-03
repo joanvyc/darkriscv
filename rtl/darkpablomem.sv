@@ -69,15 +69,15 @@ module darkpablomem #(parameter NCORES = 2)
                     for(i=0; i<NCORES; i=i+1) begin
                         if (SEIZE[i]) begin //core i wants to access
                         //JUST TO DEMO HOW BAD IT IS WITHOUT TURNS:
-                        //    selected2 = i;
+                            selected2 = i;
                         
-                            if (turn == i) begin //select it if it is his turn
-                                selected=i;
-                                found = 1'b1;
-                            end
-                            else begin //leave it as a second option if it is not his turn
-                                selected2=i;
-                            end
+//                            if (turn == i) begin //select it if it is his turn
+//                                selected=i;
+//                                found = 1'b1;
+//                            end
+//                            else begin //leave it as a second option if it is not his turn
+//                                selected2=i;
+//                            end
                         
                         end
                     end

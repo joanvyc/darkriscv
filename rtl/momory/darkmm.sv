@@ -67,7 +67,7 @@ module darkmm
   assign ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
   assign ocrom.rw = core.rw & ocrom.en;
   assign ocrom.addr = core.addr;  
-  assign ocrom.data = core.rw ? (ocrom.en ? ocrom.data : 32'bZ) : 32'bZ;
+  assign ocrom.data = core.rw ? (ocrom.en ? core.data : 32'bZ) : 32'bZ;
   
   // ----------------------
   //   Interface 2 Pablo
@@ -94,9 +94,8 @@ module darkmm
   
   // Implementation
   assign core.valid = ocrom.valid | (memd_en & (~hlt));
-  assign core.data  = core.rw ? 32'bZ :
+  assign core.data  = core.rw & (ocrom.en | memd_en) ? 32'bZ :
                         (   ocrom.en ? ocrom.data :
-                            memd_en  ? datai      :
-                                            32'b0); 
+                         /* memd_en */ datai); 
 
 endmodule
