@@ -29,9 +29,7 @@ end
 
  darksoc soc (
     .XCLK(clk),
-    .XRES(reset),
-    
-    .DEBUG(debug)
+    .XRES(reset)
 );
 
 

@@ -33,7 +33,8 @@ module darksoc(
         //output [3:0][31:0] DEBUG
     );
 
-    reg [17:0] freqdiv = 18'b0;
+    //reg [17:0] freqdiv = 18'b0;
+    reg [1:0] freqdiv = 2'b0;
     reg clk = 0;
     
     always @(posedge XCLK)

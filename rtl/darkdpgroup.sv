@@ -101,14 +101,14 @@ module darkdpgroup
 	// ---------------
 	// Signals
     reg MEM_READY = 1;
-    wire [31:0] PAB_ADDR;
-    wire PAB_RD;
+    wire [31:0] REF_ADDR;
+    wire REF_RD;
     reg MEM_VALID = 0;
     wire [31:0] MEM_DATA;
-    wire PAB_WR;
-    wire PAB_VALID;
-    wire [31:0] PAB_DATA;
-    wire [3:0] PAB_BE;
+    wire REF_WR;
+    wire REF_VALID;
+    wire [31:0] REF_DATA;
+    wire [3:0] REF_BE;
     
     integer i;
 	// Implenentation
@@ -129,22 +129,22 @@ module darkdpgroup
             
             if (FAKE_COUNTER == 4'b1111) begin //Time ended, write
                     //read
-                    if(PAB_RD) R_MEM_DATA <= FAKE_MEM[PAB_ADDR[12:2]];
+                    if(REF_RD) R_MEM_DATA <= FAKE_MEM[REF_ADDR[12:2]];
             
                     //write
-                    if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[3]) FAKE_MEM[PAB_ADDR[12:2]][3 * 8 + 7: 3 * 8] <= PAB_DATA[3 * 8 + 7: 3 * 8]; 
-                    if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[2]) FAKE_MEM[PAB_ADDR[12:2]][2 * 8 + 7: 2 * 8] <= PAB_DATA[2 * 8 + 7: 2 * 8]; 
-                    if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[1]) FAKE_MEM[PAB_ADDR[12:2]][1 * 8 + 7: 1 * 8] <= PAB_DATA[1 * 8 + 7: 1 * 8]; 
-                    if(PAB_WR&&PAB_ADDR[31]==0&&PAB_BE[0]) FAKE_MEM[PAB_ADDR[12:2]][0 * 8 + 7: 0 * 8] <= PAB_DATA[0 * 8 + 7: 0 * 8]; 
+                    if(REF_WR&&REF_ADDR[31]==0&&REF_BE[3]) FAKE_MEM[REF_ADDR[12:2]][3 * 8 + 7: 3 * 8] <= REF_DATA[3 * 8 + 7: 3 * 8]; 
+                    if(REF_WR&&REF_ADDR[31]==0&&REF_BE[2]) FAKE_MEM[REF_ADDR[12:2]][2 * 8 + 7: 2 * 8] <= REF_DATA[2 * 8 + 7: 2 * 8]; 
+                    if(REF_WR&&REF_ADDR[31]==0&&REF_BE[1]) FAKE_MEM[REF_ADDR[12:2]][1 * 8 + 7: 1 * 8] <= REF_DATA[1 * 8 + 7: 1 * 8]; 
+                    if(REF_WR&&REF_ADDR[31]==0&&REF_BE[0]) FAKE_MEM[REF_ADDR[12:2]][0 * 8 + 7: 0 * 8] <= REF_DATA[0 * 8 + 7: 0 * 8]; 
                     MEM_VALID <= 1'b1;
                     MEM_READY <= 1'b1;
                     
-                    if (!PAB_VALID) begin
+                    if (!REF_VALID) begin
                         FAKE_COUNTER = 0;
                     end
             end
             else
-            if (MEM_READY && PAB_VALID) //ready and petition: get to work!
+            if (MEM_READY && REF_VALID) //ready and petition: get to work!
             begin
                     MEM_READY <= 1'b0;
                     MEM_VALID <= 1'b0;
@@ -163,7 +163,7 @@ module darkdpgroup
 	// Signals
 	
 	// Instantiation	
-	darkpablomem  #(.NCORES(NCORES)) pablomem
+	darkreferee  #(.NCORES(NCORES)) referee
     (
         .CLK(XCLK),
         .DADDR(daddr),
@@ -176,16 +176,16 @@ module darkdpgroup
         .HLT(hlt),
         
         .MEM_READY(MEM_READY),
-        .PAB_ADDR(PAB_ADDR),
+        .REF_ADDR(REF_ADDR),
         
-        .PAB_RD(PAB_RD),
+        .REF_RD(REF_RD),
         .MEM_VALID(MEM_VALID),
         .MEM_DATA(MEM_DATA),
         
-        .PAB_WR(PAB_WR),
-        .PAB_VALID(PAB_VALID),
-        .PAB_DATA(PAB_DATA),
-        .PAB_BE(PAB_BE)
+        .REF_WR(REF_WR),
+        .REF_VALID(REF_VALID),
+        .REF_DATA(REF_DATA),
+        .REF_BE(REF_BE)
     );
     
     // ---------------
