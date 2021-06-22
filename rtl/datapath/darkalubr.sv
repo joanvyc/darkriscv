@@ -53,7 +53,7 @@
 
 `include "config.vh"
 
-module darkcore
+module darkalubr
 #(
     parameter [31:0] CORE_ID = 0,
     parameter [31:0] NCORES = 1

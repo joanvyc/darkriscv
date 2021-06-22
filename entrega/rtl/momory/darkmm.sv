@@ -28,29 +28,74 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-module darkflash
+module darkmm
 (
-  input           XCLK,
-  input           XRES,
+  input         clk,
+  input         res,
 
-  darkbus.cons BUS,
+  // From datapath
+  darkbus.cons  core,
   
-  input  [3:0]    BE
-`ifdef _EXTERNAL_RAM_
-  ,darkaxi.Master  flash
-`endif
-
+  // To pablomem
+  output [31:0] daddr,
+  output [31:0] datao,
+  output        wr,
+  output        rd,
+  output  [3:0] be,
+  
+  input  [31:0] datai,
+  input         hlt   
 );
 
-`ifdef _EXTERNAL_RAM_
+  // ----------------------
+  //     Inst. Memory
+  // ----------------------
+  // Signals
+  darkbus ocrom();
+  
+  // Instantiation  
+  darkocrom rom0
+    (
+      .XCLK(clk),
+      .XRES(res),
 
-
-`else
-
-  (* ram_style = "block" *) reg [31:0] MEM [0:511];
-
-  assign BUS.data = BUS.rw ? 32'bz : MEM[BUS.addr[31:2]];
-
-`endif
+      .BUS(ocrom)
+    );
+	
+  // Implementation
+  assign ocrom.be = core.be;
+  assign ocrom.en = core.en && core.addr >= 32'h0000_0000 && 32'h2000_0000 >  core.addr;
+  assign ocrom.rw = core.rw & ocrom.en;
+  assign ocrom.addr = core.addr;  
+  assign ocrom.data = core.rw ? (ocrom.en ? core.data : 32'bZ) : 32'bZ;
+  
+  // ----------------------
+  //   Interface 2 Pablo
+  // ----------------------
+  // Signals
+  wire memd_en;  
+  reg  hold_memd_en;
+  wire ram_range;
+  
+  // Implementation 
+  assign ram_range = core.addr >= 32'h4000_0000 && 32'hFFFF_FFFF >= core.addr;
+  assign memd_en = core.en & ram_range;
+  assign wr = memd_en & ( core.rw);
+  assign rd = memd_en & (~core.rw);
+  assign be = core.be;
+  assign daddr = core.addr - 32'h4000_0000;
+  assign datao = core.data;
+   
+  
+  // ----------------------
+  //     Data 2 Core
+  // ----------------------
+  // Signals
+  
+  // Implementation
+  assign core.valid = ocrom.valid | (memd_en & (~hlt));
+  assign core.data  = core.rw & (ocrom.en | memd_en) ? 32'bZ :
+                        (   ocrom.en ? ocrom.data :
+                         /* memd_en */ datai); 
 
 endmodule
